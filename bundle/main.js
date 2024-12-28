@@ -9,6 +9,13 @@ export var loadingText = document.getElementById("loading-text");
 export var nameInput = document.getElementById("name-input");
 export var joinGame = document.getElementById("join-game");
 
+export const players = [];
+export var player;
+
+export function setPlayer(newPlayer) {
+    player = newPlayer;
+}
+
 window.onload = () => {
     Loader.init();
 };

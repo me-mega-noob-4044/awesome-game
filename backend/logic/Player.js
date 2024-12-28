@@ -4,11 +4,16 @@ import config from "../constants/config.js";
 var playerSIDS = 0;
 
 export default class Player {
-    constructor(ws) {
+    constructor(ws, id, sid) {
         this.ws = ws;
 
-        this.sid = playerSIDS++;
-        this.id = UTILS.randString(7);
+        if (!ws) {
+            this.id = id;
+            this.sid = sid;
+        } else {
+            this.id = UTILS.randString(7);
+            this.sid = playerSIDS++;
+        }
 
         this.x = UTILS.randInt(0, config.mapScale);
         this.y = UTILS.randInt(0, config.mapScale);
@@ -30,6 +35,7 @@ export default class Player {
         return [
             this.id,
             this.sid,
+            this.name,
             this.x,
             this.y
         ];
