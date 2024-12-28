@@ -3,6 +3,7 @@ import colorConfig from "./constants/colorConfig.js";
 import config from "../../backend/constants/config.js";
 import renderPlayers from "./Renders/renderPlayers.js";
 import UTILS from "../../backend/constants/utils.js";
+import renderGrid from "./Renders/renderGrid.js";
 
 var delta = 0;
 var lastUpdate = 0;
@@ -73,6 +74,8 @@ export default class Renderer {
 
         let xOffset = this.camX - config.maxScreenWidth / 2;
         let yOffset = this.camY - config.maxScreenHeight / 2;
+
+        renderGrid(mainContext);
 
         renderPlayers(mainContext, xOffset, yOffset);
 
