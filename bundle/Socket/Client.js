@@ -1,7 +1,9 @@
 import Socket from "./Socket.js";
 
 export default class Client {
-    connect() {
-        
+    static socket;
+
+    static connect() {
+        this.socket = new Socket("ws://localhost:7070");
     }
 }
