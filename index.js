@@ -45,8 +45,6 @@ wss.on("connection", (ws) => {
         } catch (error) {
             console.log(error);
         }
-
-        console.log(type, data);
     });
 
     ws.on("close", (msg) => {

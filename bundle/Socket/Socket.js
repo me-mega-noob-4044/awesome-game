@@ -34,6 +34,6 @@ export default class Socket extends WebSocket {
         mainMenu.style.display = "flex";
         menuInputs.style.display = "none";
         loadingText.style.display = "block";
-        loadingText.innerText = reason;
+        loadingText.innerText = reason || "disconnected";
     }
 }

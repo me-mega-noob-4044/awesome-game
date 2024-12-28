@@ -22,7 +22,7 @@ export default class Player {
 
     send(type, ...args) {
 		if (this.ws) {
-			this.ws.send(UTILS.encodeMessage(type, args));
+			this.ws.send(UTILS.encodeMessage(type, ...args));
 		}
 	}
 

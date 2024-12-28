@@ -1,7 +1,7 @@
 import Client from "../Client.js";
+import { mainMenu } from "../../main.js";
 
 export default function setUpGame(playerSID) {
     Client.playerSID = playerSID;
-
-    console.log(playerSID);
+    mainMenu.style.display = "none";
 }

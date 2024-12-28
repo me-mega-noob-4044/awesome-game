@@ -11,8 +11,6 @@ export default class ServerPacketManager {
         if (typeof type !== "string") throw new Error("second argument is not a string");
         if (typeof data !== "object") throw new Error("third argument is not an object");
 
-        console.log(typeof ws, typeof type, typeof data);
-
         let eventHandler = this.eventMap.get(type);
 
         if (eventHandler) {
