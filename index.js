@@ -57,6 +57,10 @@ setInterval(() => {
         let player = players[i];
         let data = [];
 
+        if (!player) continue;
+
+        player.update(config.serverUpdateSpeed);
+
         for (let t = 0; t < players.length; t++) {
             let other = players[t];
 
@@ -73,9 +77,9 @@ setInterval(() => {
                     other.dir
                 );
             }
-
-            player.send(Packets.SERVER_TO_CLIENT.UPDATE_PLAYERS, data);
         }
+
+        player.send(Packets.SERVER_TO_CLIENT.UPDATE_PLAYERS, data);
     }
 }, config.serverUpdateSpeed);
 

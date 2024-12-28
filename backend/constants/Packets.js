@@ -1,6 +1,7 @@
 const Packets = {
     CLIENT_TO_SERVER: {
-        JOIN_GAME: "eaeaea"
+        JOIN_GAME: "eaeaea",
+        MOVE: "i wannt movee :)"
     },
     SERVER_TO_CLIENT: {
         SET_UP_GAME: "aeas",

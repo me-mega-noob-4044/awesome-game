@@ -21,6 +21,12 @@ export default class Player {
         this.dir = 0;
         this.sentTo = {};
         this.scale = 35;
+
+        this.xVel = 0;
+        this.yVel = 0;
+        this.speed = config.playerSpeed;
+
+        this.moveDir = undefined;
     }
 
     setName(name) {
@@ -28,17 +34,17 @@ export default class Player {
     }
 
     send(type, ...args) {
-		if (this.ws) {
-			this.ws.send(UTILS.encodeMessage(type, ...args));
-		}
-	}
+        if (this.ws) {
+            this.ws.send(UTILS.encodeMessage(type, ...args));
+        }
+    }
 
     canSee(other) {
         if (!other) return false;
-    
+
         let dx = Math.abs(other.x - this.x) - other.scale;
         let dy = Math.abs(other.y - this.y) - other.scale;
-    
+
         return dx <= (config.maxScreenWidth / 2) * 1.3 && dy <= (config.maxScreenHeight / 2) * 1.3;
     }
 
@@ -61,5 +67,53 @@ export default class Player {
         this.age = 1;
         this.XP = 0;
         this.maxXP = 300;
+    }
+
+    update(delta) {
+        if (!this.isAlive) return;
+
+        let xVel = this.moveDir != undefined ? Math.cos(this.moveDir) : 0;
+        let yVel = this.moveDir != undefined ? Math.sin(this.moveDir) : 0;
+
+        let length = Math.sqrt(xVel * xVel + yVel * yVel);
+
+        if (length != 0) {
+            xVel /= length;
+            yVel /= length;
+        }
+
+        if (xVel) this.xVel += xVel * this.speed * delta;
+        if (yVel) this.yVel += yVel * this.speed * delta;
+
+        let tmpSpeed = UTILS.getDistance(0, 0, this.xVel * delta, this.yVel * delta);
+        let depth = Math.min(4, Math.max(1, Math.round(tmpSpeed / 40)));
+        let tMlt = 1 / depth;
+
+        for (let i = 0; i < depth; i++) {
+            if (this.xVel) this.x += (this.xVel * delta) * tMlt;
+            if (this.yVel) this.y += (this.yVel * delta) * tMlt;
+        }
+
+        if (this.xVel) {
+            this.xVel *= Math.pow(config.playerDecel, delta);
+            if (this.xVel <= 0.01 && this.xVel >= -0.01) this.xVel = 0;
+        }
+
+        if (this.yVel) {
+            this.yVel *= Math.pow(config.playerDecel, delta);
+            if (this.yVel <= 0.01 && this.yVel >= -0.01) this.yVel = 0;
+        }
+
+        if (this.x - this.scale < 0) {
+            this.x = this.scale;
+        } else if (this.x + this.scale > config.mapScale) {
+            this.x = config.mapScale - this.scale;
+        }
+
+        if (this.y - this.scale < 0) {
+            this.y = this.scale;
+        } else if (this.y + this.scale > config.mapScale) {
+            this.y = config.mapScale - this.scale;
+        }
     }
 }

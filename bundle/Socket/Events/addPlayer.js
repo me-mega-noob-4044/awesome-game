@@ -13,6 +13,9 @@ export default function addPlayer(data, isClient) {
     }
 
     tmp.spawn();
+
+    tmp.x1 = tmp.x;
+    tmp.y1 = tmp.y;
     tmp.x2 = tmp.x;
     tmp.y2 = tmp.y;
 

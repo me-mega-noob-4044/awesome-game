@@ -6,7 +6,8 @@ const config = {
     mapScale: 5e3,
     maxScreenWidth: 1980,
     maxScreenHeight: 1080,
-    serverUpdateSpeed: 1e3 / 9
+    serverUpdateSpeed: 1e3 / 9,
+    playerSpeed: .0016
 };
 
 export default config;

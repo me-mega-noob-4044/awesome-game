@@ -33,3 +33,5 @@ window.addEventListener("mousemove", (event) => {
     mouseX = event.clientX;
     mouseY = event.clientY;
 });
+
+Object.freeze(WebSocket.prototype); // Freeze WebSocket.prototype :)

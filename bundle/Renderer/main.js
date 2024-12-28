@@ -1,4 +1,4 @@
-import { gameCanvas, mainContext, player } from "../main.js";
+import { gameCanvas, mainContext, player, players } from "../main.js";
 import colorConfig from "./constants/colorConfig.js";
 import config from "../../backend/constants/config.js";
 import renderPlayers from "./Renders/renderPlayers.js";
@@ -7,6 +7,22 @@ import renderGrid from "./Renders/renderGrid.js";
 
 var delta = 0;
 var lastUpdate = 0;
+
+Math.lerpAngle = (value1, value2, amount) => {
+    let difference = Math.abs(value2 - value1);
+    if (difference > Math.PI) {
+        if (value1 > value2) {
+            value2 += Math.PI * 2;
+        } else {
+            value1 += Math.PI * 2;
+        }
+    }
+
+    let value = (value2 + ((value1 - value2) * amount));
+    if (value >= 0 && value <= Math.PI * 2) return value;
+
+    return (value % (Math.PI * 2));
+}
 
 export default class Renderer {
     static camX = 0;
@@ -40,6 +56,8 @@ export default class Renderer {
         delta = Date.now() - lastUpdate;
         lastUpdate = Date.now();
 
+        let lastTime = lastUpdate - (1000 / config.serverUpdateRate)
+
         mainContext.fillStyle = colorConfig.grass;
         mainContext.fillRect(0, 0, config.maxScreenWidth, config.maxScreenHeight);
 
@@ -70,6 +88,31 @@ export default class Renderer {
         } else {
             this.camX = config.mapScale / 2;
             this.camY = config.mapScale / 2;
+        }
+
+        for (let i = 0; i < players.length; i++) {
+            let tmpObj = players[i];
+            if (tmpObj && tmpObj.visible) {
+                if (tmpObj.forcePos) {
+                    tmpObj.x = tmpObj.x2;
+                    tmpObj.y = tmpObj.y2;
+                    tmpObj.dir = tmpObj.d2;
+                } else {
+                    let total = tmpObj.t2 - tmpObj.t1;
+                    let fraction = lastTime - tmpObj.t1;
+                    let ratio = (fraction / total);
+                    let rate = 170;
+                    let tmpRate = Math.min(1.7, tmpObj.dt / rate);
+                    let tmpDiff = (tmpObj.x2 - tmpObj.x1);
+
+                    tmpObj.dt += delta;
+
+                    tmpObj.x = tmpObj.x1 + (tmpDiff * tmpRate);
+                    tmpDiff = (tmpObj.y2 - tmpObj.y1);
+                    tmpObj.y = tmpObj.y1 + (tmpDiff * tmpRate);
+                    tmpObj.dir = Math.lerpAngle(tmpObj.d2, tmpObj.d1, Math.min(1.2, ratio));
+                }
+            }
         }
 
         let xOffset = this.camX - config.maxScreenWidth / 2;
