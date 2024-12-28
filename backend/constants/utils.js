@@ -34,6 +34,11 @@ class UTILS {
     static randInt(min, max) {
         return (Math.random() * (max - min + 1)) + min;
     }
+
+    static getAngleDist(a, b) {
+        let p = Math.abs(b - a) % (Math.PI * 2);
+        return (p > Math.PI ? (Math.PI * 2) - p : p);
+    }
 }
 
 export default UTILS;

@@ -13,6 +13,9 @@ export var gameUI = document.getElementById("game-ui");
 export const players = [];
 export var player;
 
+export var mouseX = 0;
+export var mouseY = 0;
+
 export function setPlayer(newPlayer) {
     player = newPlayer;
 }
@@ -25,3 +28,8 @@ window.addEventListener("resize", Renderer.resize);
 Renderer.resize();
 
 window.oncontextmenu = (event) => event.preventDefault(); // Disable context menu :)
+
+window.addEventListener("mousemove", (event) => {
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+});

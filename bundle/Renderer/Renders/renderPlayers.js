@@ -1,6 +1,6 @@
 import { players } from "../../main.js";
-import colorConfig from "../constants/colorConfig.js";
-import renderCircle from "../utils/renderCircle.js";
+import renderPlayer from "./renderPlayer.js";
+import Client from "../../Socket/Client.js";
 
 export default function renderPlayers(mainContext, xOffset, yOffset) {
     mainContext.globalAlpha = 1;
@@ -11,11 +11,9 @@ export default function renderPlayers(mainContext, xOffset, yOffset) {
         if (tmpObj) {
             mainContext.save();
             mainContext.translate(tmpObj.x - xOffset, tmpObj.y - yOffset);
+            mainContext.rotate(tmpObj.sid == Client.playerSID ? Client.getDir() : tmpObj.dir);
 
-            mainContext.lineWidth = 5.5;
-            mainContext.fillStyle = colorConfig.defaultSkinColor;
-            mainContext.strokeStyle = colorConfig.outlineColor;
-            renderCircle(mainContext, tmpObj.scale);
+            renderPlayer(tmpObj, mainContext);
 
             mainContext.restore();
         }

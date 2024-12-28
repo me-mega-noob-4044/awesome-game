@@ -1,6 +1,6 @@
-export default function renderCircle(mainContext, scale, dontFill, dontStroke) {
+export default function renderCircle(x, y, mainContext, scale, dontFill, dontStroke) {
     mainContext.beginPath();
-    mainContext.arc(0, 0, scale, 0, Math.PI * 2);
+    mainContext.arc(x, y, scale, 0, Math.PI * 2);
     if (!dontFill) mainContext.fill();
     if (!dontStroke) mainContext.stroke();
 }
