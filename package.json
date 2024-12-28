@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
     "@babel/preset-env": "^7.26.0",
     "babel-loader": "^9.2.1",
