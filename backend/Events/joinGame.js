@@ -6,7 +6,7 @@ export default function joinGame(ws, ...args) {
     let player = ws.NEW_CLIENT;
 
     if (!ws.NEW_CLIENT) {
-        player = new Player();
+        player = new Player(ws);
 
         ws.NEW_CLIENT = player;
         players.push(player);
@@ -16,4 +16,5 @@ export default function joinGame(ws, ...args) {
     player.spawn();
 
     player.send(Packets.SERVER_TO_CLIENT.SET_UP_GAME, player.sid);
+    player.send(Packets.SERVER_TO_CLIENT.ADD_PLAYER, player.getData(), true);
 }

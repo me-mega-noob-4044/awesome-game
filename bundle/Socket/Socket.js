@@ -22,6 +22,8 @@ export default class Socket extends WebSocket {
 
     onMessage(msg) {
         let [type, data] = UTILS.decodeMessage(msg.data);
+
+        PacketManager.handle(type, data);
     }
 
     send(type, ...args) {
