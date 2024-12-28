@@ -4,7 +4,8 @@ const Packets = {
     },
     SERVER_TO_CLIENT: {
         SET_UP_GAME: "aeas",
-        ADD_PLAYER: "there's a starman!"
+        ADD_PLAYER: "there's a starman!",
+        UPDATE_PLAYERS: "woahh"
     }
 };
 

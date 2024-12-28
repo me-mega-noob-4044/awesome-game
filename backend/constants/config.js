@@ -3,7 +3,10 @@ const config = {
     playerMaxLevel: 5,
     playerRegenerationRate: 10e3, // Regens every 10 seconds
     playerRegenerationPower: 10, // Regens 10 hit points
-    mapScale: 5e3
+    mapScale: 5e3,
+    maxScreenWidth: 1980,
+    maxScreenHeight: 1080,
+    serverUpdateSpeed: 1e3 / 9
 };
 
 export default config;

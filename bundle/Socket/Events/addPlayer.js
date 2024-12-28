@@ -1,5 +1,5 @@
 import Player from "../../../backend/logic/Player.js";
-import { players, setPlayer } from "../../main.js";
+import { players, setPlayer, gameUI } from "../../main.js";
 import ClientSideUTILS from "../../constants/utils.js";
 
 export default function addPlayer(data, isClient) {
@@ -13,8 +13,11 @@ export default function addPlayer(data, isClient) {
     }
 
     tmp.spawn();
+    tmp.x2 = tmp.x;
+    tmp.y2 = tmp.y;
 
     if (isClient) {
+        gameUI.style.display = "block";
         setPlayer(tmp);
     }
 }

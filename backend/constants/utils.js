@@ -15,6 +15,14 @@ class UTILS {
         return binary;
     }
 
+    static getDistance(a, b) {
+        return Math.hypot((b.x2 || a.x) - (b.x2 || b.x), (a.y2 || a.y) - (b.y2 || b.y));
+    }
+
+    static getDirection(a, b) {
+        return Math.atan2((b.x2 || a.x) - (b.x2 || b.x), (a.y2 || a.y) - (b.y2 || b.y));
+    }
+
     static randString(length) {
         let result = [];
     

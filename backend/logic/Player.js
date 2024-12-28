@@ -19,6 +19,8 @@ export default class Player {
         this.y = UTILS.randInt(0, config.mapScale);
 
         this.dir = 0;
+        this.sentTo = {};
+        this.scale = 35;
     }
 
     setName(name) {
@@ -30,6 +32,15 @@ export default class Player {
 			this.ws.send(UTILS.encodeMessage(type, ...args));
 		}
 	}
+
+    canSee(other) {
+        if (!other) return false;
+    
+        let dx = Math.abs(other.x - this.x) - other.scale;
+        let dy = Math.abs(other.y - this.y) - other.scale;
+    
+        return dx <= (config.maxScreenWidth / 2) * 1.3 && dy <= (config.maxScreenHeight / 2) * 1.3;
+    }
 
     getData() {
         return [

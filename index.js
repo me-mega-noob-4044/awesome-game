@@ -26,6 +26,7 @@ app.get("/", (req, res) => {
 });
 
 import UTILS from "./backend/constants/utils.js";
+import config from "./backend/constants/config.js";
 import Packets from "./backend/constants/Packets.js";
 import ServerPacketManager from "./backend/logic/PacketManager.js";
 
@@ -50,6 +51,33 @@ wss.on("connection", (ws) => {
     ws.on("close", (msg) => {
     });
 });
+
+setInterval(() => {
+    for (let i = 0; i < players.length; i++) {
+        let player = players[i];
+        let data = [];
+
+        for (let t = 0; t < players.length; t++) {
+            let other = players[t];
+
+            if (other.canSee(player) && other.isAlive) {
+                if (!player.sentTo[other.id] && player.id != other.id) {
+                    player.sentTo[other.id] = 1;
+                    player.send(Packets.SERVER_TO_CLIENT.ADD_PLAYER, other.getData());
+                }
+
+                data.push(
+                    other.sid,
+                    other.x,
+                    other.y,
+                    other.dir
+                );
+            }
+
+            player.send(Packets.SERVER_TO_CLIENT.UPDATE_PLAYERS, data);
+        }
+    }
+}, config.serverUpdateSpeed);
 
 server.on("upgrade", (request, socket, head) => {
     wss.handleUpgrade(request, socket, head, (ws) => {

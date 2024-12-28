@@ -8,10 +8,11 @@ html, body {
     padding: 0px;
     user-select: none;
     font-family: "Press Start 2P";
+    overflow: hidden;
 }
 
 #game-canvas {
-    background-color: #16a816;
+    background-color: #b6db66;
 }
 
 #main-menu {

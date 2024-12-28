@@ -8,6 +8,7 @@ export var menuInputs = document.getElementById("menu-inputs");
 export var loadingText = document.getElementById("loading-text");
 export var nameInput = document.getElementById("name-input");
 export var joinGame = document.getElementById("join-game");
+export var gameUI = document.getElementById("game-ui");
 
 export const players = [];
 export var player;

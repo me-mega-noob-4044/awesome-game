@@ -3,11 +3,13 @@ import Client from "./Client.js";
 import { nameInput } from "../main.js";
 import setUpGame from "./Events/setUpGame.js";
 import addPlayer from "./Events/addPlayer.js";
+import updatePlayers from "./Events/updatePlayers.js";
 
 export default class PacketManager {
     static eventMap = new Map([
         [Packets.SERVER_TO_CLIENT.SET_UP_GAME, setUpGame],
-        [Packets.SERVER_TO_CLIENT.ADD_PLAYER, addPlayer]
+        [Packets.SERVER_TO_CLIENT.ADD_PLAYER, addPlayer],
+        [Packets.SERVER_TO_CLIENT.UPDATE_PLAYERS, updatePlayers]
     ]);
 
     static handle(type, data) {
