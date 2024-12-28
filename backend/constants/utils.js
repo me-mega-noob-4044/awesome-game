@@ -6,6 +6,12 @@ class UTILS {
 
         return [parsed[0], parsed[1]];
     }
+
+    static encodeMessage(type, ...args) {
+        let binary = encode([type, args]);
+
+        return binary;
+    }
 }
 
 export default UTILS;

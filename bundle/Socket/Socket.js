@@ -14,10 +14,18 @@ export default class Socket extends WebSocket {
 
     onOpen() {
         console.log("Socket connected");
+
+        this.send("M", {
+            name: "HI"
+        });
     }
 
     onMessage(msg) {
         let [type, data] = UTILS.decodeMessage(msg.data);
+    }
+
+    send(type, ...args) {
+        super.send(UTILS.encodeMessage(type, ...args));
     }
 
     onClose(reason, code) {

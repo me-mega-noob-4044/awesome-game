@@ -2,7 +2,6 @@ import express from "express";
 import { WebSocketServer } from "ws";
 import path from "path";
 import { fileURLToPath } from "url";
-import config from "./backend/constants/config.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,8 +25,14 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "/frontend/index.html"));
 });
 
+import UTILS from "./backend/constants/utils.js";
+import Packets from "./backend/constants/Packets.js";
+
 wss.on("connection", (ws) => {
     ws.on("message", (msg) => {
+        let [type, data] = UTILS.decodeMessage(msg);
+
+        console.log(type, data);
     });
 
     ws.on("close", (msg) => {

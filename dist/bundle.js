@@ -2634,6 +2634,27 @@ function write0(type) {
 
 /***/ }),
 
+/***/ "./backend/constants/Packets.js":
+/*!**************************************!*\
+  !*** ./backend/constants/Packets.js ***!
+  \**************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var Packets = {
+  CLIENT_TO_SERVER: {
+    JOIN_GAME: "eaeaea"
+  },
+  SERVER_TO_CLIENT: {}
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Packets);
+
+/***/ }),
+
 /***/ "./backend/constants/utils.js":
 /*!************************************!*\
   !*** ./backend/constants/utils.js ***!
@@ -2662,6 +2683,15 @@ var UTILS = /*#__PURE__*/function () {
     value: function decodeMessage(msg) {
       var parsed = (0,msgpack_lite__WEBPACK_IMPORTED_MODULE_0__.decode)(new Uint8Array(msg));
       return [parsed[0], parsed[1]];
+    }
+  }, {
+    key: "encodeMessage",
+    value: function encodeMessage(type) {
+      for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        args[_key - 1] = arguments[_key];
+      }
+      var binary = (0,msgpack_lite__WEBPACK_IMPORTED_MODULE_0__.encode)([type, args]);
+      return binary;
     }
   }]);
 }();
@@ -2729,6 +2759,16 @@ var Client = /*#__PURE__*/function () {
     _classCallCheck(this, Client);
   }
   return _createClass(Client, null, [{
+    key: "send",
+    value: function send(type) {
+      var _this$socket;
+      for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        args[_key - 1] = arguments[_key];
+      }
+      // Ah yes 3rd send method
+      (_this$socket = this.socket).send.apply(_this$socket, [type].concat(args));
+    }
+  }, {
     key: "connect",
     value: function connect() {
       this.socket = new _Socket_js__WEBPACK_IMPORTED_MODULE_0__["default"]("ws://localhost:7070");
@@ -2785,15 +2825,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ PacketManager)
 /* harmony export */ });
+/* harmony import */ var _backend_constants_Packets_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../backend/constants/Packets.js */ "./backend/constants/Packets.js");
+/* harmony import */ var _Client_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Client.js */ "./bundle/Socket/Client.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
 function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
 function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
-var PacketManager = /*#__PURE__*/_createClass(function PacketManager() {
-  _classCallCheck(this, PacketManager);
-});
+
+
+var PacketManager = /*#__PURE__*/function () {
+  function PacketManager() {
+    _classCallCheck(this, PacketManager);
+  }
+  return _createClass(PacketManager, null, [{
+    key: "sendJoin",
+    value: function sendJoin(name) {
+      _Client_js__WEBPACK_IMPORTED_MODULE_1__["default"].send(_backend_constants_Packets_js__WEBPACK_IMPORTED_MODULE_0__["default"].CLIENT_TO_SERVER.JOIN_GAME, name);
+    }
+  }]);
+}();
 
 
 /***/ }),
@@ -2824,6 +2876,8 @@ function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), 
 function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
 function _possibleConstructorReturn(t, e) { if (e && ("object" == _typeof(e) || "function" == typeof e)) return e; if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined"); return _assertThisInitialized(t); }
 function _assertThisInitialized(e) { if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); return e; }
+function _superPropGet(t, o, e, r) { var p = _get(_getPrototypeOf(1 & r ? t.prototype : t), o, e); return 2 & r && "function" == typeof p ? function (t) { return p.apply(e, t); } : p; }
+function _get() { return _get = "undefined" != typeof Reflect && Reflect.get ? Reflect.get.bind() : function (e, t, r) { var p = _superPropBase(e, t); if (p) { var n = Object.getOwnPropertyDescriptor(p, t); return n.get ? n.get.call(arguments.length < 3 ? e : r) : n.value; } }, _get.apply(null, arguments); }
 function _inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && _setPrototypeOf(t, e); }
 function _superPropSet(t, e, o, r, p, f) { return _set(_getPrototypeOf(f ? t.prototype : t), e, o, r, p); }
 function set(e, r, t, o) { return set = "undefined" != typeof Reflect && Reflect.set ? Reflect.set : function (e, r, t, o) { var f, i = _superPropBase(e, r); if (i) { if ((f = Object.getOwnPropertyDescriptor(i, r)).set) return f.set.call(o, t), !0; if (!f.writable) return !1; } if (f = Object.getOwnPropertyDescriptor(o, r)) { if (!f.writable) return !1; f.value = t, Object.defineProperty(o, r, f); } else _defineProperty(o, r, t); return !0; }, set(e, r, t, o); }
@@ -2864,6 +2918,9 @@ var Socket = /*#__PURE__*/function (_WebSocket) {
     key: "onOpen",
     value: function onOpen() {
       console.log("Socket connected");
+      this.send("M", {
+        name: "HI"
+      });
     }
   }, {
     key: "onMessage",
@@ -2872,6 +2929,14 @@ var Socket = /*#__PURE__*/function (_WebSocket) {
         _UTILS$decodeMessage2 = _slicedToArray(_UTILS$decodeMessage, 2),
         type = _UTILS$decodeMessage2[0],
         data = _UTILS$decodeMessage2[1];
+    }
+  }, {
+    key: "send",
+    value: function send(type) {
+      for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        args[_key - 1] = arguments[_key];
+      }
+      _superPropGet(Socket, "send", this, 3)([_backend_constants_utils_js__WEBPACK_IMPORTED_MODULE_0__["default"].encodeMessage.apply(_backend_constants_utils_js__WEBPACK_IMPORTED_MODULE_0__["default"], [type].concat(args))]);
     }
   }, {
     key: "onClose",
