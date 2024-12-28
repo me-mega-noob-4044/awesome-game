@@ -27,10 +27,24 @@ app.get("/", (req, res) => {
 
 import UTILS from "./backend/constants/utils.js";
 import Packets from "./backend/constants/Packets.js";
+import ServerPacketManager from "./backend/logic/PacketManager.js";
+
+export const players = [];
 
 wss.on("connection", (ws) => {
     ws.on("message", (msg) => {
         let [type, data] = UTILS.decodeMessage(msg);
+
+        if (!Object.values(Packets.CLIENT_TO_SERVER).includes(type)) {
+            ws.close(1003, "Invalid packet type");
+            return;
+        }
+
+        try {
+            ServerPacketManager.handle(ws, type, data);
+        } catch (error) {
+            console.log(error);
+        }
 
         console.log(type, data);
     });

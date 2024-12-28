@@ -1,5 +1,6 @@
 import UTILS from "../../backend/constants/utils.js";
 import PacketManager from "./PacketManager.js";
+import { menuInputs, loadingText, mainMenu } from "../main.js";
 
 export default class Socket extends WebSocket {
     constructor(url, protocols) {
@@ -9,15 +10,14 @@ export default class Socket extends WebSocket {
 
         this.onopen = () => this.onOpen();
         this.onmessage = (msg) => this.onMessage(msg);
-        this.onclose = ({ reason, code }) => this.onclose(reason, code);
+        this.onclose = ({ reason }) => this.onClose(reason);
     }
 
     onOpen() {
         console.log("Socket connected");
 
-        this.send("M", {
-            name: "HI"
-        });
+        menuInputs.style.display = "flex";
+        loadingText.style.display = "none";
     }
 
     onMessage(msg) {
@@ -28,7 +28,10 @@ export default class Socket extends WebSocket {
         super.send(UTILS.encodeMessage(type, ...args));
     }
 
-    onClose(reason, code) {
-        // handle close events lalalal
+    onClose(reason) {
+        mainMenu.style.display = "flex";
+        menuInputs.style.display = "none";
+        loadingText.style.display = "block";
+        loadingText.innerText = reason;
     }
 }

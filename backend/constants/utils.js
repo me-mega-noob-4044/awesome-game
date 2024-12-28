@@ -1,5 +1,7 @@
 import { encode, decode } from "msgpack-lite";
 
+const letters = "qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM";
+
 class UTILS {
     static decodeMessage(msg) {
         let parsed = decode(new Uint8Array(msg));
@@ -11,6 +13,14 @@ class UTILS {
         let binary = encode([type, args]);
 
         return binary;
+    }
+
+    static randString(length) {
+        let result = [];
+    
+        for (let i = 0; i < length; i++) result.push(letters[Math.floor(Math.random() * letters.length)]);
+    
+        return result.join("");
     }
 }
 

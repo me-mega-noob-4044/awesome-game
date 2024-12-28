@@ -21,7 +21,67 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     width: 100%;
     height: 100%;
     background-color: var(--background-color);
+}
+
+#loading-text {
+    color: var(--font-color);
+}
+
+#game-name {
+    font-size: 48px;
+    color: var(--font-color);
+}
+
+#menu-inputs {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: white;
+    padding: 10px;
+    width: 300px;
+    margin-top: 14px;
+    border-radius: 8px;
+}
+
+input, button {
+    font-family: "Press Start 2P";
+}
+
+#name-input {
+    width: calc(100% - 20px);
+    border: none;
+    outline: none;
+    height: 50px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    color: var(--font-color);
+    padding: 0px 10px 0px 10px;
+    background-color: #cdcdcd;
+    text-align: center;
+}
+
+.menu-input {
+    font-size: 20px;
+}
+
+#join-game {
+    width: 100%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    height: 50px;
+    padding: 0px 10px 0px 10px;
+    text-align: center;
+    color: var(--font-color);
+    border-radius: 12px;
+    background-color: #00ff00;
+}
+
+#join-game:hover {
+    background-color: #01d401;
 }
