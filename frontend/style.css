@@ -1,0 +1,32 @@
+:root {
+    --background-color: rgba(0, 0, 0, .55);
+    --font-color: white;
+}
+
+html, body {
+    margin: 0px;
+    padding: 0px;
+    user-select: none;
+    font-family: "Press Start 2P";
+}
+
+#game-canvas {
+    background-color: #16a816;
+}
+
+#main-menu {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-color);
+}
+
+/*
+npm i webpack@latest
+npx webpack --watch
+*/
