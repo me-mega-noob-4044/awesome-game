@@ -1,8 +1,14 @@
-const express = require("express");
-const { WebSocketServer } = require("ws");
+import express from "express";
+import { WebSocketServer } from "ws";
+import path from "path";
+import { fileURLToPath } from "url";
+import config from "./backend/constants/config.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 const wss = new WebSocketServer({ noServer: true });
-const path = require("path");
 
 const server = app.listen(7070, () => {
     console.log("Listening on port 7070");
@@ -21,7 +27,11 @@ app.get("/", (req, res) => {
 });
 
 wss.on("connection", (ws) => {
-    console.log("rah");
+    ws.on("message", (msg) => {
+    });
+
+    ws.on("close", (msg) => {
+    });
 });
 
 server.on("upgrade", (request, socket, head) => {
