@@ -1,5 +1,6 @@
 import UTILS from "../constants/utils.js";
 import config from "../constants/config.js";
+import Packets from "../constants/Packets.js";
 
 var playerSIDS = 0;
 
@@ -30,6 +31,12 @@ export default class Player {
 
         this.dt = 0;
         this.kills = 0;
+
+        this.volcanoTimer = 0;
+
+        this.regenTimer = 0;
+        this.regenRate = config.playerRegenerationRate;
+        this.regenPower = config.playerRegenerationPower;
     }
 
     setName(name) {
@@ -80,7 +87,39 @@ export default class Player {
         this.maxXP = 300;
     }
 
+    changeHealth(value, doer) {
+        this.health += value;
+
+        if (this.health > this.maxHealth) this.health = this.maxHealth;
+        if (this.health <= 0) {
+            this.health = 0;
+            this.isAlive = false;
+        }
+
+        if (doer) {}
+
+        this.send(Packets.SERVER_TO_CLIENT.UPDATE_HEALTH, this.health, this.maxHealth);
+        this.send(Packets.SERVER_TO_CLIENT.SHOW_TEXT, this.x, this.y, Math.ceil(value));
+    }
+
     update(delta, gameObjects) {
+        if (!this.isAlive) return;
+
+        if (this.volcanoTimer > 0) {
+            this.volcanoTimer -= delta;
+
+            if (this.volcanoTimer <= 0) {
+                this.volcanoTimer = 0;
+                this.changeHealth(-5);
+            }
+        }
+
+        this.regenTimer -= delta;
+        if (this.regenTimer <= 0) {
+            this.regenTimer = this.regenRate;
+            this.changeHealth(this.regenPower);
+        }
+
         if (!this.isAlive) return;
 
         let xVel = this.moveDir != undefined ? Math.cos(this.moveDir) : 0;
@@ -130,6 +169,10 @@ export default class Player {
                 if (tmpObj && tmpObj.active && tmpObj.name == "volcano") {
                     let tmpDir = UTILS.getDirection(this, tmpObj);
                     let tmpScale = this.scale + 200;
+
+                    if (this.volcanoTimer == 0 && UTILS.getDistance(tmpObj, this) <= tmpObj.scale) {
+                        this.volcanoTimer = 500;
+                    }
 
                     if (UTILS.getDistance(tmpObj, this) <= tmpScale) {
                         this.x = tmpObj.x + (tmpScale * Math.cos(tmpDir));

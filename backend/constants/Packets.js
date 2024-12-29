@@ -11,7 +11,8 @@ const Packets = {
         UPDATE_PLAYERS: "woahh",
         UPDATE_HEALTH: "wahhhh :((",
         REMOVE_PLAYER: "nooo player gone",
-        LOAD_GAME_OBJECT: "RAHHHHHHHH GAMEOBEJCS"
+        LOAD_GAME_OBJECT: "RAHHHHHHHH GAMEOBEJCS",
+        SHOW_TEXT: "aioshdsiuahidahshudsudh"
     }
 };
 
