@@ -68,11 +68,11 @@ export default class Renderer {
                 x: this.camX,
                 y: this.camY
             }, {
-                y: player.x,
+                x: player.x,
                 y: player.y
             });
             let tmpDir = UTILS.getDirection({
-                y: player.x,
+                x: player.x,
                 y: player.y
             }, {
                 x: this.camX,

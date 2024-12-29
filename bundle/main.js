@@ -65,13 +65,15 @@ function getMoveDir() {
     return (dx == 0 && dy == 0) ? undefined : Math.atan2(dy, dx);
 }
 
+export var lastMoveDir;
+
 window.addEventListener("keydown", (event) => {
     if (!event.isTrusted) return;
 
     keys[event.keyCode] = 1;
 
     if (moveKeys[event.keyCode]) {
-        PacketManager.sendMove(getMoveDir());
+        lastMoveDir = getMoveDir();
     }
 });
 
@@ -81,7 +83,7 @@ window.addEventListener("keyup", (event) => {
     keys[event.keyCode] = 0;
 
     if (moveKeys[event.keyCode]) {
-        PacketManager.sendMove(getMoveDir());
+        lastMoveDir = getMoveDir();
     }
 });
 

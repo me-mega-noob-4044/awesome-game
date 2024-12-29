@@ -1,5 +1,6 @@
-import { players } from "../../main.js";
+import { players, lastMoveDir } from "../../main.js";
 import ClientSideUTILS from "../../constants/utils.js";
+import PacketManager from "../PacketManager.js";
 
 // sid, x, y, dir
 
@@ -32,4 +33,6 @@ export default function updatePlayers(data) {
 
         i += 4;
     }
+
+    PacketManager.sendMove(lastMoveDir)
 }
