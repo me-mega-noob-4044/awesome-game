@@ -72,7 +72,7 @@ export default class Renderer {
 
         if (!this.lastSendAim || now - this.lastSendAim >= (1e3 / 10)) {
             this.lastSendAim = Date.now();
-            
+
             if (player) {
                 PacketManager.sendAim(Client.getDir());
             }
@@ -145,7 +145,7 @@ export default class Renderer {
         renderParticleEffects(mainContext, xOffset, yOffset, delta);
         renderGrid(mainContext);
         renderGameObject(mainContext, xOffset, yOffset, delta, 3);
-        renderPlayers(mainContext, xOffset, yOffset);
+        renderPlayers(mainContext, xOffset, yOffset, delta);
         renderMapBorders(mainContext, xOffset, yOffset);
 
         mainContext.globalAlpha = 1;

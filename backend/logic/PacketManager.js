@@ -1,13 +1,15 @@
 import Packets from "../constants/Packets.js";
 import joinGame from "../Events/joinGame.js";
 import sendChat from "../Events/sendChat.js";
+import sendHit from "../Events/sendHit.js";
 import updateMovement from "../Events/updateMovement.js";
 
 export default class ServerPacketManager {
     static eventMap = new Map([
         [Packets.CLIENT_TO_SERVER.JOIN_GAME, joinGame],
         [Packets.CLIENT_TO_SERVER.MOVE, updateMovement],
-        [Packets.CLIENT_TO_SERVER.SEND_CHAT, sendChat]
+        [Packets.CLIENT_TO_SERVER.SEND_CHAT, sendChat],
+        [Packets.CLIENT_TO_SERVER.SEND_HIT, sendHit]
     ]);
 
     static handle(ws, type, data) {
