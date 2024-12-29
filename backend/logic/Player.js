@@ -123,6 +123,22 @@ export default class Player {
         for (let i = 0; i < depth; i++) {
             if (this.xVel) this.x += (this.xVel * delta) * tMlt;
             if (this.yVel) this.y += (this.yVel * delta) * tMlt;
+
+            for (let t = 0; t < gameObjects.length; t++) {
+                let tmpObj = gameObjects[t];
+
+                if (tmpObj && tmpObj.active && tmpObj.name == "volcano") {
+                    let tmpDir = UTILS.getDirection(this, tmpObj);
+                    let tmpScale = this.scale + 200;
+
+                    if (UTILS.getDistance(tmpObj, this) <= tmpScale) {
+                        this.x = tmpObj.x + (tmpScale * Math.cos(tmpDir));
+                        this.y = tmpObj.y + (tmpScale * Math.sin(tmpDir));
+                        this.xVel *= 0.75;
+                        this.yVel *= 0.75;
+                    }
+                }
+            }
         }
 
         if (this.xVel) {

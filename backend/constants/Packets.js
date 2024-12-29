@@ -2,7 +2,8 @@ const Packets = {
     CLIENT_TO_SERVER: {
         JOIN_GAME: "eaeaea",
         MOVE: "i wannt movee :)",
-        SEND_CHAT: "chattt"
+        SEND_CHAT: "chattt",
+        SEND_HIT: "rahhh"
     },
     SERVER_TO_CLIENT: {
         SET_UP_GAME: "aeas",
