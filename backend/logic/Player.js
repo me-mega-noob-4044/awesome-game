@@ -99,7 +99,7 @@ export default class Player {
         if (doer) {}
 
         this.send(Packets.SERVER_TO_CLIENT.UPDATE_HEALTH, this.health, this.maxHealth);
-        this.send(Packets.SERVER_TO_CLIENT.SHOW_TEXT, this.x, this.y, Math.ceil(value));
+        this.send(Packets.SERVER_TO_CLIENT.SHOW_TEXT, this.x, this.y, Math.ceil(value), !doer);
     }
 
     update(delta, gameObjects) {

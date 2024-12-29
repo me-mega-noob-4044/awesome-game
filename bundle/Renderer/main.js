@@ -1,5 +1,4 @@
 import { gameCanvas, mainContext, player, players } from "../main.js";
-import colorConfig from "./constants/colorConfig.js";
 import config from "../../backend/constants/config.js";
 import renderPlayers from "./Renders/renderPlayers.js";
 import UTILS from "../../backend/constants/utils.js";
@@ -9,6 +8,7 @@ import renderGround from "./Renders/renderGround.js";
 import renderNames from "./Renders/renderNames.js";
 import renderGameObject from "./Renders/renderGameObject.js";
 import renderParticleEffects from "./Renders/renderParticleEffects.js";
+import renderAnimText from "./Renders/renderAnimText.js";
 
 var delta = 0;
 var lastUpdate = 0;
@@ -133,6 +133,7 @@ export default class Renderer {
         renderGameObject(mainContext, xOffset, yOffset, delta, 3);
         renderPlayers(mainContext, xOffset, yOffset);
         renderMapBorders(mainContext, xOffset, yOffset);
+        renderAnimText(mainContext, xOffset, yOffset, delta);
 
         mainContext.globalAlpha = 1;
         mainContext.fillStyle = "rgba(0, 0, 70, 0.35)";
