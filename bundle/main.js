@@ -34,7 +34,7 @@ Renderer.resize();
 
 window.oncontextmenu = (event) => event.preventDefault(); // Disable context menu :)
 
-window.addEventListener("mousemove", (event) => {
+gameCanvas.addEventListener("mousemove", (event) => {
     mouseX = event.clientX;
     mouseY = event.clientY;
 });

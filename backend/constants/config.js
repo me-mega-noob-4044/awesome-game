@@ -7,9 +7,12 @@ const config = {
     maxScreenWidth: 1980,
     maxScreenHeight: 1080,
     serverUpdateSpeed: 1e3 / 9,
-    playerSpeed: .0016,
+    playerSpeed: .0016, // .0016
     playerDecel: .993,
-    snowBiomeEndY: 1500 // 30% of map
+    icePlayerDecel: .999,
+    snowBiomeEndY: 1500, // 30% of map
+    waveSpeed: .000025,
+    waveMax: 1.05
 };
 
 export default config;

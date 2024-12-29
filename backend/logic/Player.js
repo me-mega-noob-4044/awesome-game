@@ -80,16 +80,32 @@ export default class Player {
         this.maxXP = 300;
     }
 
-    update(delta) {
+    update(delta, gameObjects) {
         if (!this.isAlive) return;
 
         let xVel = this.moveDir != undefined ? Math.cos(this.moveDir) : 0;
         let yVel = this.moveDir != undefined ? Math.sin(this.moveDir) : 0;
         let length = Math.sqrt(xVel * xVel + yVel * yVel);
         let spdMlt = 1;
+        let onIce = false;
 
         if (this.y <= config.snowBiomeEndY) {
-            spdMlt = .75; // 25% speed decrease when on snow
+            spdMlt *= .75; // 25% speed decrease when on snow
+        }
+
+        for (let i = 0; i < gameObjects.length; i++) {
+            let tmpObj = gameObjects[i];
+
+            if (tmpObj && tmpObj.name == "pond" && tmpObj.active) {
+                if (UTILS.getDistance(tmpObj, this) <= this.scale + tmpObj.scale) {
+                    if (tmpObj.y + tmpObj.scale <= config.snowBiomeEndY) {
+                        onIce = true;
+                    } else {
+                        spdMlt *= .55;
+                        break;
+                    }
+                }
+            }
         }
 
         if (length != 0) {
@@ -110,12 +126,12 @@ export default class Player {
         }
 
         if (this.xVel) {
-            this.xVel *= Math.pow(config.playerDecel, delta);
+            this.xVel *= Math.pow(onIce ? config.icePlayerDecel : config.playerDecel, delta);
             if (this.xVel <= 0.01 && this.xVel >= -0.01) this.xVel = 0;
         }
 
         if (this.yVel) {
-            this.yVel *= Math.pow(config.playerDecel, delta);
+            this.yVel *= Math.pow(onIce ? config.icePlayerDecel : config.playerDecel, delta);
             if (this.yVel <= 0.01 && this.yVel >= -0.01) this.yVel = 0;
         }
 

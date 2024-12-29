@@ -36,7 +36,7 @@ export const gameObjects = [];
 
 for (let i = 0; i < 6; i++) {
     // Create ponds all over the map with different sizes
-    ObjectManager.add(0, UTILS.randInt(0, config.mapScale), UTILS.randInt(0, config.mapScale), gameObjects.length, gameObjects);
+    ObjectManager.add(0, UTILS.randInt(0, config.mapScale), UTILS.randInt(0, config.snowBiomeEndY), gameObjects.length, gameObjects);
 }
 
 wss.on("connection", (ws) => {
@@ -80,7 +80,7 @@ setInterval(() => {
 
         if (!player) continue;
 
-        player.update(config.serverUpdateSpeed);
+        player.update(config.serverUpdateSpeed, gameObjects);
 
         for (let t = 0; t < players.length; t++) {
             let other = players[t];

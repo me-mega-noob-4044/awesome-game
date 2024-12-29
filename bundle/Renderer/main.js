@@ -7,6 +7,7 @@ import renderGrid from "./Renders/renderGrid.js";
 import renderMapBorders from "./Renders/renderMapBorders.js";
 import renderGround from "./Renders/renderGround.js";
 import renderNames from "./Renders/renderNames.js";
+import renderGameObject from "./Renders/renderGameObject.js";
 
 var delta = 0;
 var lastUpdate = 0;
@@ -112,6 +113,7 @@ export default class Renderer {
                     tmpObj.x = tmpObj.x1 + (tmpDiff * tmpRate);
                     tmpDiff = (tmpObj.y2 - tmpObj.y1);
                     tmpObj.y = tmpObj.y1 + (tmpDiff * tmpRate);
+
                     tmpObj.dir = Math.lerpAngle(tmpObj.d2, tmpObj.d1, Math.min(1.2, ratio));
                 }
             }
@@ -121,12 +123,12 @@ export default class Renderer {
         let yOffset = this.camY - config.maxScreenHeight / 2;
 
         renderGround(mainContext, xOffset, yOffset);
+        renderGameObject(mainContext, xOffset, yOffset, delta, 0);
+        renderGameObject(mainContext, xOffset, yOffset, delta, 1);
+        renderGameObject(mainContext, xOffset, yOffset, delta, 2);
         renderGrid(mainContext);
-
         renderPlayers(mainContext, xOffset, yOffset);
         renderMapBorders(mainContext, xOffset, yOffset);
-
-        if (player) document.title = player.x.toFixed(0) + " | " + player.y.toFixed(0);
 
         mainContext.globalAlpha = 1;
         mainContext.fillStyle = "rgba(0, 0, 70, 0.35)";

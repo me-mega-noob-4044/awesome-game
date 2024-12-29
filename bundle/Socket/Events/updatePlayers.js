@@ -25,8 +25,8 @@ export default function updatePlayers(data) {
 
             tmpObj.d1 = (tmpObj.d2 == undefined) ? data[i + 3] : tmpObj.d2;
             tmpObj.d2 = data[i + 3];
-
             tmpObj.dt = 0;
+
             tmpObj.visible = true;
         }
 

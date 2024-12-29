@@ -8,6 +8,4 @@ export default function loadGameObjects(data) {
     for (let i = 0; i < data.length; i += 5) {
         ObjectManager.add(data[i + 4], data[i + 1], data[i + 2], data[i + 3], gameObjects);
     }
-
-    console.log(gameObjects);
 }
