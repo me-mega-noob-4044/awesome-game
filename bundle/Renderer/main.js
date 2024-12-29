@@ -6,6 +6,7 @@ import UTILS from "../../backend/constants/utils.js";
 import renderGrid from "./Renders/renderGrid.js";
 import renderMapBorders from "./Renders/renderMapBorders.js";
 import renderGround from "./Renders/renderGround.js";
+import renderNames from "./Renders/renderNames.js";
 
 var delta = 0;
 var lastUpdate = 0;
@@ -128,6 +129,8 @@ export default class Renderer {
         mainContext.globalAlpha = 1;
         mainContext.fillStyle = "rgba(0, 0, 70, 0.35)";
         mainContext.fillRect(0, 0, config.maxScreenWidth, config.maxScreenHeight);
+
+        renderNames(mainContext, xOffset, yOffset);
 
         window.requestAnimationFrame(() => {
             Renderer.update();

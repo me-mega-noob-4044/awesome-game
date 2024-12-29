@@ -15,8 +15,8 @@ export default class Player {
             this.sid = playerSIDS++;
         }
 
-        this.x = UTILS.randInt(0, config.mapScale);
-        this.y = UTILS.randInt(0, config.mapScale);
+        this.x = UTILS.randInt(35, config.mapScale - 35);
+        this.y = UTILS.randInt(35, config.mapScale - 35);
 
         this.dir = 0;
         this.sentTo = {};
