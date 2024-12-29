@@ -57,10 +57,11 @@ export default class Renderer {
     }
 
     static update() {
-        delta = Date.now() - lastUpdate;
-        lastUpdate = Date.now();
+        let now = Date.now();
+        delta = now - lastUpdate;
+        lastUpdate = now;
 
-        let lastTime = lastUpdate - config.serverUpdateSpeed;
+        let lastTime = now - config.serverUpdateSpeed;
 
         if (player) {
             let tmpDist = UTILS.getDistance({
@@ -127,12 +128,15 @@ export default class Renderer {
         renderGameObject(mainContext, xOffset, yOffset, delta, 1);
         renderGameObject(mainContext, xOffset, yOffset, delta, 2);
         renderGrid(mainContext);
+        renderGameObject(mainContext, xOffset, yOffset, delta, 3);
         renderPlayers(mainContext, xOffset, yOffset);
         renderMapBorders(mainContext, xOffset, yOffset);
 
         mainContext.globalAlpha = 1;
         mainContext.fillStyle = "rgba(0, 0, 70, 0.35)";
         mainContext.fillRect(0, 0, config.maxScreenWidth, config.maxScreenHeight);
+
+        if (player) document.title = `${player.x.toFixed(0)} | ${player.y.toFixed(0)}`;
 
         renderNames(mainContext, xOffset, yOffset);
 

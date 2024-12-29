@@ -34,10 +34,16 @@ import ObjectManager from "./backend/logic/ObjectManager.js";
 export const players = [];
 export const gameObjects = [];
 
-for (let i = 0; i < 6; i++) {
-    // Create ponds all over the map with different sizes
-    ObjectManager.add(0, UTILS.randInt(0, config.mapScale), UTILS.randInt(0, config.snowBiomeEndY), gameObjects.length, gameObjects);
-}
+// SET UP BUILDINGS
+
+ObjectManager.add(1, config.mapScale / 2, config.mapScale / 2, gameObjects.length, gameObjects);
+ObjectManager.add(0, 500, 500, gameObjects.length, gameObjects);
+ObjectManager.add(0, config.mapScale - 500, config.mapScale - 500, gameObjects.length, gameObjects);
+ObjectManager.add(0, 4e3, 2e3, gameObjects.length, gameObjects);
+ObjectManager.add(0, 2e3, 1e3, gameObjects.length, gameObjects);
+ObjectManager.add(0, 3500, 3500, gameObjects.length, gameObjects);
+ObjectManager.add(0, 1500, 4e3, gameObjects.length, gameObjects);
+ObjectManager.add(0, 4e3, 0, gameObjects.length, gameObjects);
 
 wss.on("connection", (ws) => {
     ws.on("message", (msg) => {
