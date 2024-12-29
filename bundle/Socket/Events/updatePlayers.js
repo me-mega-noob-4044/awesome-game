@@ -1,6 +1,9 @@
-import { players, lastMoveDir } from "../../main.js";
+import { players, lastMoveDir, gameObjects, player, particles } from "../../main.js";
+import Particles from "../../Renderer/constants/Particles.js";
 import ClientSideUTILS from "../../constants/utils.js";
 import PacketManager from "../PacketManager.js";
+import config from "../../../backend/constants/config.js";
+import UTILS from "../../../backend/constants/utils.js";
 
 // sid, x, y, dir
 
@@ -34,5 +37,17 @@ export default function updatePlayers(data) {
         i += 4;
     }
 
-    PacketManager.sendMove(lastMoveDir)
+    if (!particles.length) {
+        for (let i = 0; i < gameObjects.length; i++) {
+            let tmpObj = gameObjects[i];
+    
+            if (tmpObj && tmpObj.active && tmpObj.name == "pond" && tmpObj.y + tmpObj.scale > config.snowBiomeEndY) {
+                if (UTILS.getDistance(tmpObj, player) <= tmpObj.scale) {
+                    particles.push(new Particles(player.x, player.y, "pond"));
+                }
+            }
+        }
+    }
+
+    PacketManager.sendMove(lastMoveDir);
 }

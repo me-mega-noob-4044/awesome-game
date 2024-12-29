@@ -8,6 +8,7 @@ import renderMapBorders from "./Renders/renderMapBorders.js";
 import renderGround from "./Renders/renderGround.js";
 import renderNames from "./Renders/renderNames.js";
 import renderGameObject from "./Renders/renderGameObject.js";
+import renderParticleEffects from "./Renders/renderParticleEffects.js";
 
 var delta = 0;
 var lastUpdate = 0;
@@ -127,6 +128,7 @@ export default class Renderer {
         renderGameObject(mainContext, xOffset, yOffset, delta, 0);
         renderGameObject(mainContext, xOffset, yOffset, delta, 1);
         renderGameObject(mainContext, xOffset, yOffset, delta, 2);
+        renderParticleEffects(mainContext, xOffset, yOffset, delta);
         renderGrid(mainContext);
         renderGameObject(mainContext, xOffset, yOffset, delta, 3);
         renderPlayers(mainContext, xOffset, yOffset);
