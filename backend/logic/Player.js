@@ -84,16 +84,20 @@ export default class Player {
 
         let xVel = this.moveDir != undefined ? Math.cos(this.moveDir) : 0;
         let yVel = this.moveDir != undefined ? Math.sin(this.moveDir) : 0;
-
         let length = Math.sqrt(xVel * xVel + yVel * yVel);
+        let spdMlt = 1;
+
+        if (this.y <= config.snowBiomeEndY) {
+            spdMlt = .75; // 25% speed decrease when on snow
+        }
 
         if (length != 0) {
             xVel /= length;
             yVel /= length;
         }
 
-        if (xVel) this.xVel += xVel * this.speed * delta;
-        if (yVel) this.yVel += yVel * this.speed * delta;
+        if (xVel) this.xVel += xVel * this.speed * spdMlt * delta;
+        if (yVel) this.yVel += yVel * this.speed * spdMlt * delta;
 
         let tmpSpeed = UTILS.getDistance({ x: 0, y: 0 }, { x: this.xVel * delta, y: this.yVel * delta });
         let depth = Math.min(4, Math.max(1, Math.round(tmpSpeed / 40)));
