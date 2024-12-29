@@ -5,13 +5,17 @@ import setUpGame from "./Events/setUpGame.js";
 import addPlayer from "./Events/addPlayer.js";
 import updatePlayers from "./Events/updatePlayers.js";
 import updateHealth from "./Events/updateHealth.js";
+import removePlayer from "./Events/removePlayer.js";
+import loadGameObjects from "./Events/loadGameObjects.js";
 
 export default class PacketManager {
     static eventMap = new Map([
         [Packets.SERVER_TO_CLIENT.SET_UP_GAME, setUpGame],
         [Packets.SERVER_TO_CLIENT.ADD_PLAYER, addPlayer],
         [Packets.SERVER_TO_CLIENT.UPDATE_PLAYERS, updatePlayers],
-        [Packets.SERVER_TO_CLIENT.UPDATE_HEALTH, updateHealth]
+        [Packets.SERVER_TO_CLIENT.UPDATE_HEALTH, updateHealth],
+        [Packets.SERVER_TO_CLIENT.REMOVE_PLAYER, removePlayer],
+        [Packets.SERVER_TO_CLIENT.LOAD_GAME_OBJECT, loadGameObjects]
     ]);
 
     static handle(type, data) {

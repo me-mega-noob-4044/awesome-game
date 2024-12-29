@@ -8,7 +8,9 @@ const Packets = {
         SET_UP_GAME: "aeas",
         ADD_PLAYER: "there's a starman!",
         UPDATE_PLAYERS: "woahh",
-        UPDATE_HEALTH: "wahhhh :(("
+        UPDATE_HEALTH: "wahhhh :((",
+        REMOVE_PLAYER: "nooo player gone",
+        LOAD_GAME_OBJECT: "RAHHHHHHHH GAMEOBEJCS"
     }
 };
 

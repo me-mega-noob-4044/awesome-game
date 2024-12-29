@@ -15,6 +15,7 @@ export var healthDisplay = document.getElementById("health-display");
 export var healthText = document.getElementById("heath-text");
 
 export const players = [];
+export const gameObjects = [];
 export var player;
 
 export var mouseX = 0;

@@ -31,7 +31,9 @@ html, body {
 }
 
 #loading-text {
+    font-size: 22px;
     color: var(--font-color);
+    font-weight: 700;
 }
 
 #game-name {
@@ -130,5 +132,7 @@ input, button {
 #heath-text {
     z-index: 12;
     margin-right: 10px;
+    font-size: 24px;
+    font-weight: 700;
     color: white;
 }

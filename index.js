@@ -29,8 +29,15 @@ import UTILS from "./backend/constants/utils.js";
 import config from "./backend/constants/config.js";
 import Packets from "./backend/constants/Packets.js";
 import ServerPacketManager from "./backend/logic/PacketManager.js";
+import ObjectManager from "./backend/logic/ObjectManager.js";
 
 export const players = [];
+export const gameObjects = [];
+
+for (let i = 0; i < 6; i++) {
+    // Create ponds all over the map with different sizes
+    ObjectManager.add(0, UTILS.randInt(0, config.mapScale), UTILS.randInt(0, config.mapScale), gameObjects.length, gameObjects);
+}
 
 wss.on("connection", (ws) => {
     ws.on("message", (msg) => {
@@ -48,7 +55,21 @@ wss.on("connection", (ws) => {
         }
     });
 
-    ws.on("close", (msg) => {
+    ws.on("close", () => {
+        if (!ws.NEW_CLIENT) return;
+
+        let player = ws.NEW_CLIENT;
+
+        for (let i = 0; i < players.length; i++) {
+            let other = players[i];
+
+            if (player.sentTo[other.id]) {
+                other.send(Packets.SERVER_TO_CLIENT.REMOVE_PLAYER, player.sid);
+            }
+        }
+
+        let indx = players.indexOf(player);
+        players.splice(indx, 1);
     });
 });
 
@@ -77,6 +98,23 @@ setInterval(() => {
                     other.dir
                 );
             }
+        }
+
+        let gameObjectsData = [];
+
+        for (let t = 0; t < gameObjects.length; t++) {
+            let tmpObj = gameObjects[t];
+
+            if (tmpObj.active) {
+                if (!tmpObj.sentTo[player.id] && player.canSee(tmpObj)) {
+                    tmpObj.sentTo[player.id] = 1;
+                    gameObjectsData.push(tmpObj.sid, tmpObj.x, tmpObj.y, tmpObj.sid, tmpObj.id);
+                }
+            }
+        }
+
+        if (gameObjectsData.length) {
+            player.send(Packets.SERVER_TO_CLIENT.LOAD_GAME_OBJECT, gameObjectsData);
         }
 
         player.send(Packets.SERVER_TO_CLIENT.UPDATE_PLAYERS, data);

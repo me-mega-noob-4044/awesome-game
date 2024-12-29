@@ -29,6 +29,7 @@ export default class Player {
         this.moveDir = undefined;
 
         this.dt = 0;
+        this.kills = 0;
     }
 
     setName(name) {

@@ -126,6 +126,8 @@ export default class Renderer {
         renderPlayers(mainContext, xOffset, yOffset);
         renderMapBorders(mainContext, xOffset, yOffset);
 
+        if (player) document.title = player.x.toFixed(0) + " | " + player.y.toFixed(0);
+
         mainContext.globalAlpha = 1;
         mainContext.fillStyle = "rgba(0, 0, 70, 0.35)";
         mainContext.fillRect(0, 0, config.maxScreenWidth, config.maxScreenHeight);
