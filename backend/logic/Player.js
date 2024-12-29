@@ -27,6 +27,8 @@ export default class Player {
         this.yVel = 0;
         this.speed = config.playerSpeed;
 
+        this.attackMlt = 1;
+
         this.moveDir = undefined;
 
         this.dt = 0;
@@ -37,6 +39,8 @@ export default class Player {
         this.regenTimer = 0;
         this.regenRate = config.playerRegenerationRate;
         this.regenPower = config.playerRegenerationPower;
+
+        this.handAnimations = [];
     }
 
     setName(name) {
@@ -85,21 +89,46 @@ export default class Player {
         this.age = 1;
         this.XP = 0;
         this.maxXP = 300;
+
+        this.x = UTILS.randInt(35, config.mapScale - 35);
+        this.y = UTILS.randInt(35, config.mapScale - 35);
+
+        this.xVel = 0;
+        this.yVel = 0;
+        this.speed = config.playerSpeed;
+
+        this.attackMlt = 1;
+
+        this.moveDir = undefined;
+
+        this.dt = 0;
+        this.kills = 0;
+
+        this.volcanoTimer = 0;
+
+        this.regenTimer = 0;
+        this.regenRate = config.playerRegenerationRate;
+        this.regenPower = config.playerRegenerationPower;
     }
 
     changeHealth(value, doer) {
         this.health += value;
 
-        if (this.health > this.maxHealth) this.health = this.maxHealth;
+        if (this.health > this.maxHealth) {
+            value -= (this.health - this.maxHealth);
+            this.health = this.maxHealth;
+        }
+
         if (this.health <= 0) {
             this.health = 0;
             this.isAlive = false;
+            this.send(Packets.SERVER_TO_CLIENT.KILL_PLAYER);
         }
 
         if (doer) {}
 
         this.send(Packets.SERVER_TO_CLIENT.UPDATE_HEALTH, this.health, this.maxHealth);
-        this.send(Packets.SERVER_TO_CLIENT.SHOW_TEXT, this.x, this.y, Math.ceil(value), !doer);
+        if (value) this.send(Packets.SERVER_TO_CLIENT.SHOW_TEXT, this.x, this.y, Math.ceil(value), !doer);
     }
 
     update(delta, gameObjects) {
@@ -110,7 +139,7 @@ export default class Player {
 
             if (this.volcanoTimer <= 0) {
                 this.volcanoTimer = 0;
-                this.changeHealth(-5);
+                this.changeHealth(UTILS.getDistance({ x: config.mapScale / 2, y: config.mapScale / 2 }, this) <= 250 ? -15 : -5);
             }
         }
 
@@ -171,7 +200,7 @@ export default class Player {
                     let tmpScale = this.scale + 200;
 
                     if (this.volcanoTimer == 0 && UTILS.getDistance(tmpObj, this) <= tmpObj.scale) {
-                        this.volcanoTimer = 500;
+                        this.volcanoTimer = UTILS.getDistance(tmpObj, this) <= 250 ? 100 : UTILS.getDistance(tmpObj, this) <= tmpObj.scale * .75 ? 250 : 500;
                     }
 
                     if (UTILS.getDistance(tmpObj, this) <= tmpScale) {

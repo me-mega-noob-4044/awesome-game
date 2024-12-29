@@ -6,21 +6,23 @@ import renderCircle from "../utils/renderCircle.js";
  */
 
 export default function renderPlayer(tmpObj, mainContext) {
-    let handAngle = Math.PI / 4;
+    let hand1Angle = Math.PI / 4;
+    let hand2Angle = -Math.PI / 4;
 
     mainContext.lineWidth = 5.5;
     mainContext.fillStyle = colorConfig.defaultSkinColor;
     mainContext.strokeStyle = colorConfig.outlineColor;
 
     renderCircle(
-        Math.cos(handAngle) * tmpObj.scale,
-        Math.sin(handAngle) * tmpObj.scale,
+        Math.cos(hand1Angle) * tmpObj.scale,
+        Math.sin(hand1Angle) * tmpObj.scale,
         mainContext,
         17
     );
+
     renderCircle(
-        Math.cos(-handAngle) * tmpObj.scale,
-        Math.sin(-handAngle) * tmpObj.scale,
+        Math.cos(hand2Angle) * tmpObj.scale,
+        Math.sin(hand2Angle) * tmpObj.scale,
         mainContext,
         17
     );

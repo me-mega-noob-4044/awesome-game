@@ -3,7 +3,9 @@ const Packets = {
         JOIN_GAME: "eaeaea",
         MOVE: "i wannt movee :)",
         SEND_CHAT: "chattt",
-        SEND_HIT: "rahhh"
+        SEND_HIT: "rahhh",
+        SEND_AIM: "aimmm",
+        SEND_CHAT: "chtahtahtahtahtahtah"
     },
     SERVER_TO_CLIENT: {
         SET_UP_GAME: "aeas",
@@ -13,7 +15,9 @@ const Packets = {
         REMOVE_PLAYER: "nooo player gone",
         LOAD_GAME_OBJECT: "RAHHHHHHHH GAMEOBEJCS",
         SHOW_TEXT: "aioshdsiuahidahshudsudh",
-        KILL_PLAYER: "ok"
+        KILL_PLAYER: "ok",
+        HIT_ANIMATION: "hitttt",
+        GET_CHAT: "AAAAAA"
     }
 };
 

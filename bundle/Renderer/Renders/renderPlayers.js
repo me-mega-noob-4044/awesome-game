@@ -8,7 +8,7 @@ export default function renderPlayers(mainContext, xOffset, yOffset) {
     for (let i = 0; i < players.length; i++) {
         let tmpObj = players[i];
 
-        if (tmpObj) {
+        if (tmpObj && tmpObj.visible) {
             mainContext.save();
             mainContext.translate(tmpObj.x - xOffset, tmpObj.y - yOffset);
             mainContext.rotate(tmpObj.sid == Client.playerSID ? Client.getDir() : tmpObj.dir);

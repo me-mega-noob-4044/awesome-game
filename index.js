@@ -46,6 +46,8 @@ ObjectManager.add(0, 1500, 4e3, gameObjects.length, gameObjects);
 ObjectManager.add(0, 4e3, 0, gameObjects.length, gameObjects);
 
 wss.on("connection", (ws) => {
+    ws.PACKET_COUNT = 0;
+
     ws.on("message", (msg) => {
         let [type, data] = UTILS.decodeMessage(msg);
 
@@ -53,6 +55,16 @@ wss.on("connection", (ws) => {
             ws.close(1003, "Invalid packet type");
             return;
         }
+
+        if (ws.PACKET_COUNT >= 150) {
+            ws.close(1004, "Packet limit reached");
+            return;
+        }
+
+        ws.PACKET_COUNT++;
+        setTimeout(() => {
+            ws.PACKET_COUNT--;
+        }, 1e3);
 
         try {
             ServerPacketManager.handle(ws, type, data);

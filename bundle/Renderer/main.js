@@ -9,6 +9,8 @@ import renderNames from "./Renders/renderNames.js";
 import renderGameObject from "./Renders/renderGameObject.js";
 import renderParticleEffects from "./Renders/renderParticleEffects.js";
 import renderAnimText from "./Renders/renderAnimText.js";
+import PacketManager from "../Socket/PacketManager.js";
+import Client from "../Socket/Client.js";
 
 var delta = 0;
 var lastUpdate = 0;
@@ -32,6 +34,8 @@ Math.lerpAngle = (value1, value2, amount) => {
 export default class Renderer {
     static camX = 0;
     static camY = 0;
+
+    static lastSendAim = 0;
 
     static resize() {
         let screenWidth = window.innerWidth;
@@ -57,12 +61,22 @@ export default class Renderer {
         );
     }
 
+    static lavaParticles(delta) {}
+
     static update() {
         let now = Date.now();
         delta = now - lastUpdate;
         lastUpdate = now;
 
         let lastTime = now - config.serverUpdateSpeed;
+
+        if (!this.lastSendAim || now - this.lastSendAim >= (1e3 / 10)) {
+            this.lastSendAim = Date.now();
+            
+            if (player) {
+                PacketManager.sendAim(Client.getDir());
+            }
+        }
 
         if (player) {
             let tmpDist = UTILS.getDistance({
@@ -133,11 +147,13 @@ export default class Renderer {
         renderGameObject(mainContext, xOffset, yOffset, delta, 3);
         renderPlayers(mainContext, xOffset, yOffset);
         renderMapBorders(mainContext, xOffset, yOffset);
-        renderAnimText(mainContext, xOffset, yOffset, delta);
 
         mainContext.globalAlpha = 1;
         mainContext.fillStyle = "rgba(0, 0, 70, 0.35)";
         mainContext.fillRect(0, 0, config.maxScreenWidth, config.maxScreenHeight);
+
+        renderAnimText(mainContext, xOffset, yOffset, delta);
+        this.lavaParticles();
 
         if (player) document.title = `${player.x.toFixed(0)} | ${player.y.toFixed(0)}`;
 

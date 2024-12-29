@@ -8,6 +8,8 @@ import updateHealth from "./Events/updateHealth.js";
 import removePlayer from "./Events/removePlayer.js";
 import loadGameObjects from "./Events/loadGameObjects.js";
 import showText from "./Events/showText.js";
+import killPlayer from "./Events/killPlayer.js";
+import hitAnimation from "./Events/hitAnimation.js";
 
 export default class PacketManager {
     static eventMap = new Map([
@@ -17,7 +19,9 @@ export default class PacketManager {
         [Packets.SERVER_TO_CLIENT.UPDATE_HEALTH, updateHealth],
         [Packets.SERVER_TO_CLIENT.REMOVE_PLAYER, removePlayer],
         [Packets.SERVER_TO_CLIENT.LOAD_GAME_OBJECT, loadGameObjects],
-        [Packets.SERVER_TO_CLIENT.SHOW_TEXT, showText]
+        [Packets.SERVER_TO_CLIENT.SHOW_TEXT, showText],
+        [Packets.SERVER_TO_CLIENT.KILL_PLAYER, killPlayer],
+        [Packets.SERVER_TO_CLIENT.HIT_ANIMATION, hitAnimation]
     ]);
 
     static handle(type, data) {
@@ -26,6 +30,14 @@ export default class PacketManager {
         if (eventHandler) {
             eventHandler(...data);
         }
+    }
+
+    static sendAim() {
+        Client.send(Packets.CLIENT_TO_SERVER.SEND_AIM, Client.getDir());
+    }
+
+    static sendHit() {
+        Client.send(Packets.CLIENT_TO_SERVER.SEND_HIT, Client.getDir());
     }
 
     static sendJoin() {

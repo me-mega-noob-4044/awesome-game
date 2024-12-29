@@ -41,6 +41,10 @@ gameCanvas.addEventListener("mousemove", (event) => {
     mouseY = event.clientY;
 });
 
+gameCanvas.addEventListener("click", (event) => {
+    PacketManager.sendHit();
+});
+
 var keys = {};
 var moveKeys = {
     87: [0, -1],
