@@ -8,7 +8,8 @@ const config = {
     maxScreenHeight: 1080,
     serverUpdateSpeed: 1e3 / 9,
     playerSpeed: .0016,
-    playerDecel: .993
+    playerDecel: .993,
+    snowBiomeEndY: 1e3 // 20% of map
 };
 
 export default config;

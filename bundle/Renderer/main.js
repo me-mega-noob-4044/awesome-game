@@ -5,6 +5,7 @@ import renderPlayers from "./Renders/renderPlayers.js";
 import UTILS from "../../backend/constants/utils.js";
 import renderGrid from "./Renders/renderGrid.js";
 import renderMapBorders from "./Renders/renderMapBorders.js";
+import renderGround from "./Renders/renderGround.js";
 
 var delta = 0;
 var lastUpdate = 0;
@@ -59,9 +60,6 @@ export default class Renderer {
 
         let lastTime = lastUpdate - config.serverUpdateSpeed;
 
-        mainContext.fillStyle = colorConfig.grass;
-        mainContext.fillRect(0, 0, config.maxScreenWidth, config.maxScreenHeight);
-
         if (player) {
             let tmpDist = UTILS.getDistance({
                 x: this.camX,
@@ -106,7 +104,7 @@ export default class Renderer {
                     let rate = 170;
 
                     tmpObj.dt += delta;
-                    
+
                     let tmpRate = Math.min(1.7, tmpObj.dt / rate);
                     let tmpDiff = (tmpObj.x2 - tmpObj.x1);
 
@@ -121,6 +119,7 @@ export default class Renderer {
         let xOffset = this.camX - config.maxScreenWidth / 2;
         let yOffset = this.camY - config.maxScreenHeight / 2;
 
+        renderGround(mainContext, xOffset, yOffset);
         renderGrid(mainContext);
 
         renderPlayers(mainContext, xOffset, yOffset);
