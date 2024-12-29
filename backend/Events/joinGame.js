@@ -16,5 +16,6 @@ export default function joinGame(ws, ...args) {
     player.spawn();
 
     player.send(Packets.SERVER_TO_CLIENT.SET_UP_GAME, player.sid);
+    player.send(Packets.SERVER_TO_CLIENT.UPDATE_HEALTH, player.health, player.maxHealth);
     player.send(Packets.SERVER_TO_CLIENT.ADD_PLAYER, player.getData(), true);
 }

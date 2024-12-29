@@ -1,6 +1,8 @@
 :root {
     --background-color: rgba(0, 0, 0, .55);
     --font-color: white;
+    --outline-color: #3d3f42;
+    --health-color: #8ecc51;
 }
 
 html, body {
@@ -85,4 +87,45 @@ input, button {
 
 #join-game:hover {
     background-color: #01d401;
+}
+
+#game-ui {
+    display: none;
+}
+
+#health-bar-holder {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 20px;
+    width: 100%;
+}
+
+#health-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    width: 400px;
+    height: 50px;
+    border: solid;
+    border-width: 3px;
+    border-radius: 6px;
+    border-color: var(--outline-color);
+    overflow: hidden;
+    background-color: var(--outline-color);
+}
+
+#health-display {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: var(--health-color);
+}
+
+#heath-text {
+    z-index: 12;
+    margin-right: 10px;
+    color: white;
 }

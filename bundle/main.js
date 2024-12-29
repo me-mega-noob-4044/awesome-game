@@ -10,6 +10,9 @@ export var loadingText = document.getElementById("loading-text");
 export var nameInput = document.getElementById("name-input");
 export var joinGame = document.getElementById("join-game");
 export var gameUI = document.getElementById("game-ui");
+export var healthBar = document.getElementById("health-bar");
+export var healthDisplay = document.getElementById("health-display");
+export var healthText = document.getElementById("heath-text");
 
 export const players = [];
 export var player;

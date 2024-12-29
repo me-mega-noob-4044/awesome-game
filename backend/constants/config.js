@@ -9,7 +9,7 @@ const config = {
     serverUpdateSpeed: 1e3 / 9,
     playerSpeed: .0016,
     playerDecel: .993,
-    snowBiomeEndY: 1e3 // 20% of map
+    snowBiomeEndY: 1500 // 30% of map
 };
 
 export default config;
