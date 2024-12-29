@@ -1,6 +1,6 @@
 import UTILS from "../../backend/constants/utils.js";
 import PacketManager from "./PacketManager.js";
-import { menuInputs, loadingText, mainMenu } from "../main.js";
+import { menuInputs, loadingText, mainMenu, gameUI } from "../main.js";
 
 export default class Socket extends WebSocket {
     constructor(url, protocols) {
@@ -31,6 +31,7 @@ export default class Socket extends WebSocket {
     }
 
     onClose(reason) {
+        gameUI.style.display = "none";
         mainMenu.style.display = "flex";
         menuInputs.style.display = "none";
         loadingText.style.display = "block";
