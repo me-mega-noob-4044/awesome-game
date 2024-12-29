@@ -1,6 +1,7 @@
 import Player from "../../../backend/logic/Player.js";
 import { players, setPlayer, gameUI } from "../../main.js";
 import ClientSideUTILS from "../../constants/utils.js";
+import Renderer from "../../Renderer/main.js";
 
 export default function addPlayer(data, isClient) {
     let tmp = ClientSideUTILS.findPlayerById(data[0]);
@@ -13,14 +14,15 @@ export default function addPlayer(data, isClient) {
     }
 
     tmp.spawn();
-
-    tmp.x1 = tmp.x;
-    tmp.y1 = tmp.y;
-    tmp.x2 = tmp.x;
-    tmp.y2 = tmp.y;
+    tmp.visible = false;
+    tmp.x2 = undefined;
+    tmp.y2 = undefined;
+    tmp.setData(data);
 
     if (isClient) {
         gameUI.style.display = "block";
+        Renderer.camX = tmp.x;
+        Renderer.camY = tmp.y;
         setPlayer(tmp);
     }
 }

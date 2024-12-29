@@ -15,8 +15,7 @@ export default function updatePlayers(data) {
         let tmpObj = ClientSideUTILS.findPlayerBySid(data[i]);
 
         if (tmpObj) {
-            tmpObj.dt = 0;
-            tmpObj.t1 = (tmpObj.t2 === undefined) ? tmpTime: tmpObj.t2;
+            tmpObj.t1 = (tmpObj.t2 === undefined) ? tmpTime : tmpObj.t2;
             tmpObj.t2 = tmpTime;
 
             tmpObj.x1 = tmpObj.x;
@@ -25,8 +24,9 @@ export default function updatePlayers(data) {
             tmpObj.y2 = data[i + 2];
 
             tmpObj.d1 = (tmpObj.d2 == undefined) ? data[i + 3] : tmpObj.d2;
-            tmpObj.d2 = data[i + 3]; // dir
+            tmpObj.d2 = data[i + 3];
 
+            tmpObj.dt = 0;
             tmpObj.visible = true;
         }
 

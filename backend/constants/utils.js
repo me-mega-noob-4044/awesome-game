@@ -16,11 +16,23 @@ class UTILS {
     }
 
     static getDistance(a, b) {
-        return Math.hypot((b.x2 || a.x) - (b.x2 || b.x), (a.y2 || a.y) - (b.y2 || b.y));
+        try {
+            let x1 = a.x2 || a.x;
+            let y1 = a.y2 || a.y;
+            let x2 = b.x2 || b.x;
+            let y2 = b.y2 || b.y;
+
+            return Math.hypot(y1 - y2, x1 - x2);
+        } catch (e) {}
     }
 
     static getDirection(a, b) {
-        return Math.atan2((b.x2 || a.x) - (b.x2 || b.x), (a.y2 || a.y) - (b.y2 || b.y));
+        let x1 = a.x2 || a.x;
+        let y1 = a.y2 || a.y;
+        let x2 = b.x2 || b.x;
+        let y2 = b.y2 || b.y;
+
+        return Math.atan2(y1 - y2, x1 - x2);
     }
 
     static randString(length) {

@@ -1,6 +1,6 @@
 import Packets from "../../backend/constants/Packets.js";
 import Client from "./Client.js";
-import { nameInput } from "../main.js";
+import { nameInput, player } from "../main.js";
 import setUpGame from "./Events/setUpGame.js";
 import addPlayer from "./Events/addPlayer.js";
 import updatePlayers from "./Events/updatePlayers.js";
@@ -22,5 +22,10 @@ export default class PacketManager {
 
     static sendJoin() {
         Client.send(Packets.CLIENT_TO_SERVER.JOIN_GAME, nameInput.value);
+    }
+
+    static sendMove(angle) {
+        if (!player) return;
+        Client.send(Packets.CLIENT_TO_SERVER.MOVE, angle);
     }
 }

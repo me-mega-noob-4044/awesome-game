@@ -27,6 +27,8 @@ export default class Player {
         this.speed = config.playerSpeed;
 
         this.moveDir = undefined;
+
+        this.dt = 0;
     }
 
     setName(name) {
@@ -58,6 +60,14 @@ export default class Player {
         ];
     }
 
+    setData(data) {
+        this.id = data[0];
+        this.sid = data[1];
+        this.name = data[2];
+        this.x = data[3];
+        this.y = data[4];
+    }
+
     spawn() {
         this.isAlive = true;
 
@@ -85,7 +95,7 @@ export default class Player {
         if (xVel) this.xVel += xVel * this.speed * delta;
         if (yVel) this.yVel += yVel * this.speed * delta;
 
-        let tmpSpeed = UTILS.getDistance(0, 0, this.xVel * delta, this.yVel * delta);
+        let tmpSpeed = UTILS.getDistance({ x: 0, y: 0 }, { x: this.xVel * delta, y: this.yVel * delta });
         let depth = Math.min(4, Math.max(1, Math.round(tmpSpeed / 40)));
         let tMlt = 1 / depth;
 

@@ -4,6 +4,7 @@ import config from "../../backend/constants/config.js";
 import renderPlayers from "./Renders/renderPlayers.js";
 import UTILS from "../../backend/constants/utils.js";
 import renderGrid from "./Renders/renderGrid.js";
+import renderMapBorders from "./Renders/renderMapBorders.js";
 
 var delta = 0;
 var lastUpdate = 0;
@@ -56,7 +57,7 @@ export default class Renderer {
         delta = Date.now() - lastUpdate;
         lastUpdate = Date.now();
 
-        let lastTime = lastUpdate - (1000 / config.serverUpdateRate)
+        let lastTime = lastUpdate - config.serverUpdateSpeed;
 
         mainContext.fillStyle = colorConfig.grass;
         mainContext.fillRect(0, 0, config.maxScreenWidth, config.maxScreenHeight);
@@ -92,6 +93,7 @@ export default class Renderer {
 
         for (let i = 0; i < players.length; i++) {
             let tmpObj = players[i];
+
             if (tmpObj && tmpObj.visible) {
                 if (tmpObj.forcePos) {
                     tmpObj.x = tmpObj.x2;
@@ -102,10 +104,11 @@ export default class Renderer {
                     let fraction = lastTime - tmpObj.t1;
                     let ratio = (fraction / total);
                     let rate = 170;
-                    let tmpRate = Math.min(1.7, tmpObj.dt / rate);
-                    let tmpDiff = (tmpObj.x2 - tmpObj.x1);
 
                     tmpObj.dt += delta;
+                    
+                    let tmpRate = Math.min(1.7, tmpObj.dt / rate);
+                    let tmpDiff = (tmpObj.x2 - tmpObj.x1);
 
                     tmpObj.x = tmpObj.x1 + (tmpDiff * tmpRate);
                     tmpDiff = (tmpObj.y2 - tmpObj.y1);
@@ -121,6 +124,7 @@ export default class Renderer {
         renderGrid(mainContext);
 
         renderPlayers(mainContext, xOffset, yOffset);
+        renderMapBorders(mainContext, xOffset, yOffset);
 
         mainContext.globalAlpha = 1;
         mainContext.fillStyle = "rgba(0, 0, 70, 0.35)";
