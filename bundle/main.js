@@ -17,6 +17,7 @@ export var pingDisplay = document.getElementById("ping-display");
 export var xpBar = document.getElementById("xp-bar");
 export var xpDisplay = document.getElementById("xp-display");
 export var xpText = document.getElementById("xp-text");
+var chatBox = document.getElementById("chat-box");
 
 export const players = [];
 export const gameObjects = [];
@@ -77,13 +78,31 @@ function getMoveDir() {
 
 export var lastMoveDir;
 
+function doRetardedChatStuff() {
+    if (chatBox.style.display == "none") {
+        chatBox.style.display = "block";
+        chatBox.focus();
+    } else {
+        if (chatBox.value) PacketManager.sendChat(chatBox.value);
+        chatBox.style.display = "none";
+    }
+
+    chatBox.value = "";
+}
+
+function keyActive() {
+    return document.activeElement.id == chatBox.id;
+}
+
 window.addEventListener("keydown", (event) => {
     if (!event.isTrusted) return;
 
     keys[event.keyCode] = 1;
 
-    if (moveKeys[event.keyCode]) {
+    if (!keyActive() && moveKeys[event.keyCode]) {
         lastMoveDir = getMoveDir();
+    } else if (event.keyCode == 13) {
+        doRetardedChatStuff();
     }
 });
 
@@ -92,7 +111,7 @@ window.addEventListener("keyup", (event) => {
 
     keys[event.keyCode] = 0;
 
-    if (moveKeys[event.keyCode]) {
+    if (!keyActive() && moveKeys[event.keyCode]) {
         lastMoveDir = getMoveDir();
     }
 });

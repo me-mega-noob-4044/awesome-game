@@ -1,5 +1,6 @@
 :root {
     --background-color: rgba(0, 0, 0, .55);
+    --light-bg-color: rgba(0, 0, 0, .3);
     --font-color: white;
     --outline-color: #3d3f42;
     --health-color: #8ecc51;
@@ -184,4 +185,30 @@ input, button {
     font-weight: 900;
     font-size: 12px;
     text-shadow: black;
+}
+
+#chat-holder {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 250px;
+    width: 100%;
+    pointer-events: none;
+}
+
+#chat-box {
+    display: none;
+    border: none;
+    outline: none;
+    height: 35px;
+    padding: 0px 7px 0 7px;
+    color: white;
+    font-size: 18px;
+    background-color: var(--light-bg-color);
+    border-radius: 4px;
+}
+
+#chat-box::placeholder {
+    color: lightgray;
 }

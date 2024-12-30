@@ -42,6 +42,9 @@ export default class Player {
 
         this.meleeReload = 0;
         this.handAnimations = [0, 0];
+
+        this.chatMsg = "";
+        this.chatTimer = 0;
     }
 
     setName(name) {

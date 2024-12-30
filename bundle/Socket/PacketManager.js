@@ -12,6 +12,7 @@ import killPlayer from "./Events/killPlayer.js";
 import hitAnimation from "./Events/hitAnimation.js";
 import pingResponse from "./Events/pingResponse.js";
 import updateXP from "./Events/updateXP.js";
+import getChat from "./Events/getChat.js";
 
 export default class PacketManager {
     static eventMap = new Map([
@@ -25,7 +26,8 @@ export default class PacketManager {
         [Packets.SERVER_TO_CLIENT.KILL_PLAYER, killPlayer],
         [Packets.SERVER_TO_CLIENT.HIT_ANIMATION, hitAnimation],
         [Packets.SERVER_TO_CLIENT.PING_RESPONSE, pingResponse],
-        [Packets.SERVER_TO_CLIENT.UPDATE_XP, updateXP]
+        [Packets.SERVER_TO_CLIENT.UPDATE_XP, updateXP],
+        [Packets.SERVER_TO_CLIENT.GET_CHAT, getChat]
     ]);
 
     static handle(type, data) {
@@ -46,6 +48,10 @@ export default class PacketManager {
 
     static sendJoin() {
         Client.send(Packets.CLIENT_TO_SERVER.JOIN_GAME, nameInput.value);
+    }
+
+    static sendChat(msg) {
+        Client.send(Packets.CLIENT_TO_SERVER.SEND_CHAT, msg);
     }
 
     static sendMove(angle) {

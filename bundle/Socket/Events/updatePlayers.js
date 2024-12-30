@@ -37,9 +37,9 @@ export default function updatePlayers(data) {
                 for (let t = 0; t < gameObjects.length; t++) {
                     let gameObject = gameObjects[t];
             
-                    if (gameObject && gameObject.active && gameObject.name == "pond" && gameObject.y + gameObject.scale > config.snowBiomeEndY) {
+                    if (gameObject && gameObject.active && (gameObject.name == "lava pond" || gameObject.name == "pond") && gameObject.y + gameObject.scale > config.snowBiomeEndY) {
                         if (UTILS.getDistance(gameObject, player) <= gameObject.scale) {
-                            particles.push(new Particles(tmpObj.sid, tmpObj.x, tmpObj.y, "pond"));
+                            particles.push(new Particles(tmpObj.sid, tmpObj.x, tmpObj.y, gameObject.name == "lava pond" ? "lava" : "pond"));
                         }
                     }
                 }

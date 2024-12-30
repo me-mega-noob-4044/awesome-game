@@ -8,7 +8,7 @@ export default class Particles {
         this.x = x;
         this.y = y;
         this.type = type;
-        this.orginalScale = this.scale = type == "lava" ? 20 : 35;
+        this.orginalScale = this.scale = type == "lava" ? sid >= 0 ? 35 : 20 : 35;
 
         this.alpha = 1;
 
@@ -26,8 +26,6 @@ export default class Particles {
         } else if (this.scale >= this.orginalScale * 1.8) {
             this.active = false;
         }
-
-        if (this.type == "lava") console.log("I")
 
         mainContext.globalAlpha = this.alpha;
         mainContext.fillStyle = this.type == "lava" ? "#ffff00" : colorConfig.snow;

@@ -12,6 +12,7 @@ import renderAnimText from "./Renders/renderAnimText.js";
 import PacketManager from "../Socket/PacketManager.js";
 import Client from "../Socket/Client.js";
 import Particles from "./constants/Particles.js";
+import renderChats from "./Renders/renderChats.js";
 
 var delta = 0;
 var lastUpdate = 0;
@@ -182,6 +183,7 @@ export default class Renderer {
         if (player) document.title = `${player.x.toFixed(0)} | ${player.y.toFixed(0)}`;
 
         renderNames(mainContext, xOffset, yOffset);
+        renderChats(mainContext, xOffset, yOffset, delta);
 
         window.requestAnimationFrame(() => {
             Renderer.update();
