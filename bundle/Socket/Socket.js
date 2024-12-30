@@ -1,6 +1,8 @@
 import UTILS from "../../backend/constants/utils.js";
 import PacketManager from "./PacketManager.js";
 import { menuInputs, loadingText, mainMenu, gameUI } from "../main.js";
+import Client from "./Client.js";
+import Packets from "../../backend/constants/Packets.js";
 
 export default class Socket extends WebSocket {
     constructor(url, protocols) {
@@ -18,6 +20,11 @@ export default class Socket extends WebSocket {
 
         menuInputs.style.display = "flex";
         loadingText.style.display = "none";
+
+        setInterval(() => {
+            this.send(Packets.CLIENT_TO_SERVER.PING);
+            Client.lastPingDate = Date.now();
+        }, 3e3);
     }
 
     onMessage(msg) {

@@ -5,7 +5,8 @@ const Packets = {
         SEND_CHAT: "chattt",
         SEND_HIT: "rahhh",
         SEND_AIM: "aimmm",
-        SEND_CHAT: "chtahtahtahtahtahtah"
+        SEND_CHAT: "chtahtahtahtahtahtah",
+        PING: "aeaeae86"
     },
     SERVER_TO_CLIENT: {
         SET_UP_GAME: "aeas",
@@ -17,7 +18,8 @@ const Packets = {
         SHOW_TEXT: "aioshdsiuahidahshudsudh",
         KILL_PLAYER: "ok",
         HIT_ANIMATION: "hitttt",
-        GET_CHAT: "AAAAAA"
+        GET_CHAT: "AAAAAA",
+        PING_RESPONSE: "aeaeaeaea"
     }
 };
 

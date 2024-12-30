@@ -13,6 +13,7 @@ export var gameUI = document.getElementById("game-ui");
 export var healthBar = document.getElementById("health-bar");
 export var healthDisplay = document.getElementById("health-display");
 export var healthText = document.getElementById("heath-text");
+export var pingDisplay = document.getElementById("ping-display");
 
 export const players = [];
 export const gameObjects = [];

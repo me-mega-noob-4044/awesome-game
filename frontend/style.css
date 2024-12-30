@@ -137,3 +137,12 @@ input, button {
     font-weight: 700;
     color: white;
 }
+
+#ping-display {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 12px;
+    font-weight: 900;
+    color: white;
+}
