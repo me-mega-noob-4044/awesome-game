@@ -11,6 +11,7 @@ import showText from "./Events/showText.js";
 import killPlayer from "./Events/killPlayer.js";
 import hitAnimation from "./Events/hitAnimation.js";
 import pingResponse from "./Events/pingResponse.js";
+import updateXP from "./Events/updateXP.js";
 
 export default class PacketManager {
     static eventMap = new Map([
@@ -23,7 +24,8 @@ export default class PacketManager {
         [Packets.SERVER_TO_CLIENT.SHOW_TEXT, showText],
         [Packets.SERVER_TO_CLIENT.KILL_PLAYER, killPlayer],
         [Packets.SERVER_TO_CLIENT.HIT_ANIMATION, hitAnimation],
-        [Packets.SERVER_TO_CLIENT.PING_RESPONSE, pingResponse]
+        [Packets.SERVER_TO_CLIENT.PING_RESPONSE, pingResponse],
+        [Packets.SERVER_TO_CLIENT.UPDATE_XP, updateXP]
     ]);
 
     static handle(type, data) {

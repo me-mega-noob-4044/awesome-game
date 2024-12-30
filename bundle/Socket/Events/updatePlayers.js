@@ -32,21 +32,21 @@ export default function updatePlayers(data) {
             tmpObj.dt = 0;
 
             tmpObj.visible = true;
-        }
 
-        i += 4;
-    }
-
-    if (!particles.length) {
-        for (let i = 0; i < gameObjects.length; i++) {
-            let tmpObj = gameObjects[i];
-    
-            if (tmpObj && tmpObj.active && tmpObj.name == "pond" && tmpObj.y + tmpObj.scale > config.snowBiomeEndY) {
-                if (UTILS.getDistance(tmpObj, player) <= tmpObj.scale) {
-                    particles.push(new Particles(player.x, player.y, "pond"));
+            if (!particles.find(e => e.owner == tmpObj.sid)) {
+                for (let t = 0; t < gameObjects.length; t++) {
+                    let tmpObj = gameObjects[t];
+            
+                    if (tmpObj && tmpObj.active && tmpObj.name == "pond" && tmpObj.y + tmpObj.scale > config.snowBiomeEndY) {
+                        if (UTILS.getDistance(tmpObj, player) <= tmpObj.scale) {
+                            particles.push(new Particles(tmpObj.sid, player.x, player.y, "pond"));
+                        }
+                    }
                 }
             }
         }
+
+        i += 4;
     }
 
     PacketManager.sendMove(lastMoveDir);

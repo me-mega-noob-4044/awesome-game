@@ -19,7 +19,8 @@ const Packets = {
         KILL_PLAYER: "ok",
         HIT_ANIMATION: "hitttt",
         GET_CHAT: "AAAAAA",
-        PING_RESPONSE: "aeaeaeaea"
+        PING_RESPONSE: "aeaeaeaea",
+        UPDATE_XP: "asdasdasd"
     }
 };
 

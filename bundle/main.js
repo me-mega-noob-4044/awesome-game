@@ -14,6 +14,9 @@ export var healthBar = document.getElementById("health-bar");
 export var healthDisplay = document.getElementById("health-display");
 export var healthText = document.getElementById("heath-text");
 export var pingDisplay = document.getElementById("ping-display");
+export var xpBar = document.getElementById("xp-bar");
+export var xpDisplay = document.getElementById("xp-display");
+export var xpText = document.getElementById("xp-text");
 
 export const players = [];
 export const gameObjects = [];

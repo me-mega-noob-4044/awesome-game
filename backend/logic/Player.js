@@ -112,6 +112,18 @@ export default class Player {
         this.regenPower = config.playerRegenerationPower;
     }
 
+    addXP(xp) {
+        this.XP += xp;
+
+        if (this.XP > this.maxXP) {
+            this.age++;
+            this.XP = 0;
+            this.maxXP += 150;
+        }
+
+        this.send(Packets.SERVER_TO_CLIENT.UPDATE_XP, this.XP, this.maxXP);
+    }
+
     changeHealth(value, doer) {
         this.health += value;
 
@@ -126,10 +138,35 @@ export default class Player {
             this.send(Packets.SERVER_TO_CLIENT.KILL_PLAYER);
         }
 
-        if (doer) {}
+        if (doer) {
+            if (!this.isAlive) {
+                doer.addXP(150 * this.age);
+            }
+
+            doer.send(Packets.SERVER_TO_CLIENT.SHOW_TEXT, this.x, this.y, Math.ceil(value));
+        }
 
         this.send(Packets.SERVER_TO_CLIENT.UPDATE_HEALTH, this.health, this.maxHealth);
         if (value) this.send(Packets.SERVER_TO_CLIENT.SHOW_TEXT, this.x, this.y, Math.ceil(value), !doer);
+    }
+
+    attack(players) {
+        let tmp = {
+            x: this.x + Math.cos(this.dir) * this.scale * 1.8,
+            y: this.y + Math.sin(this.dir) * this.scale * 1.8
+        };
+
+        for (let i = 0; i < players.length; i++) {
+            let tmpObj = players[i];
+
+            if (tmpObj.isAlive && UTILS.getDistance(tmpObj, tmp) <= 26 + tmpObj.scale) { // 17 = hand scale
+                tmpObj.changeHealth(-15 * this.attackMlt, this);
+
+                let tmpDir = UTILS.getDirection(tmpObj, this);
+                tmpObj.xVel += Math.cos(tmpDir) * .7;
+                tmpObj.yVel += Math.sin(tmpDir) * .7;
+            }
+        }
     }
 
     update(delta, gameObjects) {

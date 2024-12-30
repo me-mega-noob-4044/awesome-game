@@ -2,7 +2,8 @@ import renderCircle from "../utils/renderCircle.js";
 import colorConfig from "./colorConfig.js";
 
 export default class Particles {
-    constructor(x, y, type) {
+    constructor(sid, x, y, type) {
+        this.owner = sid;
         this.x = x;
         this.y = y;
         this.type = type;
