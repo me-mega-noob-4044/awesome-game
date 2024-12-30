@@ -1,12 +1,12 @@
 import { particles } from "../../main.js";
 
-export default function renderParticleEffects(mainContext, xOffset, yOffset, delta) {
+export default function renderParticleEffects(mainContext, xOffset, yOffset, delta, type) {
     mainContext.globalAlpha = 1;
 
     for (let i = 0; i < particles.length; i++) {
         let tmpObj = particles[i];
 
-        if (tmpObj) {
+        if (tmpObj && type == tmpObj.type) {
             mainContext.save();
             mainContext.translate(tmpObj.x - xOffset, tmpObj.y - yOffset);
             tmpObj.render(mainContext, delta);

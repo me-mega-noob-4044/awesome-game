@@ -33,13 +33,13 @@ export default function updatePlayers(data) {
 
             tmpObj.visible = true;
 
-            if (!particles.find(e => e.owner == tmpObj.sid)) {
+            if (!particles.find(e => e.active && e.owner == tmpObj.sid)) {
                 for (let t = 0; t < gameObjects.length; t++) {
-                    let tmpObj = gameObjects[t];
+                    let gameObject = gameObjects[t];
             
-                    if (tmpObj && tmpObj.active && tmpObj.name == "pond" && tmpObj.y + tmpObj.scale > config.snowBiomeEndY) {
-                        if (UTILS.getDistance(tmpObj, player) <= tmpObj.scale) {
-                            particles.push(new Particles(tmpObj.sid, player.x, player.y, "pond"));
+                    if (gameObject && gameObject.active && gameObject.name == "pond" && gameObject.y + gameObject.scale > config.snowBiomeEndY) {
+                        if (UTILS.getDistance(gameObject, player) <= gameObject.scale) {
+                            particles.push(new Particles(tmpObj.sid, tmpObj.x, tmpObj.y, "pond"));
                         }
                     }
                 }

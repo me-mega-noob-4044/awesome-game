@@ -14,8 +14,8 @@ export default function renderGameObject(mainContext, xOffset, yOffset, delta, l
             mainContext.save();
             mainContext.translate(tmpObj.x - xOffset, tmpObj.y - yOffset);
 
-            if (tmpObj.name == "pond") {
-                if (layer == 0) {
+            if (tmpObj.name == "pond" || tmpObj.name == "lava pond") {
+                if (layer == 0 || (tmpObj.name == "lava pond" && layer == 4)) {
                     mainContext.fillStyle = colorConfig.sandColor;
                     renderCircle(0, 0, mainContext, tmpObj.scale + 50, false, true);
                 } else {
@@ -29,13 +29,13 @@ export default function renderGameObject(mainContext, xOffset, yOffset, delta, l
                         }
                     }
 
-                    if (tmpObj.y + tmpObj.scale <= config.snowBiomeEndY) {
+                    if (tmpObj.name == "pond" && tmpObj.y + tmpObj.scale <= config.snowBiomeEndY) {
                         if (layer == 1) {
                             mainContext.fillStyle = colorConfig.iceColor;
                             renderCircle(0, 0, mainContext, tmpObj.scale * tmpObj.waterMult, false, true);
                         }
                     } else {
-                        mainContext.fillStyle = colorConfig.waterColor;
+                        mainContext.fillStyle = tmpObj.name == "lava pond" ? colorConfig.lavaColor : colorConfig.waterColor;
                         renderCircle(0, 0, mainContext, tmpObj.scale * tmpObj.waterMult, false, true);
                     }
                 }

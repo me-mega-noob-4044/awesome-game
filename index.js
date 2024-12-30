@@ -36,14 +36,36 @@ export const gameObjects = [];
 
 // SET UP BUILDINGS
 
-ObjectManager.add(1, config.mapScale / 2, config.mapScale / 2, gameObjects.length, gameObjects);
-ObjectManager.add(0, 500, 500, gameObjects.length, gameObjects);
-ObjectManager.add(0, config.mapScale - 500, config.mapScale - 500, gameObjects.length, gameObjects);
-ObjectManager.add(0, 4e3, 2e3, gameObjects.length, gameObjects);
-ObjectManager.add(0, 2e3, 1e3, gameObjects.length, gameObjects);
-ObjectManager.add(0, 3500, 3500, gameObjects.length, gameObjects);
-ObjectManager.add(0, 1500, 4e3, gameObjects.length, gameObjects);
-ObjectManager.add(0, 4e3, 0, gameObjects.length, gameObjects);
+function initBuildings() {
+    // VOLCANO:
+
+    ObjectManager.add(1, config.mapScale / 2, config.mapScale / 2, gameObjects.length, gameObjects);
+
+    // PONDS:
+
+    ObjectManager.add(0, 5600, 6700, gameObjects.length, gameObjects);
+    ObjectManager.add(0, 5600, 5e3, gameObjects.length, gameObjects);
+    ObjectManager.add(0, 4e3, 6e3, gameObjects.length, gameObjects);
+    ObjectManager.add(0, 2200, 7e3, gameObjects.length, gameObjects);
+    ObjectManager.add(0, 900, 6e3, gameObjects.length, gameObjects);
+    ObjectManager.add(0, 2e3, 3e3, gameObjects.length, gameObjects);
+    ObjectManager.add(0, 2700, 1800, gameObjects.length, gameObjects);
+    ObjectManager.add(0, 1300, 0, gameObjects.length, gameObjects);
+    ObjectManager.add(0, 4e3, 300, gameObjects.length, gameObjects);
+    ObjectManager.add(0, 6e3, 900, gameObjects.length, gameObjects);
+    ObjectManager.add(0, 5600, 2500, gameObjects.length, gameObjects);
+    ObjectManager.add(0, 7e3, 3e3, gameObjects.length, gameObjects);
+
+    // LAVA POOLS
+
+    ObjectManager.add(2, 3300, 4e3, gameObjects.length, gameObjects);
+    ObjectManager.add(2, 4450, 3500, gameObjects.length, gameObjects);
+    ObjectManager.add(2, 4200, 4500, gameObjects.length, gameObjects);
+}
+
+initBuildings();
+
+// 1800 2100
 
 wss.on("connection", (ws) => {
     ws.PACKET_COUNT = 0;

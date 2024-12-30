@@ -177,9 +177,11 @@ export default class Player {
 
             if (this.volcanoTimer <= 0) {
                 this.volcanoTimer = 0;
-                this.changeHealth(UTILS.getDistance({ x: config.mapScale / 2, y: config.mapScale / 2 }, this) <= 250 ? -15 : -5);
+                this.changeHealth(UTILS.getDistance({ x: config.mapScale / 2, y: config.mapScale / 2 }, this) <= 250 ? -15 : this.inLavaPond ? -7.5 : -5);
             }
         }
+
+        this.inLavaPond = false;
 
         this.regenTimer -= delta;
         if (this.regenTimer <= 0) {
@@ -205,12 +207,12 @@ export default class Player {
         for (let i = 0; i < gameObjects.length; i++) {
             let tmpObj = gameObjects[i];
 
-            if (tmpObj && tmpObj.name == "pond" && tmpObj.active) {
+            if (tmpObj && (tmpObj.name == "lava pond" || tmpObj.name == "pond") && tmpObj.active) {
                 if (UTILS.getDistance(tmpObj, this) <= this.scale + tmpObj.scale) {
-                    if (tmpObj.y + tmpObj.scale <= config.snowBiomeEndY) {
+                    if (tmpObj.name == "pond" && tmpObj.y + tmpObj.scale <= config.snowBiomeEndY) {
                         onIce = true;
                     } else {
-                        spdMlt *= .55;
+                        spdMlt *= (tmpObj.name == "lava pond" ? .35 : .55);
                         break;
                     }
                 }
@@ -236,15 +238,20 @@ export default class Player {
             for (let t = 0; t < gameObjects.length; t++) {
                 let tmpObj = gameObjects[t];
 
-                if (tmpObj && tmpObj.active && tmpObj.name == "volcano") {
+                if (tmpObj && tmpObj.active && (tmpObj.name == "lava pond" || tmpObj.name == "volcano")) {
                     let tmpDir = UTILS.getDirection(this, tmpObj);
                     let tmpScale = this.scale + 200;
 
                     if (this.volcanoTimer == 0 && UTILS.getDistance(tmpObj, this) <= tmpObj.scale) {
-                        this.volcanoTimer = UTILS.getDistance(tmpObj, this) <= 250 ? 100 : UTILS.getDistance(tmpObj, this) <= tmpObj.scale * .75 ? 250 : 500;
+                        if (tmpObj.name == "lava pond") {
+                            this.volcanoTimer = 1;
+                            this.inLavaPond = true;
+                        } else {
+                            this.volcanoTimer = UTILS.getDistance(tmpObj, this) <= 250 ? 100 : UTILS.getDistance(tmpObj, this) <= tmpObj.scale * .75 ? 250 : 500;
+                        }
                     }
 
-                    if (UTILS.getDistance(tmpObj, this) <= tmpScale) {
+                    if (tmpObj.name == "volcano" && UTILS.getDistance(tmpObj, this) <= tmpScale) {
                         this.x = tmpObj.x + (tmpScale * Math.cos(tmpDir));
                         this.y = tmpObj.y + (tmpScale * Math.sin(tmpDir));
                         this.xVel *= 0.75;

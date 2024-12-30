@@ -13,6 +13,13 @@ const buildingData = new Map([
         id: 1,
         scale: 505,
         layer: 3
+    }],
+
+    [2, {
+        name: "lava pond",
+        id: 2,
+        scale: 175,
+        layer: [4, 5]
     }]
 
 ]);

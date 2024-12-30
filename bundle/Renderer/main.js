@@ -1,4 +1,4 @@
-import { gameCanvas, mainContext, player, players } from "../main.js";
+import { gameCanvas, mainContext, player, players, particles } from "../main.js";
 import config from "../../backend/constants/config.js";
 import renderPlayers from "./Renders/renderPlayers.js";
 import UTILS from "../../backend/constants/utils.js";
@@ -11,6 +11,7 @@ import renderParticleEffects from "./Renders/renderParticleEffects.js";
 import renderAnimText from "./Renders/renderAnimText.js";
 import PacketManager from "../Socket/PacketManager.js";
 import Client from "../Socket/Client.js";
+import Particles from "./constants/Particles.js";
 
 var delta = 0;
 var lastUpdate = 0;
@@ -36,6 +37,7 @@ export default class Renderer {
     static camY = 0;
 
     static lastSendAim = 0;
+    static timeOut = 1e3;
 
     static resize() {
         let screenWidth = window.innerWidth;
@@ -61,7 +63,26 @@ export default class Renderer {
         );
     }
 
-    static lavaParticles(delta) {}
+    static lavaParticles(delta) {
+        this.timeOut -= delta;
+        if (this.timeOut <= 0) {
+            particles.push(new Particles(
+                -1,
+                UTILS.randInt(config.mapScale / 2 - 85, config.mapScale / 2 + 85),
+                UTILS.randInt(config.mapScale / 2 - 85, config.mapScale / 2 + 85),
+                "lava"
+            ));
+
+            for (let i = 0; i < 3; i++) if (Math.random() > .5) particles.push(new Particles(
+                -1,
+                UTILS.randInt(config.mapScale / 2 - 85, config.mapScale / 2 + 85),
+                UTILS.randInt(config.mapScale / 2 - 85, config.mapScale / 2 + 85),
+                "lava"
+            ));
+
+            this.timeOut = UTILS.randInt(250, 750);
+        }
+    }
 
     static update() {
         let now = Date.now();
@@ -142,9 +163,12 @@ export default class Renderer {
         renderGameObject(mainContext, xOffset, yOffset, delta, 0);
         renderGameObject(mainContext, xOffset, yOffset, delta, 1);
         renderGameObject(mainContext, xOffset, yOffset, delta, 2);
-        renderParticleEffects(mainContext, xOffset, yOffset, delta);
+        renderParticleEffects(mainContext, xOffset, yOffset, delta, "pond");
         renderGrid(mainContext);
         renderGameObject(mainContext, xOffset, yOffset, delta, 3);
+        renderGameObject(mainContext, xOffset, yOffset, delta, 4);
+        renderGameObject(mainContext, xOffset, yOffset, delta, 5);
+        renderParticleEffects(mainContext, xOffset, yOffset, delta, "lava");
         renderPlayers(mainContext, xOffset, yOffset, delta);
         renderMapBorders(mainContext, xOffset, yOffset);
 
@@ -153,7 +177,7 @@ export default class Renderer {
         mainContext.fillRect(0, 0, config.maxScreenWidth, config.maxScreenHeight);
 
         renderAnimText(mainContext, xOffset, yOffset, delta);
-        this.lavaParticles();
+        this.lavaParticles(delta);
 
         if (player) document.title = `${player.x.toFixed(0)} | ${player.y.toFixed(0)}`;
 
