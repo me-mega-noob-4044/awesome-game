@@ -1,18 +1,18 @@
 {
-  "scripts": {
-    "start": "node index.js"
-  },
-  "type": "module",
-  "dependencies": {
-    "@babel/preset-env": "^7.26.0",
-    "babel-loader": "^9.2.1",
-    "express": "^4.21.2",
-    "msgpack-lite": "^0.1.26",
-    "path": "^0.12.7",
-    "webpack": "^5.97.1",
-    "ws": "^8.18.0"
-  },
-  "devDependencies": {
-    "webpack-cli": "^6.0.1"
-  }
+    "scripts": {
+        "start": "node index.js"
+    },
+    "type": "module",
+    "dependencies": {
+        "@babel/preset-env": "^7.26.0",
+        "babel-loader": "^9.2.1",
+        "express": "^4.21.2",
+        "msgpack-lite": "^0.1.26",
+        "path": "^0.12.7",
+        "webpack": "^5.97.1",
+        "ws": "^8.18.0"
+    },
+    "devDependencies": {
+        "webpack-cli": "^6.0.1"
+    }
 }

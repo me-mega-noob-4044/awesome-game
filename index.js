@@ -128,7 +128,7 @@ setInterval(() => {
 
         if (!player) continue;
 
-        player.update(config.serverUpdateSpeed, gameObjects);
+        player.update(config.serverUpdateSpeed, players, gameObjects);
 
         for (let t = 0; t < players.length; t++) {
             let other = players[t];

@@ -24,6 +24,7 @@ export var minimapCanvas = document.getElementById("minimap");
 export var mapContext = minimapCanvas.getContext("2d");
 
 export var leaderboard = document.getElementById("leaderboard");
+export var leaderboardDisplay = document.getElementById("leaderboard-display");
 
 export const players = [];
 export const gameObjects = [];

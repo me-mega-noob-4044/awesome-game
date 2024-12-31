@@ -245,14 +245,15 @@ input, button {
     position: absolute;
     top: 10px;
     left: 10px;
-    width: 200px;
+    width: 250px;
     background-color: rgba(0, 0, 0, .25);
     border-radius: 4px;
+    padding: 4px;
 }
 
 .leaderboard-item {
-    max-width: 200px;
+    max-width: 275px;
     color: white;
-    margin: 4px;
+    margin-left: 7px;
     font-weight: 700;
 }

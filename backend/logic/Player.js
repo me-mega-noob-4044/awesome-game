@@ -191,7 +191,7 @@ export default class Player {
         }
     }
 
-    update(delta, gameObjects) {
+    update(delta, players, gameObjects) {
         if (!this.isAlive) return;
 
         if (this.volcanoTimer > 0) {
@@ -282,6 +282,23 @@ export default class Player {
                 }
             }
         }
+
+        let tmpIndx = players.indexOf(this);
+		for (let i = tmpIndx + 1; i < players.length; ++i) {
+            let other = players[i];
+
+			if (other != this && other.alive) {
+                let tmpInt = UTILS.getDistance(this, other) - (this.scale + other.scale);
+                tmpInt = (tmpInt * -1) / 2;
+
+                let tmpDir = UTILS.getDirection(this, other);
+
+				this.x += (tmpInt * Math.cos(tmpDir));
+				this.y += (tmpInt * Math.sin(tmpDir));
+				other.x -= (tmpInt * Math.cos(tmpDir));
+				other.y -= (tmpInt * Math.sin(tmpDir));
+            }
+		}
 
         if (this.xVel) {
             this.xVel *= Math.pow(onIce ? config.icePlayerDecel : config.playerDecel, delta);
