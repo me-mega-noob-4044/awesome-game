@@ -43,7 +43,7 @@ export default function loadAi(data) {
             tmpObj = new AI(data[i + 1], data[i + 2], data[i + 3], data[i]);
             ais.push(tmpObj);
 
-            ClientSideUTILS.setAiBySid(data[i + 1], tmpObj);
+            ClientSideUTILS.setAiBySid(data[i], tmpObj);
 
             tmpObj.x2 = tmpObj.x;
             tmpObj.y2 = tmpObj.y;
@@ -55,6 +55,6 @@ export default function loadAi(data) {
             tmpObj.visible = true;
         }
 
-        i += 5;
+        i += 6;
     }
 }
