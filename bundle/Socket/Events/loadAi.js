@@ -1,7 +1,6 @@
 import { ais } from "../../main.js";
 import AI from "../../../backend/logic/AI.js";
 import ClientSideUTILS from "../../constants/utils.js";
-import AiManager from "../../../backend/logic/AiManager.js";
 
 /*
 ai.sid, 0

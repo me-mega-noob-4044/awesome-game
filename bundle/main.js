@@ -20,6 +20,9 @@ export var xpText = document.getElementById("xp-text");
 export var chatLog = document.getElementById("chat-log");
 var chatBox = document.getElementById("chat-box");
 
+export var minimapCanvas = document.getElementById("minimap");
+export var mapContext = minimapCanvas.getContext("2d");
+
 export const players = [];
 export const gameObjects = [];
 export const particles = [];

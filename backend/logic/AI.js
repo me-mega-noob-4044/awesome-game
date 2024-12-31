@@ -33,6 +33,8 @@ export default class AI {
 
         this.targetDir = 0;
         this.dir = 0;
+
+        this.isAI = true;
     }
 
     update(delta) {

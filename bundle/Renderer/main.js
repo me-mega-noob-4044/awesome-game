@@ -1,4 +1,4 @@
-import { gameCanvas, mainContext, player, players, particles } from "../main.js";
+import { gameCanvas, mainContext, player, players, particles, ais } from "../main.js";
 import config from "../../backend/constants/config.js";
 import renderPlayers from "./Renders/renderPlayers.js";
 import UTILS from "../../backend/constants/utils.js";
@@ -13,6 +13,7 @@ import PacketManager from "../Socket/PacketManager.js";
 import Client from "../Socket/Client.js";
 import Particles from "./constants/Particles.js";
 import renderChats from "./Renders/renderChats.js";
+import renderMinimap from "./Renders/renderMinimap.js";
 
 var delta = 0;
 var lastUpdate = 0;
@@ -129,8 +130,8 @@ export default class Renderer {
             this.camY = config.mapScale / 2;
         }
 
-        for (let i = 0; i < players.length; i++) {
-            let tmpObj = players[i];
+        for (let i = 0; i < players.length + ais.length; i++) {
+            let tmpObj = players[i] || ais[i - players.length];
 
             if (tmpObj && tmpObj.visible) {
                 if (tmpObj.forcePos) {
@@ -184,6 +185,8 @@ export default class Renderer {
 
         renderNames(mainContext, xOffset, yOffset);
         renderChats(mainContext, xOffset, yOffset, delta);
+
+        renderMinimap();
 
         window.requestAnimationFrame(() => {
             Renderer.update();
