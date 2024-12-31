@@ -20,7 +20,7 @@ export default function renderAi(mainContext, xOffset, yOffset) {
     for (let i = 0; i < ais.length; i++) {
         let tmpObj = ais[i];
 
-        if (tmpObj) {
+        if (tmpObj && tmpObj.visible) {
             mainContext.save();
             mainContext.translate(tmpObj.x - xOffset, tmpObj.y - yOffset);
             mainContext.rotate(tmpObj.dir - Math.PI / 2);

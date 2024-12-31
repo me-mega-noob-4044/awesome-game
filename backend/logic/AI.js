@@ -31,6 +31,8 @@ export default class AI {
 
         this.isAI = true;
         this.isAlive = true;
+
+        this.deathTimer = 0;
     }
 
     changeHealth(value, doer) {
@@ -44,11 +46,12 @@ export default class AI {
         if (this.health <= 0) {
             this.health = 0;
             this.isAlive = false;
+            this.deathTimer = UTILS.randInt(2500, 7500);
         }
 
         if (doer) {
             if (!this.isAlive) {
-                doer.addXP(150 * this.age);
+                doer.addXP(this.xp);
             }
 
             doer.send(Packets.SERVER_TO_CLIENT.SHOW_TEXT, this.x, this.y, Math.ceil(value));
@@ -56,6 +59,21 @@ export default class AI {
     }
 
     update(delta) {
+        if (!this.isAlive) {
+            this.deathTimer -= delta;
+
+            if (this.deathTimer <= 0) {
+                this.deathTimer = 0;
+                this.isAlive = false;
+
+                this.health = this.maxHealth;
+                this.x = UTILS.randInt(0, config.mapScale);
+                this.y = UTILS.randInt(0, config.mapScale);
+            }
+
+            return;
+        }
+
         let onIce = false;
 
         let tmpSpeed = UTILS.getDistance({ x: 0, y: 0 }, { x: this.xVel * delta, y: this.yVel * delta });
