@@ -25,6 +25,7 @@ export default class AI {
         this.isHostile = data.isHostile;
         this.dmg = data.dmg;
         this.scale = data.scale;
+        this.src = data.src;
 
         this.health = this.maxHealth = data.health;
 

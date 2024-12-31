@@ -14,6 +14,7 @@ import Client from "../Socket/Client.js";
 import Particles from "./constants/Particles.js";
 import renderChats from "./Renders/renderChats.js";
 import renderMinimap from "./Renders/renderMinimap.js";
+import renderAi from "./Renders/renderAi..js";
 
 var delta = 0;
 var lastUpdate = 0;
@@ -172,6 +173,7 @@ export default class Renderer {
         renderGameObject(mainContext, xOffset, yOffset, delta, 5);
         renderParticleEffects(mainContext, xOffset, yOffset, delta, "lava");
         renderPlayers(mainContext, xOffset, yOffset, delta);
+        renderAi(mainContext, xOffset, yOffset);
         renderMapBorders(mainContext, xOffset, yOffset);
 
         mainContext.globalAlpha = 1;
