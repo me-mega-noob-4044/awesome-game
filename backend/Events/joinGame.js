@@ -10,6 +10,8 @@ export default function joinGame(ws, ...args) {
 
         ws.NEW_CLIENT = player;
         players.push(player);
+    } else if (player && player.isAlive) {
+        return;
     }
 
     player.setName(args[0]);
