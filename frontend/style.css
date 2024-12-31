@@ -141,8 +141,8 @@ input, button {
 
 #ping-display {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 165px;
+    right: 10px;
     font-size: 12px;
     font-weight: 900;
     color: white;

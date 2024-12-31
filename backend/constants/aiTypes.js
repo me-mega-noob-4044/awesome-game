@@ -13,8 +13,8 @@ const aiTypes = [{
     speed: .0018,
     dmg: 15,
     src: "https://i.imgur.com/eKlFlSj.png",
-    turnSpeed: .0018,
-    scale: 105,
+    turnSpeed: .0012,
+    scale: 155,
     isHostile: true
 }, {
     name: "Duck",
@@ -23,15 +23,24 @@ const aiTypes = [{
     speed: .0032,
     src: "https://i.imgur.com/VYCKtfc.png",
     turnSpeed: .0024,
-    scale: 35,
+    scale: 70,
 }, {
     name: "Fish",
+    health: 100,
+    xp: 40,
+    speed: .0022,
+    scale: 70,
     src: "https://i.imgur.com/WGUQDaq.png",
+    turnSpeed: .0018,
     onlyWater: true
 }, {
     name: "Sheep",
-    health: 300,
+    health: 175,
+    xp: 150,
+    speed: .0032,
+    scale: 95,
     src: "https://i.imgur.com/kHuLwsD.png",
+    turnSpeed: .005,
     followRandPlayer: true
 }];
 

@@ -19,7 +19,7 @@ export default function loadAi(data) {
         ais[i].visible = false;
     }
 
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length; i += 5) {
         let tmpObj = ClientSideUTILS.findAiBySid(data[i]);
 
         if (tmpObj) {

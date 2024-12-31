@@ -49,6 +49,7 @@ export default class Player {
 
     setName(name) {
         this.name = name || `combatant ${this.sid + 1}`;
+        this.name = this.name.slice(0, 15);
     }
 
     send(type, ...args) {

@@ -9,6 +9,8 @@ function getImage(src) {
         image = new Image();
         image.src = src;
         imageCache[src] = image;
+
+        console.log("AAAHH")
     }
 
     return image;

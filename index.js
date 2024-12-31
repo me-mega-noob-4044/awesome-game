@@ -65,6 +65,12 @@ function initGame() {
     ObjectManager.add(2, 4200, 4500, gameObjects.length, gameObjects);
 
     AiManager.add(1, config.mapScale / 2, config.mapScale / 2);
+
+    const animalIds = [2, 4];
+
+    for (let i = 0; i < 10; i++) {
+        AiManager.add(animalIds[Math.floor(Math.random() * animalIds.length)], UTILS.randInt(0, config.mapScale), UTILS.randInt(0, config.mapScale));
+    }
 }
 
 initGame();
