@@ -21,6 +21,7 @@ export default class AI {
         this.src = data.src;
         this.xp = data.xp;
         this.onlyWater = data.onlyWater;
+        this.volcanoAi = data.volcanoAi;
 
         this.health = this.maxHealth = data.health;
 
@@ -185,6 +186,23 @@ export default class AI {
             this.y = this.scale;
         } else if (this.y + this.scale > config.mapScale) {
             this.y = config.mapScale - this.scale;
+        }
+
+        if (this.volcanoAi) {
+            let tmp = {
+                x: config.mapScale / 2,
+                y: config.mapScale / 2
+            };
+
+            let dir = UTILS.getDirection(this, tmp);
+            let tmpScale = 800;
+
+            if (UTILS.getDistance(tmp, this) > tmpScale) {
+                this.x = tmp.x + Math.cos(dir) * tmpScale;
+                this.y = tmp.y + Math.sin(dir) * tmpScale;
+                this.xVel *= .75;
+                this.yVel *= .75;
+            }
         }
     }
 }

@@ -15,6 +15,7 @@ const aiTypes = [{
     src: "https://i.imgur.com/eKlFlSj.png",
     turnSpeed: .0012,
     scale: 155,
+    volcanoAi: true,
     isHostile: true
 }, {
     name: "Duck",
