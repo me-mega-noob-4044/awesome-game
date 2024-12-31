@@ -48,7 +48,7 @@ export default class Player {
     }
 
     setName(name) {
-        this.name = name || "unknown";
+        this.name = name || `retard #${this.sid}`;
     }
 
     send(type, ...args) {

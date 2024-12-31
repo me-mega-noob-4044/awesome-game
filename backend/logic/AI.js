@@ -27,4 +27,8 @@ export default class AI {
         this.targetDir = 0;
         this.dir = 0;
     }
+
+    update(delta) {
+        // 
+    }
 }
