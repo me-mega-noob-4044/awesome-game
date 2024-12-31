@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const wss = new WebSocketServer({ noServer: true });
 
-const server = app.listen(7070, () => {
+const server = app.listen(7070, "0.0.0.0", () => {
     console.log("Listening on port 7070");
 });
 
@@ -30,13 +30,15 @@ import config from "./backend/constants/config.js";
 import Packets from "./backend/constants/Packets.js";
 import ServerPacketManager from "./backend/logic/PacketManager.js";
 import ObjectManager from "./backend/logic/ObjectManager.js";
+import AiManager from "./backend/logic/AiManager.js";
 
 export const players = [];
 export const gameObjects = [];
+export const ais = [];
 
 // SET UP BUILDINGS
 
-function initBuildings() {
+function initGame() {
     // VOLCANO:
 
     ObjectManager.add(1, config.mapScale / 2, config.mapScale / 2, gameObjects.length, gameObjects);
@@ -61,11 +63,11 @@ function initBuildings() {
     ObjectManager.add(2, 3300, 4e3, gameObjects.length, gameObjects);
     ObjectManager.add(2, 4450, 3500, gameObjects.length, gameObjects);
     ObjectManager.add(2, 4200, 4500, gameObjects.length, gameObjects);
+
+    AiManager.add(1, config.mapScale / 2, config.mapScale / 2);
 }
 
-initBuildings();
-
-// 1800 2100
+initGame();
 
 wss.on("connection", (ws) => {
     ws.PACKET_COUNT = 0;
@@ -158,6 +160,12 @@ setInterval(() => {
         }
 
         player.send(Packets.SERVER_TO_CLIENT.UPDATE_PLAYERS, data);
+    }
+
+    for (let i = 0; i < ais.length; i++) {
+        let ai = ais[i];
+
+        if (ai) ai.update(config.serverUpdateSpeed);
     }
 }, config.serverUpdateSpeed);
 

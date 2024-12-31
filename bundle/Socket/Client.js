@@ -14,6 +14,10 @@ export default class Client {
     }
 
     static connect() {
-        this.socket = new Socket("ws://localhost:7070");
+        if (location.href.includes("localhost")) {
+            this.socket = new Socket("ws://localhost:7070");
+        } else {
+            this.socket = new Socket(`wss://${location.href.split("://")[1]}`);
+        }
     }
 }
