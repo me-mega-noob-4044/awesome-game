@@ -185,8 +185,8 @@ export default class Player {
                 tmpObj.changeHealth(-15 * this.attackMlt, this);
 
                 let tmpDir = UTILS.getDirection(tmpObj, this);
-                tmpObj.xVel += Math.cos(tmpDir) * .7;
-                tmpObj.yVel += Math.sin(tmpDir) * .7;
+                tmpObj.xVel += Math.cos(tmpDir) * .35;
+                tmpObj.yVel += Math.sin(tmpDir) * .35;
             }
         }
     }
