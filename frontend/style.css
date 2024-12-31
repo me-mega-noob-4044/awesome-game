@@ -213,3 +213,17 @@ input, button {
 #chat-box::placeholder {
     color: lightgray;
 }
+
+#chat-log {
+    position: absolute;
+    width: 400px;
+    height: 300px;
+    bottom: 20px;
+    left: 20px;
+    background-color:rgba(0, 0, 0, .3);
+    border: solid;
+    border-width: 3px;
+    border-radius: 4px;
+    border-color: var(--outline-color);
+    overflow-y: scroll;
+}
