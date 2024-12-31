@@ -7,14 +7,19 @@ name: "Dragon",
     turnSpeed: .0018,
     scale: 105,
     isHostile: true
-    */
+*/
+
+import aiTypes from "../constants/aiTypes.js";
 
 export default class AI {
-    constructor(data, x, y, sid) {
+    constructor(id, x, y, sid) {
+        let data = aiTypes[id];
+
         this.name = data.name;
         this.x = x;
         this.y = y;
         this.sid = sid;
+        this.id = id; // AI type refrence (no know spell :()
 
         this.turnSpeed = data.turnSpeed;
         this.isHostile = data.isHostile;
