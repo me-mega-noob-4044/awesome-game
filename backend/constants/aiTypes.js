@@ -13,6 +13,7 @@ const aiTypes = [{
     dmg: 15,
     src: "https://i.imgur.com/eKlFlSj.png",
     turnSpeed: .0018,
+    scale: 105,
     isHostile: true
 }];
 

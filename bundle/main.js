@@ -17,6 +17,7 @@ export var pingDisplay = document.getElementById("ping-display");
 export var xpBar = document.getElementById("xp-bar");
 export var xpDisplay = document.getElementById("xp-display");
 export var xpText = document.getElementById("xp-text");
+export var chatLog = document.getElementById("chat-log");
 var chatBox = document.getElementById("chat-box");
 
 export const players = [];

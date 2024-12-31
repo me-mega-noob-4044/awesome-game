@@ -129,6 +129,7 @@ export default class Player {
             this.maxXP += 150;
 
             this.changeHealth(this.maxHealth);
+            this.send(Packets.SERVER_TO_CLIENT.UPDATE_AGE, this.age);
         }
 
         this.send(Packets.SERVER_TO_CLIENT.UPDATE_XP, this.XP, this.maxXP);

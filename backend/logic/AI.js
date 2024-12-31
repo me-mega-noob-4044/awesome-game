@@ -5,6 +5,7 @@ name: "Dragon",
     dmg: 15,
     src: "https://i.imgur.com/eKlFlSj.png",
     turnSpeed: .0018,
+    scale: 105,
     isHostile: true
     */
 
@@ -18,6 +19,7 @@ export default class AI {
         this.turnSpeed = data.turnSpeed;
         this.isHostile = data.isHostile;
         this.dmg = data.dmg;
+        this.scale = data.scale;
 
         this.health = this.maxHealth = data.health;
 

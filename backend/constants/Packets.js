@@ -20,7 +20,9 @@ const Packets = {
         HIT_ANIMATION: "hitttt",
         GET_CHAT: "AAAAAA",
         PING_RESPONSE: "aeaeaeaea",
-        UPDATE_XP: "asdasdasd"
+        UPDATE_XP: "asdasdasd",
+        UPDATE_AGE: "hahaha u aged up",
+        LOAD_AI: "aiiaaiiai"
     }
 };
 

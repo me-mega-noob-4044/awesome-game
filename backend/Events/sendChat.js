@@ -2,6 +2,8 @@ import { players } from "../../index.js";
 import Packets from "../constants/Packets.js";
 
 export default function sendChat(ws, msg) {
+    msg = msg.slice(0, 100);
+
     for (let i = 0; i < players.length; i++) {
         let player = players[i];
 

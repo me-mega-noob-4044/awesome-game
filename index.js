@@ -159,6 +159,26 @@ setInterval(() => {
             player.send(Packets.SERVER_TO_CLIENT.LOAD_GAME_OBJECT, gameObjectsData);
         }
 
+        let aiData = [];
+
+        for (let t = 0; t < ais.length; t++) {
+            let ai = ais[t];
+
+            if (ai && player.canSee(ai)) {
+                aiData.push(
+                    ai.sid,
+                    ai.id,
+                    ai.x,
+                    ai.y,
+                    ai.dir
+                );
+            }
+        }
+
+        if (aiData.length) {
+            player.send(Packets.SERVER_TO_CLIENT.LOAD_AI, aiData);
+        }
+
         player.send(Packets.SERVER_TO_CLIENT.UPDATE_PLAYERS, data);
     }
 
