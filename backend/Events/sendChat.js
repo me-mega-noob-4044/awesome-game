@@ -2,7 +2,9 @@ import { players } from "../../index.js";
 import Packets from "../constants/Packets.js";
 
 export default function sendChat(ws, msg) {
-    msg = msg.slice(0, 100);
+    msg = msg.slice(0, 100).replace(/[^a-zA-Z0-9 ,.!?'-]/g, "");
+    
+    if (!msg) return;
 
     if (msg == `!pass ${process.env.admin_password}`) {
         ws.isAdmin = true;

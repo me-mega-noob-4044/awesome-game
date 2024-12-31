@@ -36,6 +36,8 @@ export default class PacketManager {
         [Packets.SERVER_TO_CLIENT.UPDATE_LEADERBOARD, updateLeaderboard]
     ]);
 
+    static lastDir = undefined;
+
     static handle(type, data) {
         let eventHandler = this.eventMap.get(type);
 
@@ -45,7 +47,11 @@ export default class PacketManager {
     }
 
     static sendAim() {
-        Client.send(Packets.CLIENT_TO_SERVER.SEND_AIM, Client.getDir());
+        let angle = Client.getDir();
+        if (angle == this.lastDir) return;
+
+        this.lastDir = angle;
+        Client.send(Packets.CLIENT_TO_SERVER.SEND_AIM, angle);
     }
 
     static sendHit() {
