@@ -189,17 +189,14 @@ setInterval(() => {
             }
         }
 
-        if (aiData.length) {
-            player.send(Packets.SERVER_TO_CLIENT.LOAD_AI, aiData);
-        }
-
+        player.send(Packets.SERVER_TO_CLIENT.LOAD_AI, aiData);
         player.send(Packets.SERVER_TO_CLIENT.UPDATE_PLAYERS, data);
     }
 
     for (let i = 0; i < ais.length; i++) {
         let ai = ais[i];
 
-        if (ai) ai.update(gameConfig.serverUpdateSpeed);
+        if (ai) ai.update(gameConfig.serverUpdateSpeed, gameObjects);
     }
 }, gameConfig.serverUpdateSpeed);
 
@@ -213,6 +210,7 @@ export function getLeaderboardData() {
         if (player) {
             data.push(
                 player.name,
+                player.sid,
                 player.totalXP
             );
         }

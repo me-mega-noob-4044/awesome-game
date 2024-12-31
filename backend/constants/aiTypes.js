@@ -9,7 +9,7 @@ const aiTypes = [{
 }, {
     name: "Dragon",
     health: 3200,
-    xp: 3e3,
+    xp: 6e3,
     speed: .0018,
     dmg: 15,
     src: "https://i.imgur.com/eKlFlSj.png",
@@ -19,7 +19,7 @@ const aiTypes = [{
 }, {
     name: "Duck",
     health: 50,
-    xp: 25,
+    xp: 50,
     speed: .0032,
     src: "https://i.imgur.com/VYCKtfc.png",
     turnSpeed: .0024,
@@ -27,7 +27,7 @@ const aiTypes = [{
 }, {
     name: "Fish",
     health: 100,
-    xp: 40,
+    xp: 80,
     speed: .0022,
     scale: 70,
     src: "https://i.imgur.com/WGUQDaq.png",
@@ -36,7 +36,7 @@ const aiTypes = [{
 }, {
     name: "Sheep",
     health: 175,
-    xp: 150,
+    xp: 300,
     speed: .0032,
     scale: 95,
     src: "https://i.imgur.com/kHuLwsD.png",

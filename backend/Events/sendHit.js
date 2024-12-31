@@ -5,8 +5,8 @@ import Packets from "../constants/Packets.js";
 export default function sendHit(ws, angle) {
     let player = ws.NEW_CLIENT;
 
-    if (player.meleeReload > 0) return;
-    player.meleeReload = config.serverUpdateSpeed;
+    // if (player.meleeReload > 0) return;
+    // player.meleeReload = config.serverUpdateSpeed;
 
     player.dir = angle;
     player.attack(players, ais);

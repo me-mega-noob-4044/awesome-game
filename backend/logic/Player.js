@@ -213,8 +213,8 @@ export default class Player {
 
         if (!this.isAlive) return;
 
-        this.meleeReload -= delta;
-        if (this.meleeReload <= 0) this.meleeReload = 0;
+        // this.meleeReload -= delta;
+        // if (this.meleeReload <= 0) this.meleeReload = 0;
 
         let xVel = this.moveDir != undefined ? Math.cos(this.moveDir) : 0;
         let yVel = this.moveDir != undefined ? Math.sin(this.moveDir) : 0;

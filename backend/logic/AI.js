@@ -16,6 +16,7 @@ export default class AI {
         this.turnSpeed = data.turnSpeed;
         this.isHostile = data.isHostile;
         this.dmg = data.dmg;
+        this.speed = data.speed;
         this.scale = data.scale;
         this.src = data.src;
         this.xp = data.xp;
@@ -33,6 +34,7 @@ export default class AI {
         this.isAlive = true;
 
         this.deathTimer = 0;
+        this.moveDir = 0;
     }
 
     changeHealth(value, doer) {
@@ -58,7 +60,7 @@ export default class AI {
         }
     }
 
-    update(delta) {
+    update(delta, gameObjects) {
         if (!this.isAlive) {
             this.deathTimer -= delta;
 
@@ -75,6 +77,38 @@ export default class AI {
         }
 
         let onIce = false;
+
+        let xVel = this.moveDir != undefined ? Math.cos(this.moveDir) : 0;
+        let yVel = this.moveDir != undefined ? Math.sin(this.moveDir) : 0;
+        let length = Math.sqrt(xVel * xVel + yVel * yVel);
+        let spdMlt = 1;
+
+        if (this.y <= config.snowBiomeEndY) {
+            spdMlt *= .75; // 25% speed decrease when on snow
+        }
+
+        for (let i = 0; i < gameObjects.length; i++) {
+            let tmpObj = gameObjects[i];
+
+            if (tmpObj && (tmpObj.name == "lava pond" || tmpObj.name == "pond") && tmpObj.active) {
+                if (UTILS.getDistance(tmpObj, this) <= this.scale + tmpObj.scale) {
+                    if (tmpObj.name == "pond" && tmpObj.y + tmpObj.scale <= config.snowBiomeEndY) {
+                        onIce = true;
+                    } else {
+                        spdMlt *= (tmpObj.name == "lava pond" ? .35 : .55);
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (length != 0) {
+            xVel /= length;
+            yVel /= length;
+        }
+
+        if (xVel) this.xVel += xVel * this.speed * spdMlt * delta;
+        if (yVel) this.yVel += yVel * this.speed * spdMlt * delta;
 
         let tmpSpeed = UTILS.getDistance({ x: 0, y: 0 }, { x: this.xVel * delta, y: this.yVel * delta });
         let depth = Math.min(4, Math.max(1, Math.round(tmpSpeed / 40)));

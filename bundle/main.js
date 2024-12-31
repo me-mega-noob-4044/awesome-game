@@ -99,7 +99,7 @@ function doRetardedChatStuff() {
 }
 
 function keyActive() {
-    return document.activeElement.id == chatBox.id;
+    return document.activeElement.id != chatBox.id;
 }
 
 window.addEventListener("keydown", (event) => {
@@ -107,7 +107,7 @@ window.addEventListener("keydown", (event) => {
 
     keys[event.keyCode] = 1;
 
-    if (!keyActive() && moveKeys[event.keyCode]) {
+    if (keyActive() && moveKeys[event.keyCode]) {
         lastMoveDir = getMoveDir();
     } else if (event.keyCode == 13) {
         doRetardedChatStuff();
@@ -119,8 +119,12 @@ window.addEventListener("keyup", (event) => {
 
     keys[event.keyCode] = 0;
 
-    if (!keyActive() && moveKeys[event.keyCode]) {
-        lastMoveDir = getMoveDir();
+    if (keyActive()) {
+        if (moveKeys[event.keyCode]) {
+            lastMoveDir = getMoveDir();
+        } else if (event.keyCode == 32) {
+            PacketManager.sendHit();
+        }
     }
 });
 
