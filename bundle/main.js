@@ -23,6 +23,8 @@ var chatBox = document.getElementById("chat-box");
 export var minimapCanvas = document.getElementById("minimap");
 export var mapContext = minimapCanvas.getContext("2d");
 
+export var ageDisplay = document.getElementById("age-display");
+
 export var leaderboard = document.getElementById("leaderboard");
 export var leaderboardDisplay = document.getElementById("leaderboard-display");
 

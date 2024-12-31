@@ -153,9 +153,15 @@ input, button {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     bottom: 76px;
     left: 0px;
     width: 100%;
+}
+
+#age-display {
+    font-weight: 700;
+    color: white;
 }
 
 #xp-bar {

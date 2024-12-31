@@ -9,7 +9,7 @@ const config = {
     serverUpdateSpeed: 1e3 / 9,
     playerSpeed: .0016, // .0016
     playerDecel: .993,
-    icePlayerDecel: .999,
+    icePlayerDecel: .998,
     snowBiomeEndY: 2e3,
     waveSpeed: .000025,
     waveMax: 1.05
