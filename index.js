@@ -214,7 +214,7 @@ setInterval(() => {
         for (let i = 0; i < ais.length; i++) {
             let ai = ais[i];
 
-            if (ai) ai.update(gameConfig.serverUpdateSpeed, gameObjects);
+            if (ai) ai.update(gameConfig.serverUpdateSpeed, players, gameObjects);
         }
     } catch (error) {
         console.error("Game loop error:", error);

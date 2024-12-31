@@ -22,6 +22,8 @@ export default class AI {
         this.xp = data.xp;
         this.onlyWater = data.onlyWater;
         this.volcanoAi = data.volcanoAi;
+        this.avoidObjects = data.avoidObjects;
+        this.aggroDistance = data.aggroDistance;
 
         this.health = this.maxHealth = data.health;
 
@@ -39,6 +41,9 @@ export default class AI {
         this.normalMovementTimer = 0;
         this.waitCount = 0;
         this.speedBoostTimer = 0;
+
+        this.targetTimer = 0;
+        this.target;
     }
 
     changeHealth(value, doer) {
@@ -49,7 +54,7 @@ export default class AI {
             this.health = this.maxHealth;
         }
 
-        if (value < 0) {
+        if (value < 0 && !this.isHostile) {
             this.targetDir = UTILS.getDirection(this, doer);
             this.speedBoostTimer = UTILS.randInt(4e3, 12e3);
         }
@@ -70,7 +75,7 @@ export default class AI {
         }
     }
 
-    update(delta, gameObjects) {
+    update(delta, players, gameObjects) {
         if (!this.isAlive) {
             this.deathTimer -= delta;
 
@@ -88,12 +93,32 @@ export default class AI {
 
         if (this.speedBoostTimer <= 0) {
             this.normalMovementTimer -= delta;
+
             if (this.normalMovementTimer <= 0) {
                 this.normalMovementTimer = UTILS.randInt(7500, 15e3);
                 this.targetDir = UTILS.randFloat(-Math.PI, Math.PI);
     
                 if (Math.random() < .25) {
                     this.waitCount = UTILS.randInt(2500, 7500);
+                }
+            }
+        }
+
+        if (this.aggroDistance) {
+            if (this.target) {
+                this.targetDir = UTILS.getDirection(this.target, this);
+                this.targetTimer -= delta;
+
+                if (this.targetTimer <= 0) {
+                    this.target = null;
+                    this.targetTimer = 0;
+                }
+            } else {
+                let filteredPlayers = players.filter(e => e.isAlive && UTILS.getDistance(e, this) <= this.aggroDistance);
+
+                if (filteredPlayers.length) {
+                    this.target = filteredPlayers.sort((a, b) => UTILS.getDistance(a, this) - UTILS.getDistance(b, this))[0];
+                    this.targetTimer = UTILS.randInt(15e3, 20e3);
                 }
             }
         }
@@ -126,16 +151,18 @@ export default class AI {
                 spdMlt *= .75; // 25% speed decrease when on snow
             }
     
-            for (let i = 0; i < gameObjects.length; i++) {
-                let tmpObj = gameObjects[i];
-    
-                if (tmpObj && (tmpObj.name == "lava pond" || tmpObj.name == "pond") && tmpObj.active) {
-                    if (UTILS.getDistance(tmpObj, this) <= this.scale + tmpObj.scale) {
-                        if (tmpObj.name == "pond" && tmpObj.y + tmpObj.scale <= config.snowBiomeEndY) {
-                            onIce = true;
-                        } else {
-                            spdMlt *= (tmpObj.name == "lava pond" ? .35 : .55);
-                            break;
+            if (!this.avoidObjects) {
+                for (let i = 0; i < gameObjects.length; i++) {
+                    let tmpObj = gameObjects[i];
+        
+                    if (tmpObj && (tmpObj.name == "lava pond" || tmpObj.name == "pond") && tmpObj.active) {
+                        if (UTILS.getDistance(tmpObj, this) <= this.scale + tmpObj.scale) {
+                            if (tmpObj.name == "pond" && tmpObj.y + tmpObj.scale <= config.snowBiomeEndY) {
+                                onIce = true;
+                            } else {
+                                spdMlt *= (tmpObj.name == "lava pond" ? .35 : .55);
+                                break;
+                            }
                         }
                     }
                 }
@@ -151,6 +178,10 @@ export default class AI {
 
                 this.speedBoostTimer -= delta;
                 if (this.speedBoostTimer <= 0) this.speedBoostTimer = 0;
+            }
+
+            if (this.target) {
+                spdMlt *= 1.8; // Mobs with target will run towards it
             }
     
             if (xVel) this.xVel += xVel * this.speed * spdMlt * delta;

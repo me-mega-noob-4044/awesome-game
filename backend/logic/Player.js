@@ -160,7 +160,7 @@ export default class Player {
             this.send(Packets.SERVER_TO_CLIENT.KILL_PLAYER);
         }
 
-        if (doer) {
+        if (doer && !doer.isAI) {
             if (!this.isAlive) {
                 doer.addXP(150 * this.age);
             }
