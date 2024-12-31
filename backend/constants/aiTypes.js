@@ -11,7 +11,7 @@ const aiTypes = [{
     health: 3200,
     xp: 6e3,
     speed: .001,
-    dmg: 15,
+    dmg: 12,
     src: "https://i.imgur.com/eKlFlSj.png",
     turnSpeed: .0012,
     scale: 155,
