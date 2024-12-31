@@ -48,7 +48,7 @@ export default class Player {
     }
 
     setName(name) {
-        this.name = name || `retard #${this.sid}`;
+        this.name = name || `combatant ${this.sid}`;
     }
 
     send(type, ...args) {
