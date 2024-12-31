@@ -49,6 +49,7 @@ export default class AI {
         }
 
         if (value < 0) {
+            this.targetDir = UTILS.getDirection(this, doer);
             this.speedBoostTimer = UTILS.randInt(4e3, 12e3);
         }
 
@@ -84,13 +85,15 @@ export default class AI {
             return;
         }
 
-        this.normalMovementTimer -= delta;
-        if (this.normalMovementTimer <= 0) {
-            this.normalMovementTimer = UTILS.randInt(7500, 15e3);
-            this.targetDir = UTILS.randFloat(-Math.PI, Math.PI);
-
-            if (Math.random() < .25) {
-                this.waitCount = UTILS.randInt(2500, 7500);
+        if (this.speedBoostTimer <= 0) {
+            this.normalMovementTimer -= delta;
+            if (this.normalMovementTimer <= 0) {
+                this.normalMovementTimer = UTILS.randInt(7500, 15e3);
+                this.targetDir = UTILS.randFloat(-Math.PI, Math.PI);
+    
+                if (Math.random() < .25) {
+                    this.waitCount = UTILS.randInt(2500, 7500);
+                }
             }
         }
 
@@ -143,7 +146,7 @@ export default class AI {
             }
 
             if (this.speedBoostTimer > 0) {
-                spdMlt *= 2.5;
+                spdMlt *= 10;
 
                 this.speedBoostTimer -= delta;
                 if (this.speedBoostTimer <= 0) this.speedBoostTimer = 0;
