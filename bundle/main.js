@@ -24,6 +24,7 @@ export const players = [];
 export const gameObjects = [];
 export const particles = [];
 export const animText = [];
+export const ais = [];
 export var player;
 
 export var mouseX = 0;

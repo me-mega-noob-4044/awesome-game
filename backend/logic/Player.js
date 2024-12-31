@@ -48,7 +48,7 @@ export default class Player {
     }
 
     setName(name) {
-        this.name = name || `combatant ${this.sid}`;
+        this.name = name || `combatant ${this.sid + 1}`;
     }
 
     send(type, ...args) {

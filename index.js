@@ -170,7 +170,8 @@ setInterval(() => {
                     ai.id,
                     ai.x,
                     ai.y,
-                    ai.dir
+                    ai.dir,
+                    ai.health
                 );
             }
         }

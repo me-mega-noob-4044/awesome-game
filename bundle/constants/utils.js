@@ -1,6 +1,19 @@
 export default class ClientSideUTILS {
     static playerIdMap = new Map();
     static playerSidMap = new Map();
+    static aiSidMap = new Map();
+
+    static findAiBySid(id) {
+        return this.aiSidMap.get(id);
+    }
+
+    static setAiBySid(id, player) {
+        this.aiSidMap.set(id, player);
+    }
+
+    static removeAiBySid(id) {
+        this.aiSidMap.delete(id);
+    }
 
     static findPlayerById(id) {
         return this.playerIdMap.get(id);
