@@ -26,6 +26,8 @@ export default class AI {
         this.dmg = data.dmg;
         this.scale = data.scale;
         this.src = data.src;
+        this.xp = data.xp;
+        this.onlyWater = data.onlyWater;
 
         this.health = this.maxHealth = data.health;
 

@@ -121,13 +121,19 @@ export default class Player {
     }
 
     addXP(xp) {
+        let leveledUp = false;
+
         this.XP += xp;
 
-        if (this.XP >= this.maxXP) {
+        while (this.XP >= this.maxXP) {
+            this.XP -= this.maxXP;
             this.age++;
-            this.XP = 0;
             this.maxXP += 150;
 
+            leveledUp = true;
+        }
+
+        if (leveledUp) {
             this.changeHealth(this.maxHealth);
             this.send(Packets.SERVER_TO_CLIENT.UPDATE_AGE, this.age);
         }
