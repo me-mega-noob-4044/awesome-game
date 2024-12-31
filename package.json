@@ -6,6 +6,7 @@
     "dependencies": {
         "@babel/preset-env": "^7.26.0",
         "babel-loader": "^9.2.1",
+        "dotenv": "^16.4.7",
         "express": "^4.21.2",
         "msgpack-lite": "^0.1.26",
         "path": "^0.12.7",

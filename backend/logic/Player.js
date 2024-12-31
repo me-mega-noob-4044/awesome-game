@@ -172,14 +172,14 @@ export default class Player {
         if (value) this.send(Packets.SERVER_TO_CLIENT.SHOW_TEXT, this.x, this.y, Math.ceil(value), !doer);
     }
 
-    attack(players) {
+    attack(players, ais) {
         let tmp = {
             x: this.x + Math.cos(this.dir) * this.scale * 1.8,
             y: this.y + Math.sin(this.dir) * this.scale * 1.8
         };
 
-        for (let i = 0; i < players.length; i++) {
-            let tmpObj = players[i];
+        for (let i = 0; i < players.length + ais.length; i++) {
+            let tmpObj = players[i] || ais[i - players.length];
 
             if (tmpObj.isAlive && UTILS.getDistance(tmpObj, tmp) <= 26 + tmpObj.scale) { // 17 = hand scale
                 tmpObj.changeHealth(-15 * this.attackMlt, this);

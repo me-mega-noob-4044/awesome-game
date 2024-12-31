@@ -1,3 +1,6 @@
+import { config } from "dotenv";
+config();
+
 import express from "express";
 import { WebSocketServer } from "ws";
 import path from "path";
@@ -26,7 +29,7 @@ app.get("/", (req, res) => {
 });
 
 import UTILS from "./backend/constants/utils.js";
-import config from "./backend/constants/config.js";
+import gameConfig from "./backend/constants/config.js";
 import Packets from "./backend/constants/Packets.js";
 import ServerPacketManager from "./backend/logic/PacketManager.js";
 import ObjectManager from "./backend/logic/ObjectManager.js";
@@ -41,7 +44,7 @@ export const ais = [];
 function initGame() {
     // VOLCANO:
 
-    ObjectManager.add(1, config.mapScale / 2, config.mapScale / 2, gameObjects.length, gameObjects);
+    ObjectManager.add(1, gameConfig.mapScale / 2, gameConfig.mapScale / 2, gameObjects.length, gameObjects);
 
     // PONDS:
 
@@ -64,12 +67,12 @@ function initGame() {
     ObjectManager.add(2, 4450, 3500, gameObjects.length, gameObjects);
     ObjectManager.add(2, 4200, 4500, gameObjects.length, gameObjects);
 
-    AiManager.add(1, config.mapScale / 2, config.mapScale / 2);
+    AiManager.add(1, gameConfig.mapScale / 2, gameConfig.mapScale / 2);
 
     const animalIds = [2, 4];
 
-    for (let i = 0; i < 10; i++) {
-        AiManager.add(animalIds[Math.floor(Math.random() * animalIds.length)], UTILS.randInt(0, config.mapScale), UTILS.randInt(0, config.mapScale));
+    for (let i = 0; i < 50; i++) {
+        AiManager.add(animalIds[Math.floor(Math.random() * animalIds.length)], UTILS.randInt(0, gameConfig.mapScale), UTILS.randInt(0, gameConfig.mapScale));
     }
 }
 
@@ -132,7 +135,7 @@ setInterval(() => {
 
         if (!player) continue;
 
-        player.update(config.serverUpdateSpeed, players, gameObjects);
+        player.update(gameConfig.serverUpdateSpeed, players, gameObjects);
 
         for (let t = 0; t < players.length; t++) {
             let other = players[t];
@@ -174,7 +177,7 @@ setInterval(() => {
         for (let t = 0; t < ais.length; t++) {
             let ai = ais[t];
 
-            if (ai && player.canSee(ai)) {
+            if (ai && player.canSee(ai) && ai.isAlive) {
                 aiData.push(
                     ai.sid,
                     ai.id,
@@ -196,9 +199,9 @@ setInterval(() => {
     for (let i = 0; i < ais.length; i++) {
         let ai = ais[i];
 
-        if (ai) ai.update(config.serverUpdateSpeed);
+        if (ai) ai.update(gameConfig.serverUpdateSpeed);
     }
-}, config.serverUpdateSpeed);
+}, gameConfig.serverUpdateSpeed);
 
 export function getLeaderboardData() {
     let sorted = players.filter(e => e.isAlive).sort((a, b) => b.totalXP - a.totalXP);

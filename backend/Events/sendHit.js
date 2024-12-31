@@ -1,4 +1,4 @@
-import { players } from "../../index.js";
+import { players, ais } from "../../index.js";
 import config from "../constants/config.js";
 import Packets from "../constants/Packets.js";
 
@@ -9,7 +9,7 @@ export default function sendHit(ws, angle) {
     player.meleeReload = config.serverUpdateSpeed;
 
     player.dir = angle;
-    player.attack(players);
+    player.attack(players, ais);
 
     for (let i = 0; i < players.length; i++) {
         let other = players[i];
