@@ -113,6 +113,11 @@ export default class Player {
         this.regenTimer = 0;
         this.regenRate = config.playerRegenerationRate;
         this.regenPower = config.playerRegenerationPower;
+
+        if (this.ws) {
+            this.addXP(0);
+            this.changeHealth(0);
+        }
     }
 
     addXP(xp) {
