@@ -111,8 +111,8 @@ export default class AI {
 
                 if (UTILS.getDistance(this.target, this) <= this.scale + this.target.scale) {
                     this.target.changeHealth(-this.dmg, this);
-                    this.target.xVel += Math.cos(this.targetDir) * .15;
-                    this.target.yVel += Math.sin(this.targetDir) * .15;
+                    this.target.xVel += Math.cos(this.targetDir) * .5;
+                    this.target.yVel += Math.sin(this.targetDir) * .5;
                 }
 
                 if (this.targetTimer <= 0) {
