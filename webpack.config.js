@@ -25,23 +25,6 @@ export default {
         }]
     },
 
-    resolve: {
-        fallback: {
-            "zlib": "browserify-zlib",
-            "querystring": "querystring-es3",
-            "crypto": "crypto-browserify",
-            "fs": false,
-            "http": "stream-http",
-            "net": false,
-            "stream": "stream-browserify",
-            "string_decoder": "string_decoder",
-            "buffer": "buffer",
-            "assert": "assert",
-            "vm": "vm-browserify",
-            "async_hooks": false
-        }
-    },
-
     mode: "development",
     devtool: false
 };

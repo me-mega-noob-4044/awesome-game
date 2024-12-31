@@ -66,7 +66,7 @@ export default class AI {
 
             if (this.deathTimer <= 0) {
                 this.deathTimer = 0;
-                this.isAlive = false;
+                this.isAlive = true;
 
                 this.health = this.maxHealth;
                 this.x = UTILS.randInt(0, config.mapScale);
