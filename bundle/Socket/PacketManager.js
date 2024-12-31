@@ -15,6 +15,7 @@ import updateXP from "./Events/updateXP.js";
 import getChat from "./Events/getChat.js";
 import updateAge from "./Events/updateAge.js";
 import loadAi from "./Events/loadAi.js";
+import updateLeaderboard from "./Events/updateLeaderboard.js";
 
 export default class PacketManager {
     static eventMap = new Map([
@@ -31,7 +32,8 @@ export default class PacketManager {
         [Packets.SERVER_TO_CLIENT.UPDATE_XP, updateXP],
         [Packets.SERVER_TO_CLIENT.GET_CHAT, getChat],
         [Packets.SERVER_TO_CLIENT.UPDATE_AGE, updateAge],
-        [Packets.SERVER_TO_CLIENT.LOAD_AI, loadAi]
+        [Packets.SERVER_TO_CLIENT.LOAD_AI, loadAi],
+        [Packets.SERVER_TO_CLIENT.UPDATE_LEADERBOARD, updateLeaderboard]
     ]);
 
     static handle(type, data) {

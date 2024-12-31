@@ -14,7 +14,7 @@ import Client from "../Socket/Client.js";
 import Particles from "./constants/Particles.js";
 import renderChats from "./Renders/renderChats.js";
 import renderMinimap from "./Renders/renderMinimap.js";
-import renderAi from "./Renders/renderAi..js";
+import renderAi from "./Renders/renderAi.js";
 
 var delta = 0;
 var lastUpdate = 0;

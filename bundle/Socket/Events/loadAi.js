@@ -19,7 +19,7 @@ export default function loadAi(data) {
         ais[i].visible = false;
     }
 
-    for (let i = 0; i < data.length; i += 5) {
+    for (let i = 0; i < data.length;) {
         let tmpObj = ClientSideUTILS.findAiBySid(data[i]);
 
         if (tmpObj) {
@@ -43,6 +43,8 @@ export default function loadAi(data) {
             tmpObj = new AI(data[i + 1], data[i + 2], data[i + 3], data[i]);
             ais.push(tmpObj);
 
+            ClientSideUTILS.setAiBySid(data[i + 1], tmpObj);
+
             tmpObj.x2 = tmpObj.x;
             tmpObj.y2 = tmpObj.y;
             tmpObj.d2 = tmpObj.dir;
@@ -52,5 +54,7 @@ export default function loadAi(data) {
             tmpObj.forcePos = true;
             tmpObj.visible = true;
         }
+
+        i += 5;
     }
 }

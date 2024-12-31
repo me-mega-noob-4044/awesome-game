@@ -45,6 +45,8 @@ export default class Player {
 
         this.chatMsg = "";
         this.chatTimer = 0;
+
+        this.totalXP = 0;
     }
 
     setName(name) {
@@ -94,6 +96,7 @@ export default class Player {
         this.age = 1;
         this.XP = 0;
         this.maxXP = 300;
+        this.totalXP = 0;
 
         this.x = UTILS.randInt(35, config.mapScale - 35);
         this.y = UTILS.randInt(35, config.mapScale - 35);
@@ -125,6 +128,7 @@ export default class Player {
         let leveledUp = false;
 
         this.XP += xp;
+        this.totalXP += xp;
 
         while (this.XP >= this.maxXP) {
             this.XP -= this.maxXP;

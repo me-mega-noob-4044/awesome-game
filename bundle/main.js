@@ -23,6 +23,8 @@ var chatBox = document.getElementById("chat-box");
 export var minimapCanvas = document.getElementById("minimap");
 export var mapContext = minimapCanvas.getContext("2d");
 
+export var leaderboard = document.getElementById("leaderboard");
+
 export const players = [];
 export const gameObjects = [];
 export const particles = [];

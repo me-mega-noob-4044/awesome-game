@@ -22,7 +22,8 @@ const Packets = {
         PING_RESPONSE: "aeaeaeaea",
         UPDATE_XP: "asdasdasd",
         UPDATE_AGE: "hahaha u aged up",
-        LOAD_AI: "aiiaaiiai"
+        LOAD_AI: "aiiaaiiai",
+        UPDATE_LEADERBOARD: "RHAUDHIUASDIASHDIHUASHIDHAISHAIUSDHBIDIJSDIBAISDOSSDKONASODOAIJSDUJOSND"
     }
 };
 

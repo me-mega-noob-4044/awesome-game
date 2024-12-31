@@ -9,8 +9,6 @@ function getImage(src) {
         image = new Image();
         image.src = src;
         imageCache[src] = image;
-
-        console.log("AAAHH")
     }
 
     return image;
@@ -25,7 +23,7 @@ export default function renderAi(mainContext, xOffset, yOffset) {
         if (tmpObj) {
             mainContext.save();
             mainContext.translate(tmpObj.x - xOffset, tmpObj.y - yOffset);
-            mainContext.rotate(tmpObj.dir);
+            mainContext.rotate(tmpObj.dir - Math.PI / 2);
             
             let image = getImage(tmpObj.src);
             mainContext.drawImage(image, -tmpObj.scale, -tmpObj.scale, tmpObj.scale * 2, tmpObj.scale * 2);

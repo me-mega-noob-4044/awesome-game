@@ -196,6 +196,28 @@ setInterval(() => {
     }
 }, config.serverUpdateSpeed);
 
+setInterval(() => {
+    let sorted = players.filter(e => e.isAlive).sort((a, b) => b.totalXP - a.totalXP);
+    let data = [];
+
+    for (let i = 0; i < 10; i++) {
+        let player = sorted[i];
+
+        if (player) {
+            data.push(
+                player.name,
+                player.totalXP
+            );
+        }
+    }
+
+    for (let i = 0; i < players.length; i++) {
+        let player = players[i];
+
+        player.send(Packets.SERVER_TO_CLIENT.UPDATE_LEADERBOARD, data);
+    }
+}, 3e3);
+
 server.on("upgrade", (request, socket, head) => {
     wss.handleUpgrade(request, socket, head, (ws) => {
         wss.emit("connection", ws, request);
