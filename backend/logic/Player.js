@@ -118,10 +118,12 @@ export default class Player {
     addXP(xp) {
         this.XP += xp;
 
-        if (this.XP > this.maxXP) {
+        if (this.XP >= this.maxXP) {
             this.age++;
             this.XP = 0;
             this.maxXP += 150;
+
+            this.changeHealth(this.maxHealth);
         }
 
         this.send(Packets.SERVER_TO_CLIENT.UPDATE_XP, this.XP, this.maxXP);

@@ -51,7 +51,7 @@ export default class PacketManager {
     }
 
     static sendChat(msg) {
-        Client.send(Packets.CLIENT_TO_SERVER.SEND_CHAT, msg);
+        Client.send(Packets.CLIENT_TO_SERVER.SEND_CHAT, msg.slice(0, 100));
     }
 
     static sendMove(angle) {
