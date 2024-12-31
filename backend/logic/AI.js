@@ -34,7 +34,10 @@ export default class AI {
         this.isAlive = true;
 
         this.deathTimer = 0;
-        this.moveDir = 0;
+
+        this.normalMovementTimer = 0;
+        this.waitCount = 0;
+        this.speedBoostTimer = 0;
     }
 
     changeHealth(value, doer) {
@@ -45,9 +48,14 @@ export default class AI {
             this.health = this.maxHealth;
         }
 
+        if (value < 0) {
+            this.speedBoostTimer = UTILS.randInt(4e3, 12e3);
+        }
+
         if (this.health <= 0) {
             this.health = 0;
             this.isAlive = false;
+            this.speedBoostTimer = 0;
             this.deathTimer = UTILS.randInt(2500, 7500);
         }
 
@@ -76,39 +84,74 @@ export default class AI {
             return;
         }
 
-        let onIce = false;
+        this.normalMovementTimer -= delta;
+        if (this.normalMovementTimer <= 0) {
+            this.normalMovementTimer = UTILS.randInt(7500, 15e3);
+            this.targetDir = UTILS.randFloat(-Math.PI, Math.PI);
 
-        let xVel = this.moveDir != undefined ? Math.cos(this.moveDir) : 0;
-        let yVel = this.moveDir != undefined ? Math.sin(this.moveDir) : 0;
-        let length = Math.sqrt(xVel * xVel + yVel * yVel);
-        let spdMlt = 1;
-
-        if (this.y <= config.snowBiomeEndY) {
-            spdMlt *= .75; // 25% speed decrease when on snow
-        }
-
-        for (let i = 0; i < gameObjects.length; i++) {
-            let tmpObj = gameObjects[i];
-
-            if (tmpObj && (tmpObj.name == "lava pond" || tmpObj.name == "pond") && tmpObj.active) {
-                if (UTILS.getDistance(tmpObj, this) <= this.scale + tmpObj.scale) {
-                    if (tmpObj.name == "pond" && tmpObj.y + tmpObj.scale <= config.snowBiomeEndY) {
-                        onIce = true;
-                    } else {
-                        spdMlt *= (tmpObj.name == "lava pond" ? .35 : .55);
-                        break;
-                    }
-                }
+            if (Math.random() < .25) {
+                this.waitCount = UTILS.randInt(2500, 7500);
             }
         }
 
-        if (length != 0) {
-            xVel /= length;
-            yVel /= length;
-        }
+        let onIce = false;
 
-        if (xVel) this.xVel += xVel * this.speed * spdMlt * delta;
-        if (yVel) this.yVel += yVel * this.speed * spdMlt * delta;
+        if (this.waitCount > 0 && this.speedBoostTimer <= 0) {
+            this.waitCount -= delta;
+            this.xVel = 0;
+            this.yVel = 0;
+        } else {
+            if (this.dir != this.targetDir) {
+                this.dir %= (Math.PI * 2);
+    
+                let netAngle = (this.dir - this.targetDir + (Math.PI * 2)) % (Math.PI * 2);
+                let amnt = Math.min(Math.abs(netAngle - (Math.PI * 2)), netAngle, this.turnSpeed * delta);
+                let sign = (netAngle - Math.PI) >= 0 ? 1 : -1;
+    
+                this.dir += sign * amnt + (Math.PI * 2);
+            }
+    
+            this.dir %= (Math.PI * 2);
+
+            let xVel = Math.cos(this.dir);
+            let yVel = Math.sin(this.dir)
+            let length = Math.sqrt(xVel * xVel + yVel * yVel);
+            let spdMlt = 1;
+    
+            if (this.y <= config.snowBiomeEndY) {
+                spdMlt *= .75; // 25% speed decrease when on snow
+            }
+    
+            for (let i = 0; i < gameObjects.length; i++) {
+                let tmpObj = gameObjects[i];
+    
+                if (tmpObj && (tmpObj.name == "lava pond" || tmpObj.name == "pond") && tmpObj.active) {
+                    if (UTILS.getDistance(tmpObj, this) <= this.scale + tmpObj.scale) {
+                        if (tmpObj.name == "pond" && tmpObj.y + tmpObj.scale <= config.snowBiomeEndY) {
+                            onIce = true;
+                        } else {
+                            spdMlt *= (tmpObj.name == "lava pond" ? .35 : .55);
+                            break;
+                        }
+                    }
+                }
+            }
+    
+            if (length != 0) {
+                xVel /= length;
+                yVel /= length;
+            }
+
+            if (this.speedBoostTimer > 0) {
+                spdMlt *= 2.5;
+
+                this.speedBoostTimer -= delta;
+                if (this.speedBoostTimer <= 0) this.speedBoostTimer = 0;
+            }
+    
+            if (xVel) this.xVel += xVel * this.speed * spdMlt * delta;
+            if (yVel) this.yVel += yVel * this.speed * spdMlt * delta;
+        }
 
         let tmpSpeed = UTILS.getDistance({ x: 0, y: 0 }, { x: this.xVel * delta, y: this.yVel * delta });
         let depth = Math.min(4, Math.max(1, Math.round(tmpSpeed / 40)));
