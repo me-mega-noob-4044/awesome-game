@@ -17,30 +17,19 @@ const server = app.listen(7070, "0.0.0.0", () => {
 });
 
 app.get("/bundle.js", (req, res) => {
-    try {
-        res.sendFile(path.join(__dirname, "/dist/bundle.js"));
-    } catch (error) {
-        console.error("Error sending bundle.js:", error);
-        res.status(500).send("Internal Server Error");
-    }
+    res.sendFile(path.join(__dirname, "/dist/bundle.js"));
 });
 
 app.get("/style.css", (req, res) => {
-    try {
-        res.sendFile(path.join(__dirname, "/frontend/style.css"));
-    } catch (error) {
-        console.error("Error sending style.css:", error);
-        res.status(500).send("Internal Server Error");
-    }
+    res.sendFile(path.join(__dirname, "/frontend/style.css"));
 });
 
 app.get("/", (req, res) => {
-    try {
-        res.sendFile(path.join(__dirname, "/frontend/index.html"));
-    } catch (error) {
-        console.error("Error sending index.html:", error);
-        res.status(500).send("Internal Server Error");
-    }
+    res.sendFile(path.join(__dirname, "/frontend/index.html"));
+});
+
+app.get("*", (req, res) => {
+    res.redirect("/");
 });
 
 import UTILS from "./backend/constants/utils.js";
@@ -228,7 +217,7 @@ setInterval(() => {
             if (ai) ai.update(gameConfig.serverUpdateSpeed, gameObjects);
         }
     } catch (error) {
-        console.error("Error in game loop:", error);
+        console.error("Game loop error:", error);
     }
 }, gameConfig.serverUpdateSpeed);
 
@@ -271,11 +260,7 @@ setInterval(() => {
 }, 3e3);
 
 server.on("upgrade", (request, socket, head) => {
-    try {
-        wss.handleUpgrade(request, socket, head, (ws) => {
-            wss.emit("connection", ws, request);
-        });
-    } catch (error) {
-        console.error("Error handling upgrade:", error);
-    }
+    wss.handleUpgrade(request, socket, head, (ws) => {
+        wss.emit("connection", ws, request);
+    });
 });
