@@ -178,7 +178,7 @@ export default class Renderer {
         mainContext.fillRect(0, 0, config.maxScreenWidth, config.maxScreenHeight);
 
         renderAnimText(mainContext, xOffset, yOffset, delta);
-        this.lavaParticles(delta);
+        if (player) this.lavaParticles(delta);
 
         if (player) document.title = `${player.x.toFixed(0)} | ${player.y.toFixed(0)}`;
 

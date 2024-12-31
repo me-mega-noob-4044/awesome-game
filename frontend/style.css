@@ -184,7 +184,8 @@ input, button {
     color: white;
     font-weight: 900;
     font-size: 12px;
-    text-shadow: black;
+    text-shadow: 0px 0px 6px black;
+    z-index: 123;
 }
 
 #chat-holder {
