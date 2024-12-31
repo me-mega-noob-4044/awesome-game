@@ -1,4 +1,4 @@
-import { players } from "../../index.js";
+import { players, getLeaderboardData } from "../../index.js";
 import Player from "../logic/Player.js";
 import Packets from "../constants/Packets.js";
 
@@ -15,6 +15,7 @@ export default function joinGame(ws, ...args) {
     player.setName(args[0]);
     player.spawn();
 
+    player.send(Packets.SERVER_TO_CLIENT.UPDATE_LEADERBOARD, getLeaderboardData());
     player.send(Packets.SERVER_TO_CLIENT.SET_UP_GAME, player.sid);
     player.send(Packets.SERVER_TO_CLIENT.UPDATE_HEALTH, player.health, player.maxHealth);
     player.send(Packets.SERVER_TO_CLIENT.ADD_PLAYER, player.getData(), true);

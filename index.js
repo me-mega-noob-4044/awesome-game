@@ -78,6 +78,10 @@ initGame();
 wss.on("connection", (ws) => {
     ws.PACKET_COUNT = 0;
 
+    if (players.length >= 20) {
+        ws.close(4001, "There are no spots left in the server");
+    }
+
     ws.on("message", (msg) => {
         let [type, data] = UTILS.decodeMessage(msg);
 
@@ -196,7 +200,7 @@ setInterval(() => {
     }
 }, config.serverUpdateSpeed);
 
-setInterval(() => {
+export function getLeaderboardData() {
     let sorted = players.filter(e => e.isAlive).sort((a, b) => b.totalXP - a.totalXP);
     let data = [];
 
@@ -210,6 +214,12 @@ setInterval(() => {
             );
         }
     }
+
+    return data;
+}
+
+setInterval(() => {
+    let data = getLeaderboardData();
 
     for (let i = 0; i < players.length; i++) {
         let player = players[i];

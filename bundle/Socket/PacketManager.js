@@ -53,6 +53,11 @@ export default class PacketManager {
     }
 
     static sendJoin() {
+        if (!Client.lastPingDate) {
+            Client.send(Packets.CLIENT_TO_SERVER.PING);
+            Client.lastPingDate = Date.now();
+        }
+
         Client.send(Packets.CLIENT_TO_SERVER.JOIN_GAME, nameInput.value);
     }
 

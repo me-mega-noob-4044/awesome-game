@@ -51,6 +51,16 @@ class UTILS {
         let p = Math.abs(b - a) % (Math.PI * 2);
         return (p > Math.PI ? (Math.PI * 2) - p : p);
     }
+
+    static kFormat(num) {
+        if (num >= 1e6) {
+            return (num / 1e6).toFixed(1) + "kk";
+        } else if (num >= 1e3) {
+            return (num / 1e3).toFixed(1) + "k";
+        } else {
+            return num;
+        }
+    }
 }
 
 export default UTILS;
