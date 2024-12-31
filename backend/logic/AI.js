@@ -109,6 +109,12 @@ export default class AI {
                 this.targetDir = UTILS.getDirection(this.target, this);
                 this.targetTimer -= delta;
 
+                if (UTILS.getDistance(this.target, this) <= this.scale + this.target.scale) {
+                    this.target.changeHealth(-this.dmg, this);
+                    this.target.xVel += Math.cos(this.targetDir) * .15;
+                    this.target.yVel += Math.sin(this.targetDir) * .15;
+                }
+
                 if (this.targetTimer <= 0) {
                     this.target = null;
                     this.targetTimer = 0;
