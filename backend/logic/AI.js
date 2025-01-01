@@ -144,7 +144,7 @@ export default class AI {
 
                     if (UTILS.getDistance(this.target, this) <= this.scale + this.target.scale) {
                         if (Math.random() < .25) {
-                            this.ripAndTearTimer = UTILS.randInt(3e3, 6e3);
+                            this.ripAndTearTimer = UTILS.randInt(750, 1500);
                         } else {
                             this.target.changeHealth(-this.dmg, this);
                             this.target.xVel += Math.cos(this.targetDir) * .5;
@@ -177,7 +177,7 @@ export default class AI {
             let turnSpeed = this.turnSpeed;
 
             if (this.ripAndTearTimer > 0) {
-                turnSpeed *= 4.5;
+                turnSpeed *= 5.5;
 
                 this.ripAndTeatDotTimer -= delta;
                 if (this.ripAndTeatDotTimer <= 0) {
@@ -230,7 +230,7 @@ export default class AI {
             }
 
             if (this.speedBoostTimer > 0) {
-                spdMlt *= 3.5;
+                spdMlt *= 2.5;
 
                 this.speedBoostTimer -= delta;
                 if (this.speedBoostTimer <= 0) this.speedBoostTimer = 0;
