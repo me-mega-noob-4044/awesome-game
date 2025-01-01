@@ -268,9 +268,9 @@ export default class AI {
 
             if (this.x > 2600 && this.x < config.mapScale - 2600) {
                 if (this.y >= 3625 && this.y <= 4325) {
-                    spdMlt *= .65;
+                    spdMlt *= .85;
                 } else if (this.y >= 7625 && this.y <= 8325) {
-                    spdMlt *= .65;
+                    spdMlt *= .85;
                 }
             }
 
