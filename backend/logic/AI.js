@@ -190,8 +190,8 @@ export default class AI {
                             this.ripAndTearTimer = UTILS.randInt(750, 1500);
                         } else {
                             this.target.changeHealth(-this.dmg, this);
-                            this.target.xVel += Math.cos(this.targetDir) * (this.volcanoAi ? .5 : .25);
-                            this.target.yVel += Math.sin(this.targetDir) * (this.volcanoAi ? .5 : .25);
+                            this.target.xVel += Math.cos(this.targetDir) * (this.volcanoAi ? .75 : .4);
+                            this.target.yVel += Math.sin(this.targetDir) * (this.volcanoAi ? .75 : .4);
                         }
                     }
     
