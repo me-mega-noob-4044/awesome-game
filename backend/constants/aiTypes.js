@@ -15,7 +15,7 @@ const aiTypes = [{
     dmg: 12,
     src: "https://i.imgur.com/eKlFlSj.png",
     turnSpeed: .0012,
-    scale: 155,
+    scale: 175,
     aggroDistance: 1200,
     avoidObjects: true,
     volcanoAi: true,

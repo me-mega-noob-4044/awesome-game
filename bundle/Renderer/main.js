@@ -162,7 +162,7 @@ export default class Renderer {
         let xOffset = this.camX - config.maxScreenWidth / 2;
         let yOffset = this.camY - config.maxScreenHeight / 2;
 
-        renderGround(mainContext, xOffset, yOffset);
+        renderGround(mainContext, xOffset, yOffset, delta);
         renderGameObject(mainContext, xOffset, yOffset, delta, 0);
         renderGameObject(mainContext, xOffset, yOffset, delta, 1);
         renderGameObject(mainContext, xOffset, yOffset, delta, 2);

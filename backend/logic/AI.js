@@ -293,7 +293,7 @@ export default class AI {
             };
 
             let dir = UTILS.getDirection(this, tmp);
-            let tmpScale = 800;
+            let tmpScale = 1200;
 
             if (UTILS.getDistance(tmp, this) > tmpScale) {
                 this.x = tmp.x + Math.cos(dir) * tmpScale;

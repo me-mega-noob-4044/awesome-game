@@ -51,31 +51,14 @@ function initGame() {
         ObjectManager.add(1, gameConfig.mapScale / 2, gameConfig.mapScale / 2, gameObjects.length, gameObjects);
 
         // PONDS:
-        ObjectManager.add(0, 5600, 6700, gameObjects.length, gameObjects);
-        ObjectManager.add(0, 5600, 5e3, gameObjects.length, gameObjects);
-        ObjectManager.add(0, 4e3, 6e3, gameObjects.length, gameObjects);
-        ObjectManager.add(0, 2200, 7e3, gameObjects.length, gameObjects);
-        ObjectManager.add(0, 900, 6e3, gameObjects.length, gameObjects);
-        ObjectManager.add(0, 2e3, 3e3, gameObjects.length, gameObjects);
-        ObjectManager.add(0, 2700, 1800, gameObjects.length, gameObjects);
-        ObjectManager.add(0, 1300, 0, gameObjects.length, gameObjects);
-        ObjectManager.add(0, 4e3, 300, gameObjects.length, gameObjects);
-        ObjectManager.add(0, 6e3, 900, gameObjects.length, gameObjects);
-        ObjectManager.add(0, 5600, 2500, gameObjects.length, gameObjects);
-        ObjectManager.add(0, 7e3, 3e3, gameObjects.length, gameObjects);
 
         // LAVA POOLS
-        ObjectManager.add(2, 3300, 4e3, gameObjects.length, gameObjects);
-        ObjectManager.add(2, 4450, 3500, gameObjects.length, gameObjects);
-        ObjectManager.add(2, 4200, 4500, gameObjects.length, gameObjects);
+        ObjectManager.add(2, 5300, 6e3, gameObjects.length, gameObjects);
+        ObjectManager.add(2, 6450, 5500, gameObjects.length, gameObjects);
+        ObjectManager.add(2, 6200, 6500, gameObjects.length, gameObjects);
 
+        // DRAGON
         AiManager.add(1, gameConfig.mapScale / 2, gameConfig.mapScale / 2);
-
-        const animalIds = [2, 4];
-
-        for (let i = 0; i < 50; i++) {
-            AiManager.add(animalIds[Math.floor(Math.random() * animalIds.length)], UTILS.randInt(0, gameConfig.mapScale), UTILS.randInt(0, gameConfig.mapScale));
-        }
     } catch (error) {
         console.error("Error initializing game:", error);
     }
