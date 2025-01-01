@@ -100,7 +100,7 @@ wss.on("connection", (ws) => {
                     return;
                 }
 
-                if (ws.PACKET_COUNT >= 75) {
+                if (ws.PACKET_COUNT >= 50) {
                     ws.close(4001, "Packet limit reached");
                     return;
                 }

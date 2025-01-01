@@ -1,6 +1,6 @@
 import UTILS from "../../backend/constants/utils.js";
 import PacketManager from "./PacketManager.js";
-import { menuInputs, loadingText, mainMenu, gameUI } from "../main.js";
+import { menuInputs, loadingText, mainMenu, gameUI, player } from "../main.js";
 import Client from "./Client.js";
 import Packets from "../../backend/constants/Packets.js";
 

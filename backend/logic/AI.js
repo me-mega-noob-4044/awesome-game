@@ -67,6 +67,13 @@ export default class AI {
             this.isAlive = false;
             this.speedBoostTimer = 0;
             this.deathTimer = UTILS.randInt(2500, 7500);
+
+            if (this.target) {
+                this.target.lockMove = false;
+                this.target = null;
+                this.targetTimer = 0;
+                this.ripAndTearTimer = 0;
+            }
         }
 
         if (doer) {
@@ -230,7 +237,7 @@ export default class AI {
             }
 
             if (this.speedBoostTimer > 0) {
-                spdMlt *= 2.5;
+                spdMlt *= 1.8;
 
                 this.speedBoostTimer -= delta;
                 if (this.speedBoostTimer <= 0) this.speedBoostTimer = 0;

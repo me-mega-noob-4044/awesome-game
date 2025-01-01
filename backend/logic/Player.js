@@ -227,7 +227,7 @@ export default class Player {
             this.dragonDot.timer -= delta;
 
             if (this.dragonDot.timer <= 0) {
-                this.changeHealth(-3);
+                this.changeHealth(-1);
                 this.dragonDot.ticks--;
                 this.dragonDot.timer = 1e3;
             }
@@ -235,8 +235,8 @@ export default class Player {
 
         if (!this.isAlive) return;
 
-        // this.meleeReload -= delta;
-        // if (this.meleeReload <= 0) this.meleeReload = 0;
+        this.meleeReload -= delta;
+        if (this.meleeReload <= 0) this.meleeReload = 0;
 
         let onIce = false;
 

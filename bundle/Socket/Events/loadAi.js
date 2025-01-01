@@ -1,6 +1,9 @@
-import { ais } from "../../main.js";
+import { ais, particles, gameObjects } from "../../main.js";
 import AI from "../../../backend/logic/AI.js";
 import ClientSideUTILS from "../../constants/utils.js";
+import Particles from "../../Renderer/constants/Particles.js";
+import config from "../../../backend/constants/config.js";
+import UTILS from "../../../backend/constants/utils.js";
 
 /*
 ai.sid, 0
@@ -53,6 +56,20 @@ export default function loadAi(data) {
 
             tmpObj.forcePos = true;
             tmpObj.visible = true;
+        }
+
+        let sidId = `animal:${tmpObj.sid}`;
+
+        if (!particles.find(e => e.active && e.owner == sidId)) {
+            for (let t = 0; t < gameObjects.length; t++) {
+                let gameObject = gameObjects[t];
+        
+                if (gameObject && gameObject.active && (gameObject.name == "lava pond" || gameObject.name == "pond") && gameObject.y + gameObject.scale > config.snowBiomeEndY) {
+                    if (UTILS.getDistance(gameObject, tmpObj) <= gameObject.scale) {
+                        particles.push(new Particles(sidId, tmpObj.x, tmpObj.y, gameObject.name == "lava pond" ? "lava" : "pond"));
+                    }
+                }
+            }
         }
 
         i += 6;
