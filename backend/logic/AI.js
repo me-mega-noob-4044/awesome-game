@@ -334,7 +334,7 @@ export default class AI {
             if (this.xVel) this.x += (this.xVel * delta) * tMlt;
             if (this.yVel) this.y += (this.yVel * delta) * tMlt;
 
-            if (this && !this.volcanoAi) {
+            if (!this.volcanoAi) {
                 for (let t = 0; t < gameObjects.length; t++) {
                     let tmpObj = gameObjects[t];
     
@@ -342,7 +342,7 @@ export default class AI {
                         let tmpDir = UTILS.getDirection(this, tmpObj);
                         let tmpScale = this.scale + (tmpObj.name == "volcano" ? 200 : tmpObj.scale);
     
-                        if (this.volcanoTimer == 0 && UTILS.getDistance(tmpObj, this) <= tmpObj.scale) {
+                        if (tmpObj.name != "land" && this.volcanoTimer == 0 && UTILS.getDistance(tmpObj, this) <= tmpObj.scale) {
                             if (tmpObj.name == "lava pond") {
                                 this.volcanoTimer = 1;
                                 this.inLavaPond = true;
@@ -351,7 +351,7 @@ export default class AI {
                             }
                         }
     
-                        if (tmpObj.name == "volcano" && UTILS.getDistance(tmpObj, this) <= tmpScale) {
+                        if ((tmpObj.name == "land" || tmpObj.name == "volcano") && UTILS.getDistance(tmpObj, this) <= tmpScale) {
                             this.x = tmpObj.x + (tmpScale * Math.cos(tmpDir));
                             this.y = tmpObj.y + (tmpScale * Math.sin(tmpDir));
                             this.xVel *= 0.75;
@@ -377,7 +377,7 @@ export default class AI {
                 this.x = this.scale;
             } else if (this.x + this.scale > config.mapScale) {
                 this.x = config.mapScale - this.scale;
-            } else if (!inRiver && this.x > 3e3 && this.x < config.mapScale - 3e3) {
+            } else if (!inRiver && this.x + this.scale > 3e3 && this.x - this.scale < config.mapScale - 3e3) {
                 if (this.x < config.mapScale / 2) {
                     this.x = 3e3 - this.scale;
                 } else {

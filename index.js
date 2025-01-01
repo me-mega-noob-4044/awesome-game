@@ -131,10 +131,19 @@ function initGame() {
         let enemyLandIds = [5];
 
         // FRIENDLY AI
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < 25; i++) {
             AiManager.add(friendLandIds[Math.floor(Math.random() * 2)], UTILS.randInt(3455, 8545), UTILS.randInt(0, gameConfig.mapScale));
         }
-        
+
+        // FISHES:
+        for (let i = 0; i < 15; i++) {
+            AiManager.add(3, UTILS.randInt(0, 3e3), UTILS.randInt(0, gameConfig.mapScale));
+        }
+
+        for (let i = 0; i < 15; i++) {
+            AiManager.add(3, UTILS.randInt(gameConfig.mapScale - 3e3, gameConfig.mapScale), UTILS.randInt(0, gameConfig.mapScale));
+        }
+
         // ENEMY AI
         for (let i = 0; i < 10; i++) {
             AiManager.add(enemyLandIds[Math.floor(Math.random() * 1)], UTILS.randInt(3455, 8545), UTILS.randInt(0, gameConfig.mapScale));
