@@ -24,6 +24,7 @@ export default class AI {
         this.volcanoAi = data.volcanoAi;
         this.avoidObjects = data.avoidObjects;
         this.aggroDistance = data.aggroDistance;
+        this.onlyLand = data.onlyLand;
 
         this.health = this.maxHealth = data.health;
 
@@ -154,12 +155,12 @@ export default class AI {
                     this.targetTimer -= delta;
 
                     if (UTILS.getDistance(this.target, this) <= this.scale + this.target.scale) {
-                        if (Math.random() < .25) {
+                        if (this.volcanoAi && Math.random() < 2) {
                             this.ripAndTearTimer = UTILS.randInt(750, 1500);
                         } else {
                             this.target.changeHealth(-this.dmg, this);
-                            this.target.xVel += Math.cos(this.targetDir) * .5;
-                            this.target.yVel += Math.sin(this.targetDir) * .5;
+                            this.target.xVel += Math.cos(this.targetDir) * (this.volcanoAi ? .5 : .25);
+                            this.target.yVel += Math.sin(this.targetDir) * (this.volcanoAi ? .5 : .25);
                         }
                     }
     
@@ -306,16 +307,16 @@ export default class AI {
             if (this.yVel <= 0.01 && this.yVel >= -0.01) this.yVel = 0;
         }
 
-        if (this.x - this.scale < 0) {
-            this.x = this.scale;
-        } else if (this.x + this.scale > config.mapScale) {
-            this.x = config.mapScale - this.scale;
+        if (this.x - this.scale < (this.onlyLand ? 2800 : 0)) {
+            this.x = this.scale + (this.onlyLand ? 2800 : 0);
+        } else if (this.x + this.scale > config.mapScale - (this.onlyLand ? 2800 : 0)) {
+            this.x = config.mapScale - this.scale + (this.onlyLand ? 2800 : 0);
         }
 
-        if (this.y - this.scale < 0) {
-            this.y = this.scale;
-        } else if (this.y + this.scale > config.mapScale) {
-            this.y = config.mapScale - this.scale;
+        if (this.y - this.scale < (this.onlyLand ? 2800 : 0)) {
+            this.y = this.scale + (this.onlyLand ? 2800 : 0);
+        } else if (this.y + this.scale > config.mapScale - (this.onlyLand ? 2800 : 0)) {
+            this.y = config.mapScale - this.scale + (this.onlyLand ? 2800 : 0);
         }
 
         if (this.volcanoAi) {

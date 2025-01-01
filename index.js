@@ -69,7 +69,7 @@ function initGame() {
         }
 
         // MIDDLE BODY OF LAND:
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 3; i++) {
             let x = UTILS.randInt(3455, 8545);
             let y = UTILS.randInt(4900, 7e3);
 
@@ -82,7 +82,7 @@ function initGame() {
         }
 
         // BOTTOM BODY OF LAND:
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 7; i++) {
             let x = UTILS.randInt(3455, 8545);
             let y = UTILS.randInt(9e3, gameConfig.mapScale);
 
@@ -96,6 +96,12 @@ function initGame() {
 
         // DRAGON
         AiManager.add(1, gameConfig.mapScale / 2, gameConfig.mapScale / 2);
+
+        let landIds = [2, 4, 5];
+
+        for (let i = 0; i < 45; i++) {
+            AiManager.add(landIds[Math.floor(Math.random() * 3)], UTILS.randInt(3455, 8545), UTILS.randInt(0, gameConfig.mapScale));
+        }
     } catch (error) {
         console.error("Error initializing game:", error);
     }

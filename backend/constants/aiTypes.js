@@ -28,6 +28,7 @@ const aiTypes = [{
     src: "https://i.imgur.com/VYCKtfc.png",
     turnSpeed: .0024,
     scale: 70,
+    onlyLand: true
 }, {
     name: "Fish",
     health: 100,
@@ -45,7 +46,19 @@ const aiTypes = [{
     scale: 95,
     src: "https://i.imgur.com/kHuLwsD.png",
     turnSpeed: .005,
-    followRandPlayer: true
+    onlyLand: true
+}, {
+    name: "Wolf",
+    health: 250,
+    xp: 500,
+    speed: .0005,
+    scale: 105,
+    dmg: 3,
+    src: "https://i.imgur.com/XOs4Htu.png",
+    turnSpeed: .008,
+    aggroDistance: 2e3,
+    isHostile: true,
+    onlyLand: true
 }];
 
 export default aiTypes;

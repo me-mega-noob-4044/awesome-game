@@ -41,6 +41,7 @@ export default function updatePlayers(data) {
             
                     if (gameObject && gameObject.active && (gameObject.name == "lava pond" || gameObject.name == "pond") && gameObject.y + gameObject.scale > config.snowBiomeEndY) {
                         if (UTILS.getDistance(gameObject, tmpObj) <= gameObject.scale) {
+                            if (gameObject.name == "pond" && gameObject.y >= config.mapScale - 2e3) continue;
                             particles.push(new Particles(tmpObj.sid, tmpObj.x, tmpObj.y, gameObject.name == "lava pond" ? "lava" : "pond"));
                             done = true;
                             break;

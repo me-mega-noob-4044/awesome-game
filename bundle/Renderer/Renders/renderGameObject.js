@@ -16,7 +16,7 @@ export default function renderGameObject(mainContext, xOffset, yOffset, delta, l
 
             if (tmpObj.name == "pond" || tmpObj.name == "lava pond") {
                 if (layer == 0 || (tmpObj.name == "lava pond" && layer == 4)) {
-                    mainContext.fillStyle = colorConfig.sandColor;
+                    mainContext.fillStyle = tmpObj.y >= config.mapScale - 2e3 ? colorConfig.darkSandColor : colorConfig.sandColor;
                     renderCircle(0, 0, mainContext, tmpObj.scale + 50, false, true);
                 } else {
                     if (tmpObj.y + tmpObj.scale > config.snowBiomeEndY) {
@@ -36,7 +36,7 @@ export default function renderGameObject(mainContext, xOffset, yOffset, delta, l
                         }
                     } else {
                         if (tmpObj.name == "pond" && tmpObj.y >= config.mapScale - 2e3) {
-                            mainContext.fillStyle = colorConfig.darkSandColor;
+                            mainContext.fillStyle = colorConfig.darkestSandColor;
                             renderCircle(0, 0, mainContext, tmpObj.scale, false, true);
                         } else {
                             mainContext.fillStyle = tmpObj.name == "lava pond" ? colorConfig.lavaColor : colorConfig.waterColor;
