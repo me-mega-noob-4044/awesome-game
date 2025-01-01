@@ -316,10 +316,10 @@ export default class AI {
             if (this.yVel <= 0.01 && this.yVel >= -0.01) this.yVel = 0;
         }
 
-        if (this.x - this.scale < (this.onlyLand ? 2800 : 0)) {
-            this.x = this.scale + (this.onlyLand ? 2800 : 0);
-        } else if (this.x + this.scale > config.mapScale - (this.onlyLand ? 2800 : 0)) {
-            this.x = config.mapScale - this.scale - (this.onlyLand ? 2800 : 0);
+        if (this.x - this.scale < (this.onlyLand ? 2650 : 0)) {
+            this.x = this.scale + (this.onlyLand ? 2650 : 0);
+        } else if (this.x + this.scale > config.mapScale - (this.onlyLand ? 2650 : 0)) {
+            this.x = config.mapScale - this.scale - (this.onlyLand ? 2650 : 0);
         }
 
         if (this.y - this.scale < 0) {
