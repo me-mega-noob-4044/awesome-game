@@ -120,6 +120,11 @@ export default class AI {
                         this.target.yVel = Math.sin(this.dir) * 3.5;
                         this.target.changeHealth(-this.dmg * 2, this);
 
+                        this.target.dragonDot.ticks = 6;/* = {
+                            ticks: 6,
+                            timer: 0
+                        };*/
+
                         this.ripAndTearTimer = 0;
                     }
 

@@ -47,6 +47,11 @@ export default class Player {
         this.chatTimer = 0;
 
         this.totalXP = 0;
+
+        this.dragonDot = {
+            ticks: 0,
+            timer: 0
+        };
     }
 
     setName(name) {
@@ -117,6 +122,11 @@ export default class Player {
         this.regenTimer = 0;
         this.regenRate = config.playerRegenerationRate;
         this.regenPower = config.playerRegenerationPower;
+
+        this.dragonDot = {
+            ticks: 0,
+            timer: 0
+        };
 
         if (this.ws) {
             this.addXP(0);
@@ -209,6 +219,16 @@ export default class Player {
         if (this.regenTimer <= 0) {
             this.regenTimer = this.regenRate;
             this.changeHealth(this.regenPower);
+        }
+
+        if (this.dragonDot.ticks > 0) {
+            this.dragonDot.timer -= delta;
+
+            if (this.dragonDot.timer <= 0) {
+                this.changeHealth(-3);
+                this.dragonDot.ticks--;
+                this.dragonDot.timer = 1e3;
+            }
         }
 
         if (!this.isAlive) return;
