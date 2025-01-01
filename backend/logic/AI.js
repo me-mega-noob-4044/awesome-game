@@ -116,8 +116,8 @@ export default class AI {
 
                     this.ripAndTearTimer -= delta;
                     if (this.ripAndTearTimer <= 0) {
-                        this.target.xVel = Math.cos(this.dir) * 2.5;
-                        this.target.yVel = Math.sin(this.dir) * 2.5;
+                        this.target.xVel = Math.cos(this.dir) * 3.5;
+                        this.target.yVel = Math.sin(this.dir) * 3.5;
                         this.target.changeHealth(-this.dmg * 2, this);
 
                         this.ripAndTearTimer = 0;
