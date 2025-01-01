@@ -171,7 +171,7 @@ export default class AI {
             let turnSpeed = this.turnSpeed;
 
             if (this.ripAndTearTimer > 0) {
-                turnSpeed *= 6.5;
+                turnSpeed *= 4.5;
 
                 this.ripAndTeatDotTimer -= delta;
                 if (this.ripAndTeatDotTimer <= 0) {
