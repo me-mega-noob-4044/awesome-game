@@ -20,6 +20,13 @@ const buildingData = new Map([
         id: 2,
         scale: 175,
         layer: [4, 5]
+    }],
+
+    [3, {
+        name: "land",
+        id: 3,
+        scale: 405,
+        layer: 4
     }]
 
 ]);

@@ -94,6 +94,32 @@ function initGame() {
             ObjectManager.add(0, x, y, gameObjects.length, gameObjects);
         }
 
+        // OCEAN ONE LAND:
+        for (let i = 0; i < 12; i++) {
+            let x = UTILS.randInt(0, 2700);
+            let y = UTILS.randInt(0, gameConfig.mapScale);
+
+            while (gameObjects.some(e => UTILS.getDistance({ x, y }, e) <= e.scale + 405)) {
+                x = UTILS.randInt(0, 2700);
+                y = UTILS.randInt(0, gameConfig.mapScale);
+            }
+
+            ObjectManager.add(3, x, y, gameObjects.length, gameObjects);
+        }
+
+        // OCEAN TWO LAND:
+        for (let i = 0; i < 12; i++) {
+            let x = UTILS.randInt(gameConfig.mapScale, gameConfig.mapScale - 2700);
+            let y = UTILS.randInt(0, gameConfig.mapScale);
+
+            while (gameObjects.some(e => UTILS.getDistance({ x, y }, e) <= e.scale + 405)) {
+                x = UTILS.randInt(gameConfig.mapScale, gameConfig.mapScale - 2700);
+                y = UTILS.randInt(0, gameConfig.mapScale);
+            }
+
+            ObjectManager.add(3, x, y, gameObjects.length, gameObjects);
+        }
+
         // DRAGON
         AiManager.add(1, gameConfig.mapScale / 2, gameConfig.mapScale / 2);
 

@@ -14,10 +14,15 @@ export default function renderGameObject(mainContext, xOffset, yOffset, delta, l
             mainContext.save();
             mainContext.translate(tmpObj.x - xOffset, tmpObj.y - yOffset);
 
-            if (tmpObj.name == "pond" || tmpObj.name == "lava pond") {
-                if (layer == 0 || (tmpObj.name == "lava pond" && layer == 4)) {
-                    mainContext.fillStyle = tmpObj.y >= config.mapScale - 2e3 ? colorConfig.darkSandColor : colorConfig.sandColor;
-                    renderCircle(0, 0, mainContext, tmpObj.scale + 50, false, true);
+            if (tmpObj.name == "land" || tmpObj.name == "pond" || tmpObj.name == "lava pond") {
+                if (tmpObj.name == "land" || layer == 0 || (tmpObj.name == "lava pond" && layer == 4)) {
+                    if (tmpObj.name == "land") {
+                        mainContext.fillStyle = colorConfig.sandColor;
+                        renderCircle(0, 0, mainContext, tmpObj.scale, false, true);
+                    } else {
+                        mainContext.fillStyle = tmpObj.y >= config.mapScale - 2e3 ? colorConfig.darkSandColor : colorConfig.sandColor;
+                        renderCircle(0, 0, mainContext, tmpObj.scale + 50, false, true);
+                    }
                 } else {
                     if (tmpObj.y + tmpObj.scale > config.snowBiomeEndY) {
                         tmpObj.waterMult += tmpObj.waterPlus * config.waveSpeed * delta;

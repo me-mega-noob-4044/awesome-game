@@ -253,6 +253,7 @@ export default class Player {
             let length = Math.sqrt(xVel * xVel + yVel * yVel);
             let spdMlt = 1;
             let onWater = false;
+            let onLand = false;
 
             if (this.y <= config.snowBiomeEndY && this.x > 3e3 && this.x < config.mapScale - 3e3) { // NOT IN OCEAN
                 spdMlt *= .75; // 25% speed decrease when on snow
@@ -261,9 +262,12 @@ export default class Player {
             for (let i = 0; i < gameObjects.length; i++) {
                 let tmpObj = gameObjects[i];
 
-                if (tmpObj && (tmpObj.name == "lava pond" || tmpObj.name == "pond") && tmpObj.active) {
+                if (tmpObj && (tmpObj.name == "land" || tmpObj.name == "lava pond" || tmpObj.name == "pond") && tmpObj.active) {
                     if (UTILS.getDistance(tmpObj, this) <= this.scale + tmpObj.scale) {
-                        if (tmpObj.name == "pond" && tmpObj.y + tmpObj.scale <= config.snowBiomeEndY) {
+                        if (tmpObj.name == "land") {
+                            onLand = true;
+                            break;
+                        } else if (tmpObj.name == "pond" && tmpObj.y + tmpObj.scale <= config.snowBiomeEndY) {
                             onIce = true;
                         } else {
                             if (tmpObj.name == "lava pond") {
@@ -282,7 +286,7 @@ export default class Player {
                 }
             }
 
-            if (this.x > 2600 && this.x < config.mapScale - 2600) {
+            if (!onLand && this.x > 2600 && this.x < config.mapScale - 2600) {
                 if (this.y >= 3625 && this.y <= 4325) {
                     spdMlt *= .65;
                     this.xVel -= config.riverSpeed * delta;
@@ -292,7 +296,7 @@ export default class Player {
                 }
             }
 
-            if (onWater || this.x <= 3e3 || this.x >= config.mapScale - 3e3) {
+            if (!onLand && (onWater || this.x <= 3e3 || this.x >= config.mapScale - 3e3)) {
                 spdMlt *= .55;
             }
 

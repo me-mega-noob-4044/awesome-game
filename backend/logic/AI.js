@@ -185,8 +185,9 @@ export default class AI {
         }
 
         let onIce = false;
+        let onLand = false;
 
-        if (this.x > 2600 && this.x < config.mapScale - 2600) {
+        if (!this.avoidObjects && this.x > 2600 && this.x < config.mapScale - 2600) {
             if (this.y >= 3625 && this.y <= 4325) {
                 this.xVel -= config.riverSpeed * delta;
             } else if (this.y >= 7625 && this.y <= 8325) {
@@ -237,9 +238,12 @@ export default class AI {
                 for (let i = 0; i < gameObjects.length; i++) {
                     let tmpObj = gameObjects[i];
         
-                    if (tmpObj && (tmpObj.name == "lava pond" || tmpObj.name == "pond") && tmpObj.active) {
+                    if (tmpObj && (tmpObj.name == "land" || tmpObj.name == "lava pond" || tmpObj.name == "pond") && tmpObj.active) {
                         if (UTILS.getDistance(tmpObj, this) <= this.scale + tmpObj.scale) {
-                            if (tmpObj.name == "pond" && tmpObj.y + tmpObj.scale <= config.snowBiomeEndY) {
+                            if (tmpObj.name == "land") {
+                                onLand = true;
+                                break;
+                            } else if (tmpObj.name == "pond" && tmpObj.y + tmpObj.scale <= config.snowBiomeEndY) {
                                 onIce = true;
                             } else {
                                 if (tmpObj.name == "lava pond") {
@@ -271,7 +275,7 @@ export default class AI {
                 if (this.speedBoostTimer <= 0) this.speedBoostTimer = 0;
             }
 
-            if (this.x > 2600 && this.x < config.mapScale - 2600) {
+            if (!onLand && this.x > 2600 && this.x < config.mapScale - 2600) {
                 if (this.y >= 3625 && this.y <= 4325) {
                     spdMlt *= .85;
                 } else if (this.y >= 7625 && this.y <= 8325) {
@@ -279,7 +283,7 @@ export default class AI {
                 }
             }
 
-            if (onWater || this.x <= 3e3 || this.x >= config.mapScale - 3e3) {
+            if (!onLand && (onWater || this.x <= 3e3 || this.x >= config.mapScale - 3e3)) {
                 spdMlt *= .55;
             }
 
@@ -315,13 +319,13 @@ export default class AI {
         if (this.x - this.scale < (this.onlyLand ? 2800 : 0)) {
             this.x = this.scale + (this.onlyLand ? 2800 : 0);
         } else if (this.x + this.scale > config.mapScale - (this.onlyLand ? 2800 : 0)) {
-            this.x = config.mapScale - this.scale + (this.onlyLand ? 2800 : 0);
+            this.x = config.mapScale - this.scale - (this.onlyLand ? 2800 : 0);
         }
 
-        if (this.y - this.scale < (this.onlyLand ? 2800 : 0)) {
-            this.y = this.scale + (this.onlyLand ? 2800 : 0);
-        } else if (this.y + this.scale > config.mapScale - (this.onlyLand ? 2800 : 0)) {
-            this.y = config.mapScale - this.scale + (this.onlyLand ? 2800 : 0);
+        if (this.y - this.scale < 0) {
+            this.y = this.scale;
+        } else if (this.y + this.scale > config.mapScale) {
+            this.y = config.mapScale - this.scale;
         }
 
         if (this.volcanoAi) {
