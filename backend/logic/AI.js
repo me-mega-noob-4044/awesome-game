@@ -317,27 +317,29 @@ export default class AI {
             if (this.xVel) this.x += (this.xVel * delta) * tMlt;
             if (this.yVel) this.y += (this.yVel * delta) * tMlt;
 
-            for (let t = 0; t < gameObjects.length; t++) {
-                let tmpObj = gameObjects[t];
-
-                if (tmpObj && tmpObj.active && (tmpObj.name == "lava pond" || tmpObj.name == "volcano")) {
-                    let tmpDir = UTILS.getDirection(this, tmpObj);
-                    let tmpScale = this.scale + 200;
-
-                    if (this.volcanoTimer == 0 && UTILS.getDistance(tmpObj, this) <= tmpObj.scale) {
-                        if (tmpObj.name == "lava pond") {
-                            this.volcanoTimer = 1;
-                            this.inLavaPond = true;
-                        } else {
-                            this.volcanoTimer = UTILS.getDistance(tmpObj, this) <= 250 ? 100 : UTILS.getDistance(tmpObj, this) <= tmpObj.scale * .75 ? 250 : 500;
+            if (!this.volcanoAi) {
+                for (let t = 0; t < gameObjects.length; t++) {
+                    let tmpObj = gameObjects[t];
+    
+                    if (tmpObj && tmpObj.active && (tmpObj.name == "lava pond" || tmpObj.name == "volcano")) {
+                        let tmpDir = UTILS.getDirection(this, tmpObj);
+                        let tmpScale = this.scale + 200;
+    
+                        if (this.volcanoTimer == 0 && UTILS.getDistance(tmpObj, this) <= tmpObj.scale) {
+                            if (tmpObj.name == "lava pond") {
+                                this.volcanoTimer = 1;
+                                this.inLavaPond = true;
+                            } else {
+                                this.volcanoTimer = UTILS.getDistance(tmpObj, this) <= 250 ? 100 : UTILS.getDistance(tmpObj, this) <= tmpObj.scale * .75 ? 250 : 500;
+                            }
                         }
-                    }
-
-                    if (tmpObj.name == "volcano" && UTILS.getDistance(tmpObj, this) <= tmpScale) {
-                        this.x = tmpObj.x + (tmpScale * Math.cos(tmpDir));
-                        this.y = tmpObj.y + (tmpScale * Math.sin(tmpDir));
-                        this.xVel *= 0.75;
-                        this.yVel *= 0.75;
+    
+                        if (tmpObj.name == "volcano" && UTILS.getDistance(tmpObj, this) <= tmpScale) {
+                            this.x = tmpObj.x + (tmpScale * Math.cos(tmpDir));
+                            this.y = tmpObj.y + (tmpScale * Math.sin(tmpDir));
+                            this.xVel *= 0.75;
+                            this.yVel *= 0.75;
+                        }
                     }
                 }
             }
