@@ -184,7 +184,7 @@ export default class Renderer {
         renderAnimText(mainContext, xOffset, yOffset, delta);
         if (player) this.lavaParticles(delta);
 
-        if (player) document.title = `${player.x.toFixed(0)} | ${player.y.toFixed(0)}`;
+        // if (player) document.title = `${player.x.toFixed(0)} | ${player.y.toFixed(0)}`;
 
         renderNames(mainContext, xOffset, yOffset);
         renderChats(mainContext, xOffset, yOffset, delta);
