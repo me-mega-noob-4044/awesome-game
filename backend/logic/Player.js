@@ -248,8 +248,9 @@ export default class Player {
             let yVel = this.moveDir != undefined ? Math.sin(this.moveDir) : 0;
             let length = Math.sqrt(xVel * xVel + yVel * yVel);
             let spdMlt = 1;
+            let onWater = false;
 
-            if (this.y <= config.snowBiomeEndY) {
+            if (this.y <= config.snowBiomeEndY && this.x > 3e3 && this.x < config.mapScale - 3e3) { // NOT IN OCEAN
                 spdMlt *= .75; // 25% speed decrease when on snow
             }
 
@@ -261,11 +262,30 @@ export default class Player {
                         if (tmpObj.name == "pond" && tmpObj.y + tmpObj.scale <= config.snowBiomeEndY) {
                             onIce = true;
                         } else {
-                            spdMlt *= (tmpObj.name == "lava pond" ? .35 : .55);
+                            if (tmpObj.name == "lava pond") {
+                                spdMlt += .35;
+                            } else {
+                                onWater = true;
+                            }
+
                             break;
                         }
                     }
                 }
+            }
+
+            if (this.x > 2800 && this.x < config.mapScale - 2800) {
+                if (this.y >= 3625 && this.y <= 4325) {
+                    spdMlt *= .65;
+                    this.xVel -= .0011 * delta;
+                } else if (this.y >= 7625 && this.y <= 8325) {
+                    spdMlt *= .65;
+                    this.xVel += .0011 * delta;
+                }
+            }
+
+            if (onWater || this.x <= 3e3 || this.x >= config.mapScale - 3e3) {
+                spdMlt *= .55;
             }
 
             if (length != 0) {

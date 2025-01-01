@@ -34,12 +34,26 @@ export default function updatePlayers(data) {
             tmpObj.visible = true;
 
             if (!particles.find(e => e.active && e.owner == tmpObj.sid)) {
+                let done = false;
+
                 for (let t = 0; t < gameObjects.length; t++) {
                     let gameObject = gameObjects[t];
             
                     if (gameObject && gameObject.active && (gameObject.name == "lava pond" || gameObject.name == "pond") && gameObject.y + gameObject.scale > config.snowBiomeEndY) {
                         if (UTILS.getDistance(gameObject, tmpObj) <= gameObject.scale) {
                             particles.push(new Particles(tmpObj.sid, tmpObj.x, tmpObj.y, gameObject.name == "lava pond" ? "lava" : "pond"));
+                            done = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (!done) {
+                    if (tmpObj.x2 <= 3e3 || tmpObj.x2 >= config.mapScale - 3e3) {
+                        particles.push(new Particles(tmpObj.sid, tmpObj.x, tmpObj.y, "pond"));
+                    } else if (tmpObj.x2 > 2800 && tmpObj.x2 < config.mapScale - 2800) {
+                        if ((tmpObj.y2 >= 3625 && tmpObj.y2 <= 4325) || tmpObj.y2 >= 7625 && tmpObj.y2 <= 8325) {
+                            particles.push(new Particles(tmpObj.sid, tmpObj.x, tmpObj.y, "pond"));
                         }
                     }
                 }
