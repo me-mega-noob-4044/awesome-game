@@ -1,4 +1,4 @@
-import { gameCanvas, mainContext, player, players, particles, ais } from "../main.js";
+import { gameCanvas, mainContext, player, players, particles, ais, gameObjects } from "../main.js";
 import config from "../../backend/constants/config.js";
 import renderPlayers from "./Renders/renderPlayers.js";
 import UTILS from "../../backend/constants/utils.js";
@@ -68,6 +68,7 @@ export default class Renderer {
 
     static lavaParticles(delta) {
         this.timeOut -= delta;
+
         if (this.timeOut <= 0) {
             particles.push(new Particles(
                 -1,
@@ -82,6 +83,31 @@ export default class Renderer {
                 UTILS.randInt(config.mapScale / 2 - 85, config.mapScale / 2 + 85),
                 "lava"
             ));
+
+            let total = 0;
+
+            for (let i = 0; i < gameObjects.length; i++) {
+                let tmpObj = gameObjects[i];
+
+                if (tmpObj.name == "lava pond") {
+                    particles.push(new Particles(
+                        -1,
+                        UTILS.randInt(tmpObj.x - 85, tmpObj.x + 85),
+                        UTILS.randInt(tmpObj.y - 85, tmpObj.y + 85),
+                        "lava"
+                    ));
+        
+                    for (let i = 0; i < 3; i++) if (Math.random() > .5) particles.push(new Particles(
+                        -1,
+                        UTILS.randInt(tmpObj.x - 85, tmpObj.x + 85),
+                        UTILS.randInt(tmpObj.y - 85, tmpObj.y + 85),
+                        "lava"
+                    ));
+
+                    total++;
+                    if (total >= 3) break; // Since there's only 3 lava ponds
+                }
+            }
 
             this.timeOut = UTILS.randInt(250, 750);
         }
