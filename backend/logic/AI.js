@@ -120,12 +120,11 @@ export default class AI {
                         this.target.yVel = Math.sin(this.dir) * 3.5;
                         this.target.changeHealth(-this.dmg * 2, this);
 
-                        this.target.dragonDot.ticks = 6;/* = {
-                            ticks: 6,
-                            timer: 0
-                        };*/
-
+                        this.target.lockMove = false;
+                        this.target.dragonDot.ticks = 6;
                         this.ripAndTearTimer = 0;
+                    } else {
+                        this.target.lockMove = true;
                     }
 
                     this.target.x = this.x + Math.cos(this.targetDir) * this.scale;
@@ -135,6 +134,7 @@ export default class AI {
                         this.target = null;
                         this.ripAndTearTimer = 0;
                         this.targetTimer = 0;
+                        this.target.lockMove = false;
                     }
                 } else {
                     this.targetDir = UTILS.getDirection(this.target, this);

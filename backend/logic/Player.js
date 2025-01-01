@@ -52,6 +52,7 @@ export default class Player {
             ticks: 0,
             timer: 0
         };
+        this.lockMove = false;
     }
 
     setName(name) {
@@ -122,6 +123,7 @@ export default class Player {
         this.regenTimer = 0;
         this.regenRate = config.playerRegenerationRate;
         this.regenPower = config.playerRegenerationPower;
+        this.lockMove = false;
 
         this.dragonDot = {
             ticks: 0,
@@ -236,38 +238,43 @@ export default class Player {
         // this.meleeReload -= delta;
         // if (this.meleeReload <= 0) this.meleeReload = 0;
 
-        let xVel = this.moveDir != undefined ? Math.cos(this.moveDir) : 0;
-        let yVel = this.moveDir != undefined ? Math.sin(this.moveDir) : 0;
-        let length = Math.sqrt(xVel * xVel + yVel * yVel);
-        let spdMlt = 1;
-        let onIce = false;
+        if (this.lockMove) {
+            this.xVel = 0;
+            this.yVel = 0;
+        } else {
+            let xVel = this.moveDir != undefined ? Math.cos(this.moveDir) : 0;
+            let yVel = this.moveDir != undefined ? Math.sin(this.moveDir) : 0;
+            let length = Math.sqrt(xVel * xVel + yVel * yVel);
+            let spdMlt = 1;
+            let onIce = false;
 
-        if (this.y <= config.snowBiomeEndY) {
-            spdMlt *= .75; // 25% speed decrease when on snow
-        }
+            if (this.y <= config.snowBiomeEndY) {
+                spdMlt *= .75; // 25% speed decrease when on snow
+            }
 
-        for (let i = 0; i < gameObjects.length; i++) {
-            let tmpObj = gameObjects[i];
+            for (let i = 0; i < gameObjects.length; i++) {
+                let tmpObj = gameObjects[i];
 
-            if (tmpObj && (tmpObj.name == "lava pond" || tmpObj.name == "pond") && tmpObj.active) {
-                if (UTILS.getDistance(tmpObj, this) <= this.scale + tmpObj.scale) {
-                    if (tmpObj.name == "pond" && tmpObj.y + tmpObj.scale <= config.snowBiomeEndY) {
-                        onIce = true;
-                    } else {
-                        spdMlt *= (tmpObj.name == "lava pond" ? .35 : .55);
-                        break;
+                if (tmpObj && (tmpObj.name == "lava pond" || tmpObj.name == "pond") && tmpObj.active) {
+                    if (UTILS.getDistance(tmpObj, this) <= this.scale + tmpObj.scale) {
+                        if (tmpObj.name == "pond" && tmpObj.y + tmpObj.scale <= config.snowBiomeEndY) {
+                            onIce = true;
+                        } else {
+                            spdMlt *= (tmpObj.name == "lava pond" ? .35 : .55);
+                            break;
+                        }
                     }
                 }
             }
-        }
 
-        if (length != 0) {
-            xVel /= length;
-            yVel /= length;
-        }
+            if (length != 0) {
+                xVel /= length;
+                yVel /= length;
+            }
 
-        if (xVel) this.xVel += xVel * this.speed * spdMlt * delta;
-        if (yVel) this.yVel += yVel * this.speed * spdMlt * delta;
+            if (xVel) this.xVel += xVel * this.speed * spdMlt * delta;
+            if (yVel) this.yVel += yVel * this.speed * spdMlt * delta;
+        }
 
         let tmpSpeed = UTILS.getDistance({ x: 0, y: 0 }, { x: this.xVel * delta, y: this.yVel * delta });
         let depth = Math.min(4, Math.max(1, Math.round(tmpSpeed / 40)));
@@ -304,21 +311,21 @@ export default class Player {
         }
 
         let tmpIndx = players.indexOf(this);
-		for (let i = tmpIndx + 1; i < players.length; ++i) {
+        for (let i = tmpIndx + 1; i < players.length; ++i) {
             let other = players[i];
 
-			if (other != this && other.alive) {
+            if (other != this && other.alive) {
                 let tmpInt = UTILS.getDistance(this, other) - (this.scale + other.scale);
                 tmpInt = (tmpInt * -1) / 2;
 
                 let tmpDir = UTILS.getDirection(this, other);
 
-				this.x += (tmpInt * Math.cos(tmpDir));
-				this.y += (tmpInt * Math.sin(tmpDir));
-				other.x -= (tmpInt * Math.cos(tmpDir));
-				other.y -= (tmpInt * Math.sin(tmpDir));
+                this.x += (tmpInt * Math.cos(tmpDir));
+                this.y += (tmpInt * Math.sin(tmpDir));
+                other.x -= (tmpInt * Math.cos(tmpDir));
+                other.y -= (tmpInt * Math.sin(tmpDir));
             }
-		}
+        }
 
         if (this.xVel) {
             this.xVel *= Math.pow(onIce ? config.icePlayerDecel : config.playerDecel, delta);
