@@ -51,7 +51,7 @@ export default function updatePlayers(data) {
                 if (!done) {
                     if (tmpObj.x2 <= 3e3 || tmpObj.x2 >= config.mapScale - 3e3) {
                         particles.push(new Particles(tmpObj.sid, tmpObj.x, tmpObj.y, "pond"));
-                    } else if (tmpObj.x2 > 2800 && tmpObj.x2 < config.mapScale - 2800) {
+                    } else if (tmpObj.x2 > 2600 && tmpObj.x2 < config.mapScale - 2600) {
                         if ((tmpObj.y2 >= 3625 && tmpObj.y2 <= 4325) || tmpObj.y2 >= 7625 && tmpObj.y2 <= 8325) {
                             particles.push(new Particles(tmpObj.sid, tmpObj.x, tmpObj.y, "pond"));
                         }

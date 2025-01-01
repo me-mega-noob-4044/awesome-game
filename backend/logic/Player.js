@@ -274,13 +274,13 @@ export default class Player {
                 }
             }
 
-            if (this.x > 2800 && this.x < config.mapScale - 2800) {
+            if (this.x > 2600 && this.x < config.mapScale - 2600) {
                 if (this.y >= 3625 && this.y <= 4325) {
                     spdMlt *= .65;
-                    this.xVel -= .0011 * delta;
+                    this.xVel -= .0018 * delta;
                 } else if (this.y >= 7625 && this.y <= 8325) {
                     spdMlt *= .65;
-                    this.xVel += .0011 * delta;
+                    this.xVel += .0018 * delta;
                 }
             }
 
