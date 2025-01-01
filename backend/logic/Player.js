@@ -238,6 +238,8 @@ export default class Player {
         // this.meleeReload -= delta;
         // if (this.meleeReload <= 0) this.meleeReload = 0;
 
+        let onIce = false;
+
         if (this.lockMove) {
             this.xVel = 0;
             this.yVel = 0;
@@ -246,7 +248,6 @@ export default class Player {
             let yVel = this.moveDir != undefined ? Math.sin(this.moveDir) : 0;
             let length = Math.sqrt(xVel * xVel + yVel * yVel);
             let spdMlt = 1;
-            let onIce = false;
 
             if (this.y <= config.snowBiomeEndY) {
                 spdMlt *= .75; // 25% speed decrease when on snow
