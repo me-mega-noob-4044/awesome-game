@@ -51,6 +51,7 @@ export default class AI {
 
         this.ripAndTearTimer = 0;
         this.ripAndTeatDotTimer = 0;
+        this.volcanoTimer = 0;
     }
 
     changeHealth(value, doer) {
@@ -94,6 +95,17 @@ export default class AI {
     }
 
     update(delta, players, gameObjects) {
+        if (this.volcanoTimer > 0) {
+            this.volcanoTimer -= delta;
+
+            if (this.volcanoTimer <= 0) {
+                this.volcanoTimer = 0;
+                this.changeHealth(UTILS.getDistance({ x: config.mapScale / 2, y: config.mapScale / 2 }, this) <= 250 ? -15 : this.inLavaPond ? -7.5 : -5);
+            }
+        }
+
+        this.inLavaPond = false;
+
         if (!this.isAlive) {
             this.deathTimer -= delta;
 
@@ -304,6 +316,31 @@ export default class AI {
         for (let i = 0; i < depth; i++) {
             if (this.xVel) this.x += (this.xVel * delta) * tMlt;
             if (this.yVel) this.y += (this.yVel * delta) * tMlt;
+
+            for (let t = 0; t < gameObjects.length; t++) {
+                let tmpObj = gameObjects[t];
+
+                if (tmpObj && tmpObj.active && (tmpObj.name == "lava pond" || tmpObj.name == "volcano")) {
+                    let tmpDir = UTILS.getDirection(this, tmpObj);
+                    let tmpScale = this.scale + 200;
+
+                    if (this.volcanoTimer == 0 && UTILS.getDistance(tmpObj, this) <= tmpObj.scale) {
+                        if (tmpObj.name == "lava pond") {
+                            this.volcanoTimer = 1;
+                            this.inLavaPond = true;
+                        } else {
+                            this.volcanoTimer = UTILS.getDistance(tmpObj, this) <= 250 ? 100 : UTILS.getDistance(tmpObj, this) <= tmpObj.scale * .75 ? 250 : 500;
+                        }
+                    }
+
+                    if (tmpObj.name == "volcano" && UTILS.getDistance(tmpObj, this) <= tmpScale) {
+                        this.x = tmpObj.x + (tmpScale * Math.cos(tmpDir));
+                        this.y = tmpObj.y + (tmpScale * Math.sin(tmpDir));
+                        this.xVel *= 0.75;
+                        this.yVel *= 0.75;
+                    }
+                }
+            }
         }
 
         if (this.xVel) {
