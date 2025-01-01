@@ -285,3 +285,28 @@ input, button {
     font-weight: 800;
     color: white;
 }
+
+.upgrade-item {
+    width: 75px;
+    height: 75px;
+    margin: 7px;
+    background-color: rgba(0, 0, 0, .25);
+    border-radius: 4px;
+    cursor: pointer;
+    background-size: 75px 75px;
+}
+
+.upgrade-item:hover {
+    background-color: rgba(0, 0, 0, .35);
+}
+
+#upgrade-desc {
+    display: none;
+    background-color: rgba(0, 0, 0, .25);
+    border-radius: 4px;
+    margin-top: 4px;
+    padding: 4px;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+}

@@ -195,7 +195,7 @@ export default class AI {
                         }
                     }
     
-                    if (this.targetTimer <= 0) {
+                    if (this.targetTimer <= 0 || !this.target.isAlive) {
                         this.target = null;
                         this.targetTimer = 0;
                     }
@@ -385,10 +385,10 @@ export default class AI {
                 }
             }
         } else {
-            if (this.x - this.scale < (this.onlyLand ? 2650 : 0)) {
-                this.x = this.scale + (this.onlyLand ? 2650 : 0);
-            } else if (this.x + this.scale > config.mapScale - (this.onlyLand ? 2650 : 0)) {
-                this.x = config.mapScale - this.scale - (this.onlyLand ? 2650 : 0);
+            if (this.x - this.scale < (this.onlyLand ? 2450 : 0)) {
+                this.x = this.scale + (this.onlyLand ? 2450 : 0);
+            } else if (this.x + this.scale > config.mapScale - (this.onlyLand ? 2450 : 0)) {
+                this.x = config.mapScale - this.scale - (this.onlyLand ? 2450 : 0);
             }
         }
 

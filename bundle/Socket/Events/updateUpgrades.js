@@ -1,5 +1,5 @@
 import skills, { generateSVG } from "../../../backend/constants/skills.js";
-import { upgradesPoints, upgrades } from "../../main.js";
+import { upgradesPoints, upgrades, upgradeDesc } from "../../main.js";
 
 export default function updateUpgrades(age, points) {
     upgrades.innerHTML = "";
@@ -17,13 +17,25 @@ export default function updateUpgrades(age, points) {
     }
 
     for (let i = 0; i < validSkills.length; i++) {
-        upgrades.innerHTML += `
-        <div>
-        </div>
-        `;
+        let element = document.createElement("div");
+        element.classList.add("upgrade-item");
+        element.style.backgroundImage = `url('${validSkills[i].src}')`;
+
+        element.onmouseover = () => {
+            upgradeDesc.style.display = "block";
+            upgradeDesc.innerHTML = `
+                <div style="font-size: 18px; font-weight: 900; width: 100%; text-align: center;">${validSkills[i].name}</div>
+                <div>${validSkills[i].description}</div>
+            `;
+        };
+
+        element.onmouseout = () => {
+            upgradeDesc.style.display = "none";
+            upgradeDesc.innerText = "";
+        };
+
+        upgrades.appendChild(element);
     }
 
     upgradesPoints.innerText = "Upgrade Points: " + points;
-
-    // console.log(age, points, validSkills);
 }

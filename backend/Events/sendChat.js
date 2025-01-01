@@ -13,6 +13,8 @@ export default function sendChat(ws, msg) {
         if (msg.startsWith("!kick ")) {
             let player = players.find(e => e.sid == parseInt(msg.split("!kick ")[1]));
             if (player) player.ws.close(4001, "You have been kicked");
+        } else if (msg == "!xp") {
+            ws.NEW_CLIENT.addXP(2e3);
         }
     } else if (msg.startsWith("!tp ")) {
         let player = players.find(e => e.sid == parseInt(msg.split("!tp ")[1]));

@@ -25,6 +25,6 @@ export default {
         }]
     },
 
-    mode: "production",
+    mode: "development",
     devtool: false
 };
