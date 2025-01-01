@@ -224,7 +224,7 @@ export default class AI {
             }
 
             if (this.speedBoostTimer > 0) {
-                spdMlt *= 5.5;
+                spdMlt *= 3.5;
 
                 this.speedBoostTimer -= delta;
                 if (this.speedBoostTimer <= 0) this.speedBoostTimer = 0;
