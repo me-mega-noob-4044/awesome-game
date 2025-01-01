@@ -264,3 +264,24 @@ input, button {
     margin-left: 7px;
     font-weight: 700;
 }
+
+#upgrades-holder {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    top: 10px;
+    width: 100%;
+    left: 0px;
+}
+
+#upgrades {
+    display: flex;
+}
+
+#upgrade-points {
+    font-size: 18px;
+    font-weight: 800;
+    color: white;
+}

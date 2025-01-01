@@ -28,6 +28,10 @@ export var ageDisplay = document.getElementById("age-display");
 export var leaderboard = document.getElementById("leaderboard");
 export var leaderboardDisplay = document.getElementById("leaderboard-display");
 
+export var upgradesHolder = document.getElementById("upgrades-holder");
+export var upgrades = document.getElementById("upgrades");
+export var upgradesPoints = document.getElementById("upgrade-points");
+
 export const players = [];
 export const gameObjects = [];
 export const particles = [];

@@ -52,6 +52,8 @@ export default class AI {
         this.ripAndTearTimer = 0;
         this.ripAndTeatDotTimer = 0;
         this.volcanoTimer = 0;
+
+        this.players = [];
     }
 
     changeHealth(value, doer) {
@@ -63,12 +65,22 @@ export default class AI {
         }
 
         if (value < 0 && !this.isHostile) {
-            if (doer && this.freeXP) {
-                doer.addXP(3);
-            }
+            if (!doer) {
+                for (let i = 0; i < this.players.length; i++) {
+                    let tmpPlayer = this.players[i];
 
-            this.targetDir = UTILS.getDirection(this, doer);
-            this.speedBoostTimer = UTILS.randInt(4e3, 12e3);
+                    if (!tmpPlayer.canSee(this)) continue;
+
+                    tmpPlayer.send(Packets.SERVER_TO_CLIENT.SHOW_TEXT, this.x, this.y, Math.ceil(value), true);
+                }
+            } else {
+                if (this.freeXP) {
+                    doer.addXP(3);
+                }
+    
+                this.targetDir = UTILS.getDirection(this, doer);
+                this.speedBoostTimer = UTILS.randInt(4e3, 12e3);
+            }
         }
 
         if (this.health <= 0) {
@@ -95,6 +107,8 @@ export default class AI {
     }
 
     update(delta, players, gameObjects) {
+        this.players = players;
+
         if (this.volcanoTimer > 0) {
             this.volcanoTimer -= delta;
 
@@ -198,11 +212,14 @@ export default class AI {
 
         let onIce = false;
         let onLand = false;
+        let inRiver = false;
 
         if (!this.avoidObjects && this.x > 2600 && this.x < config.mapScale - 2600) {
             if (this.y >= 3625 && this.y <= 4325) {
+                inRiver = true;
                 this.xVel -= config.riverSpeed * delta;
             } else if (this.y >= 7625 && this.y <= 8325) {
+                inRiver = true;
                 this.xVel += config.riverSpeed * delta;
             }
         }
@@ -281,7 +298,7 @@ export default class AI {
             }
 
             if (this.speedBoostTimer > 0) {
-                spdMlt *= 1.8;
+                spdMlt *= 3.8;
 
                 this.speedBoostTimer -= delta;
                 if (this.speedBoostTimer <= 0) this.speedBoostTimer = 0;
@@ -317,13 +334,13 @@ export default class AI {
             if (this.xVel) this.x += (this.xVel * delta) * tMlt;
             if (this.yVel) this.y += (this.yVel * delta) * tMlt;
 
-            if (!this.volcanoAi) {
+            if (this && !this.volcanoAi) {
                 for (let t = 0; t < gameObjects.length; t++) {
                     let tmpObj = gameObjects[t];
     
-                    if (tmpObj && tmpObj.active && (tmpObj.name == "lava pond" || tmpObj.name == "volcano")) {
+                    if (tmpObj && tmpObj.active && ((this.onlyWater && tmpObj.name == "land") && tmpObj.name == "lava pond" || tmpObj.name == "volcano")) {
                         let tmpDir = UTILS.getDirection(this, tmpObj);
-                        let tmpScale = this.scale + 200;
+                        let tmpScale = this.scale + (tmpObj.name == "volcano" ? 200 : tmpObj.scale);
     
                         if (this.volcanoTimer == 0 && UTILS.getDistance(tmpObj, this) <= tmpObj.scale) {
                             if (tmpObj.name == "lava pond") {
@@ -355,10 +372,24 @@ export default class AI {
             if (this.yVel <= 0.01 && this.yVel >= -0.01) this.yVel = 0;
         }
 
-        if (this.x - this.scale < (this.onlyLand ? 2650 : 0)) {
-            this.x = this.scale + (this.onlyLand ? 2650 : 0);
-        } else if (this.x + this.scale > config.mapScale - (this.onlyLand ? 2650 : 0)) {
-            this.x = config.mapScale - this.scale - (this.onlyLand ? 2650 : 0);
+        if (this.onlyWater) {
+            if (this.x - this.scale < 0) {
+                this.x = this.scale;
+            } else if (this.x + this.scale > config.mapScale) {
+                this.x = config.mapScale - this.scale;
+            } else if (!inRiver && this.x > 3e3 && this.x < config.mapScale - 3e3) {
+                if (this.x < config.mapScale / 2) {
+                    this.x = 3e3 - this.scale;
+                } else {
+                    this.x = (config.mapScale - 3e3) + this.scale;
+                }
+            }
+        } else {
+            if (this.x - this.scale < (this.onlyLand ? 2650 : 0)) {
+                this.x = this.scale + (this.onlyLand ? 2650 : 0);
+            } else if (this.x + this.scale > config.mapScale - (this.onlyLand ? 2650 : 0)) {
+                this.x = config.mapScale - this.scale - (this.onlyLand ? 2650 : 0);
+            }
         }
 
         if (this.y - this.scale < 0) {

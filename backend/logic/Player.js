@@ -54,6 +54,7 @@ export default class Player {
         };
         this.lockMove = false;
         this.upgradePoints = 0;
+        this.upgradeAge = 2;
     }
 
     setName(name) {
@@ -132,6 +133,8 @@ export default class Player {
             timer: 0
         };
 
+        this.upgradeAge = 2;
+
         if (this.ws) {
             this.addXP(0);
             this.changeHealth(0);
@@ -156,7 +159,7 @@ export default class Player {
         if (leveledUp) {
             this.changeHealth(this.maxHealth);
             this.send(Packets.SERVER_TO_CLIENT.UPDATE_AGE, this.age);
-            this.send(Packets.SERVER_TO_CLIENT.UPDATE_UPGRADES, this.age, this.upgradePoints);
+            this.send(Packets.SERVER_TO_CLIENT.UPDATE_UPGRADES, this.upgradeAge, this.upgradePoints);
         }
 
         this.send(Packets.SERVER_TO_CLIENT.UPDATE_XP, this.XP, this.maxXP);
