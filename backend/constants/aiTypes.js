@@ -49,14 +49,14 @@ const aiTypes = [{
     onlyLand: true
 }, {
     name: "Wolf",
-    health: 250,
-    xp: 500,
+    health: 350,
+    xp: 450,
     speed: .0016,
     scale: 105,
-    dmg: 6,
+    dmg: 8,
     src: "https://i.imgur.com/XOs4Htu.png",
     turnSpeed: .005,
-    aggroDistance: 2e3,
+    aggroDistance: 800,
     isHostile: true,
     onlyLand: true
 }];

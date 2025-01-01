@@ -155,7 +155,7 @@ export default class AI {
                     this.targetTimer -= delta;
 
                     if (UTILS.getDistance(this.target, this) <= this.scale + this.target.scale) {
-                        if (this.volcanoAi && Math.random() < 2) {
+                        if (this.volcanoAi && Math.random() < .2) {
                             this.ripAndTearTimer = UTILS.randInt(750, 1500);
                         } else {
                             this.target.changeHealth(-this.dmg, this);
