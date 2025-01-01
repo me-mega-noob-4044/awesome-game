@@ -97,7 +97,7 @@ export default class AI {
                 this.isAlive = true;
 
                 this.health = this.maxHealth;
-                this.x = UTILS.randInt(0, config.mapScale);
+                this.x = UTILS.randInt(3e3, config.mapScale - 3e3);
                 this.y = UTILS.randInt(0, config.mapScale);
             }
 
