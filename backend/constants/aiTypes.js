@@ -2,10 +2,12 @@ const aiTypes = [{
     name: "Webpack Config Js",
     health: Infinity,
     xp: Infinity,
-    speed: Infinity,
+    speed: 0,
     dmg: Infinity,
-    turnSpeed: 1, // Instant
-    scale: 505
+    freeXP: true,
+    src: "https://i.imgur.com/BNyilQF.png",
+    turnSpeed: 0, // Don't turn
+    scale: 205
 }, {
     name: "Dragon",
     layer: 1,
@@ -59,6 +61,16 @@ const aiTypes = [{
     aggroDistance: 800,
     isHostile: true,
     onlyLand: true
+}, {
+    name: "Node Js",
+    health: Infinity,
+    xp: Infinity,
+    speed: 0,
+    dmg: Infinity,
+    freeXP: true,
+    src: "https://i.imgur.com/X0kS9rJ.png",
+    turnSpeed: 0, // Don't turn
+    scale: 205
 }];
 
 export default aiTypes;

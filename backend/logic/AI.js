@@ -25,6 +25,7 @@ export default class AI {
         this.avoidObjects = data.avoidObjects;
         this.aggroDistance = data.aggroDistance;
         this.onlyLand = data.onlyLand;
+        this.freeXP = data.freeXP;
 
         this.health = this.maxHealth = data.health;
 
@@ -61,6 +62,10 @@ export default class AI {
         }
 
         if (value < 0 && !this.isHostile) {
+            if (doer && this.freeXP) {
+                doer.addXP(3);
+            }
+
             this.targetDir = UTILS.getDirection(this, doer);
             this.speedBoostTimer = UTILS.randInt(4e3, 12e3);
         }

@@ -23,7 +23,7 @@ export default function renderAi(mainContext, xOffset, yOffset, layer) {
         if (tmpObj && tmpObj.visible && tmpObj.layer == layer) {
             mainContext.save();
             mainContext.translate(tmpObj.x - xOffset, tmpObj.y - yOffset);
-            mainContext.rotate(tmpObj.dir - Math.PI / 2);
+            mainContext.rotate(tmpObj.dir - (tmpObj.freeXP ? 0 : Math.PI / 2));
             
             let image = getImage(tmpObj.src);
             mainContext.drawImage(image, -tmpObj.scale, -tmpObj.scale, tmpObj.scale * 2, tmpObj.scale * 2);

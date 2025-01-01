@@ -97,6 +97,10 @@ function initGame() {
         // DRAGON
         AiManager.add(1, gameConfig.mapScale / 2, gameConfig.mapScale / 2);
 
+        // ULTIMATE BOSS(ES):
+        AiManager.add(0, gameConfig.mapScale / 2, 11e3);
+        AiManager.add(6, gameConfig.mapScale / 2, 1e3);
+
         let friendLandIds = [2, 4];
         let enemyLandIds = [5];
 

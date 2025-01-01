@@ -1,29 +1,30 @@
 const Packets = {
     CLIENT_TO_SERVER: {
-        JOIN_GAME: "eaeaea",
-        MOVE: "i wannt movee :)",
-        SEND_CHAT: "chattt",
-        SEND_HIT: "rahhh",
-        SEND_AIM: "aimmm",
-        SEND_CHAT: "chtahtahtahtahtahtah",
-        PING: "aeaeae86"
+        JOIN_GAME: "JG",
+        MOVE: "MV",
+        SEND_CHAT: "SC",
+        SEND_HIT: "SH",
+        SEND_AIM: "SA",
+        PING: "PG",
+        SEND_UPGRADE: "SU"
     },
     SERVER_TO_CLIENT: {
-        SET_UP_GAME: "aeas",
-        ADD_PLAYER: "there's a starman!",
-        UPDATE_PLAYERS: "woahh",
-        UPDATE_HEALTH: "wahhhh :((",
-        REMOVE_PLAYER: "nooo player gone",
-        LOAD_GAME_OBJECT: "RAHHHHHHHH GAMEOBEJCS",
-        SHOW_TEXT: "aioshdsiuahidahshudsudh",
-        KILL_PLAYER: "ok",
-        HIT_ANIMATION: "hitttt",
-        GET_CHAT: "AAAAAA",
-        PING_RESPONSE: "aeaeaeaea",
-        UPDATE_XP: "asdasdasd",
-        UPDATE_AGE: "hahaha u aged up",
-        LOAD_AI: "aiiaaiiai",
-        UPDATE_LEADERBOARD: "RHAUDHIUASDIASHDIHUASHIDHAISHAIUSDHBIDIJSDIBAISDOSSDKONASODOAIJSDUJOSND"
+        SET_UP_GAME: "SG",
+        ADD_PLAYER: "AP",
+        UPDATE_PLAYERS: "UP",
+        UPDATE_HEALTH: "UH",
+        REMOVE_PLAYER: "RP",
+        LOAD_GAME_OBJECT: "LG",
+        SHOW_TEXT: "ST",
+        KILL_PLAYER: "KP",
+        HIT_ANIMATION: "HA",
+        GET_CHAT: "GC",
+        PING_RESPONSE: "PR",
+        UPDATE_XP: "UX",
+        UPDATE_AGE: "UA",
+        LOAD_AI: "LA",
+        UPDATE_LEADERBOARD: "UL",
+        UPDATE_UPGRADES: "UU"
     }
 };
 

@@ -53,6 +53,7 @@ export default class Player {
             timer: 0
         };
         this.lockMove = false;
+        this.upgradePoints = 0;
     }
 
     setName(name) {
@@ -119,6 +120,7 @@ export default class Player {
         this.kills = 0;
 
         this.volcanoTimer = 0;
+        this.upgradePoints = 0;
 
         this.regenTimer = 0;
         this.regenRate = config.playerRegenerationRate;
@@ -146,6 +148,7 @@ export default class Player {
             this.XP -= this.maxXP;
             this.age++;
             this.maxXP += 150;
+            this.upgradePoints++;
 
             leveledUp = true;
         }
@@ -153,6 +156,7 @@ export default class Player {
         if (leveledUp) {
             this.changeHealth(this.maxHealth);
             this.send(Packets.SERVER_TO_CLIENT.UPDATE_AGE, this.age);
+            this.send(Packets.SERVER_TO_CLIENT.UPDATE_UPGRADES, this.age, this.upgradePoints);
         }
 
         this.send(Packets.SERVER_TO_CLIENT.UPDATE_XP, this.XP, this.maxXP);
