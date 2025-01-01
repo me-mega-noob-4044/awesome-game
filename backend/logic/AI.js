@@ -121,7 +121,9 @@ export default class AI {
         if (this.aggroDistance) {
             if (this.target) {
                 if (this.ripAndTearTimer > 0) {
-                    this.targetDir = this.dir + Math.PI / 2;
+                    this.targetDir = Math.PI * Math.sin((performance.now() / 500) % (2 * Math.PI));
+                    // 2 * Math.PI * Math.random();
+                    // this.dir + Math.PI / 2;
 
                     this.ripAndTearTimer -= delta;
                     if (this.ripAndTearTimer <= 0) {
@@ -136,8 +138,8 @@ export default class AI {
                         this.target.lockMove = true;
                     }
 
-                    this.target.x = this.x + Math.cos(this.targetDir) * this.scale;
-                    this.target.y = this.y + Math.sin(this.targetDir) * this.scale;
+                    this.target.x = this.x + Math.cos(this.dir) * this.scale;
+                    this.target.y = this.y + Math.sin(this.dir) * this.scale;
 
                     if (!this.target.isAlive) {
                         this.target.lockMove = false;
