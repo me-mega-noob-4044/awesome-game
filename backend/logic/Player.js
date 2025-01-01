@@ -277,10 +277,10 @@ export default class Player {
             if (this.x > 2600 && this.x < config.mapScale - 2600) {
                 if (this.y >= 3625 && this.y <= 4325) {
                     spdMlt *= .65;
-                    this.xVel -= .0018 * delta;
+                    this.xVel -= config.riverSpeed * delta;
                 } else if (this.y >= 7625 && this.y <= 8325) {
                     spdMlt *= .65;
-                    this.xVel += .0018 * delta;
+                    this.xVel += config.riverSpeed * delta;
                 }
             }
 

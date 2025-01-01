@@ -178,6 +178,14 @@ export default class AI {
 
         let onIce = false;
 
+        if (this.x > 2600 && this.x < config.mapScale - 2600) {
+            if (this.y >= 3625 && this.y <= 4325) {
+                this.xVel -= config.riverSpeed * delta;
+            } else if (this.y >= 7625 && this.y <= 8325) {
+                this.xVel += config.riverSpeed * delta;
+            }
+        }
+
         if (this.waitCount > 0 && this.speedBoostTimer <= 0) {
             this.waitCount -= delta;
             this.xVel = 0;
@@ -211,6 +219,7 @@ export default class AI {
             let yVel = Math.sin(this.dir)
             let length = Math.sqrt(xVel * xVel + yVel * yVel);
             let spdMlt = 1;
+            let onWater = false;
     
             if (this.y <= config.snowBiomeEndY) {
                 spdMlt *= .75; // 25% speed decrease when on snow
@@ -225,7 +234,12 @@ export default class AI {
                             if (tmpObj.name == "pond" && tmpObj.y + tmpObj.scale <= config.snowBiomeEndY) {
                                 onIce = true;
                             } else {
-                                spdMlt *= (tmpObj.name == "lava pond" ? .35 : .55);
+                                if (tmpObj.name == "lava pond") {
+                                    spdMlt += .35;
+                                } else {
+                                    onWater = true;
+                                }
+
                                 break;
                             }
                         }
@@ -243,6 +257,18 @@ export default class AI {
 
                 this.speedBoostTimer -= delta;
                 if (this.speedBoostTimer <= 0) this.speedBoostTimer = 0;
+            }
+
+            if (this.x > 2600 && this.x < config.mapScale - 2600) {
+                if (this.y >= 3625 && this.y <= 4325) {
+                    spdMlt *= .65;
+                } else if (this.y >= 7625 && this.y <= 8325) {
+                    spdMlt *= .65;
+                }
+            }
+
+            if (onWater || this.x <= 3e3 || this.x >= config.mapScale - 3e3) {
+                spdMlt *= .55;
             }
 
             if (this.target) {

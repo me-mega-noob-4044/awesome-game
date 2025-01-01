@@ -3,7 +3,7 @@ import config from "../../../backend/constants/config.js";
 import renderCircle from "../utils/renderCircle.js";
 import colorConfig from "../constants/colorConfig.js";
 
-export default function renderMinimap() {
+export default function renderMinimap() { // I'LL ADD THE 2 RIVER LATER
     mapContext.clearRect(0, 0, 600, 600);
 
     // SNOW:

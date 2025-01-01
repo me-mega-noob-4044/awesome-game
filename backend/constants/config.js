@@ -12,7 +12,8 @@ const config = {
     icePlayerDecel: .998,
     snowBiomeEndY: 2e3,
     waveSpeed: .000025,
-    waveMax: 1.05
+    waveMax: 1.05,
+    riverSpeed: .0018
 };
 
 export default config;
