@@ -44,6 +44,9 @@ export default class AI {
 
         this.targetTimer = 0;
         this.target;
+
+        this.ripAndTearTimer = 0;
+        this.ripAndTeatDotTimer = 0;
     }
 
     changeHealth(value, doer) {
@@ -106,18 +109,45 @@ export default class AI {
 
         if (this.aggroDistance) {
             if (this.target) {
-                this.targetDir = UTILS.getDirection(this.target, this);
-                this.targetTimer -= delta;
+                if (this.ripAndTearTimer > 0) {
+                    this.targetDir = this.dir + Math.PI / 2;
 
-                if (UTILS.getDistance(this.target, this) <= this.scale + this.target.scale) {
-                    this.target.changeHealth(-this.dmg, this);
-                    this.target.xVel += Math.cos(this.targetDir) * .5;
-                    this.target.yVel += Math.sin(this.targetDir) * .5;
-                }
+                    this.ripAndTearTimer -= delta;
+                    if (this.ripAndTearTimer <= 0) {
+                        this.target.xVel = Math.cos(this.dir) * 2.5;
+                        this.target.yVel = Math.sin(this.dir) * 2.5;
+                        this.target.changeHealth(-this.dmg * 2, this);
 
-                if (this.targetTimer <= 0) {
-                    this.target = null;
-                    this.targetTimer = 0;
+                        this.ripAndTearTimer = 0;
+                    }
+
+                    this.target.x = this.x + Math.cos(this.targetDir) * this.scale;
+                    this.target.y = this.y + Math.sin(this.targetDir) * this.scale;
+
+                    if (!this.target.isAlive) {
+                        this.target = null;
+                        this.ripAndTearTimer = 0;
+                        this.targetTimer = 0;
+                    }
+                } else {
+                    this.targetDir = UTILS.getDirection(this.target, this);
+
+                    this.targetTimer -= delta;
+
+                    if (UTILS.getDistance(this.target, this) <= this.scale + this.target.scale) {
+                        if (Math.random() < 2) {
+                            this.ripAndTearTimer = UTILS.randInt(3e3, 6e3);
+                        } else {
+                            this.target.changeHealth(-this.dmg, this);
+                            this.target.xVel += Math.cos(this.targetDir) * .5;
+                            this.target.yVel += Math.sin(this.targetDir) * .5;
+                        }
+                    }
+    
+                    if (this.targetTimer <= 0) {
+                        this.target = null;
+                        this.targetTimer = 0;
+                    }
                 }
             } else {
                 let filteredPlayers = players.filter(e => e.isAlive && UTILS.getDistance(e, this) <= this.aggroDistance);
@@ -136,11 +166,23 @@ export default class AI {
             this.xVel = 0;
             this.yVel = 0;
         } else {
+            let turnSpeed = this.turnSpeed;
+
+            if (this.ripAndTearTimer > 0) {
+                turnSpeed *= 6.5;
+
+                this.ripAndTeatDotTimer -= delta;
+                if (this.ripAndTeatDotTimer <= 0) {
+                    this.target.changeHealth(-this.dmg * .5, this);
+                    this.ripAndTeatDotTimer = 1e3;
+                }
+            }
+
             if (this.dir != this.targetDir) {
                 this.dir %= (Math.PI * 2);
     
                 let netAngle = (this.dir - this.targetDir + (Math.PI * 2)) % (Math.PI * 2);
-                let amnt = Math.min(Math.abs(netAngle - (Math.PI * 2)), netAngle, this.turnSpeed * delta);
+                let amnt = Math.min(Math.abs(netAngle - (Math.PI * 2)), netAngle, turnSpeed * delta);
                 let sign = (netAngle - Math.PI) >= 0 ? 1 : -1;
     
                 this.dir += sign * amnt + (Math.PI * 2);
@@ -190,8 +232,10 @@ export default class AI {
                 spdMlt *= 1.8; // Mobs with target will run towards it
             }
     
-            if (xVel) this.xVel += xVel * this.speed * spdMlt * delta;
-            if (yVel) this.yVel += yVel * this.speed * spdMlt * delta;
+            if (this.ripAndTearTimer <= 0) {
+                if (xVel) this.xVel += xVel * this.speed * spdMlt * delta;
+                if (yVel) this.yVel += yVel * this.speed * spdMlt * delta;
+            }
         }
 
         let tmpSpeed = UTILS.getDistance({ x: 0, y: 0 }, { x: this.xVel * delta, y: this.yVel * delta });
