@@ -35,8 +35,13 @@ export default function renderGameObject(mainContext, xOffset, yOffset, delta, l
                             renderCircle(0, 0, mainContext, tmpObj.scale * tmpObj.waterMult, false, true);
                         }
                     } else {
-                        mainContext.fillStyle = tmpObj.name == "lava pond" ? colorConfig.lavaColor : colorConfig.waterColor;
-                        renderCircle(0, 0, mainContext, tmpObj.scale * tmpObj.waterMult, false, true);
+                        if (tmpObj.name == "pond" && tmpObj.y >= config.mapScale - 2e3) {
+                            mainContext.fillStyle = colorConfig.darkSandColor;
+                            renderCircle(0, 0, mainContext, tmpObj.scale, false, true);
+                        } else {
+                            mainContext.fillStyle = tmpObj.name == "lava pond" ? colorConfig.lavaColor : colorConfig.waterColor;
+                            renderCircle(0, 0, mainContext, tmpObj.scale * tmpObj.waterMult, false, true);
+                        }
                     }
                 }
             } else if (tmpObj.name == "volcano") {

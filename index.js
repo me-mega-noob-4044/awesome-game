@@ -60,7 +60,7 @@ function initGame() {
             let x = UTILS.randInt(3455, 8545);
             let y = UTILS.randInt(0, 3145);
 
-            while (gameObjects.some(e => UTILS.getDistance({ x, y }, e) <= e.scale * 2)) {
+            while (gameObjects.some(e => UTILS.getDistance({ x, y }, e) <= e.scale + 550)) {
                 x = UTILS.randInt(3455, 8545);
                 y = UTILS.randInt(0, 3145);
             }
@@ -73,9 +73,22 @@ function initGame() {
             let x = UTILS.randInt(3455, 8545);
             let y = UTILS.randInt(4900, 7e3);
 
-            while (gameObjects.some(e => UTILS.getDistance({ x, y }, e) <= e.scale * 2)) {
+            while (gameObjects.some(e => UTILS.getDistance({ x, y }, e) <= e.scale + 550)) {
                 x = UTILS.randInt(3455, 8545);
                 y = UTILS.randInt(4900, 7e3);
+            }
+
+            ObjectManager.add(0, x, y, gameObjects.length, gameObjects);
+        }
+
+        // BOTTOM BODY OF LAND:
+        for (let i = 0; i < 5; i++) {
+            let x = UTILS.randInt(3455, 8545);
+            let y = UTILS.randInt(9e3, gameConfig.mapScale);
+
+            while (gameObjects.some(e => UTILS.getDistance({ x, y }, e) <= e.scale + 550)) {
+                x = UTILS.randInt(3455, 8545);
+                y = UTILS.randInt(9e3, gameConfig.mapScale);
             }
 
             ObjectManager.add(0, x, y, gameObjects.length, gameObjects);

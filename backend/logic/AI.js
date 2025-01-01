@@ -239,7 +239,11 @@ export default class AI {
                                 if (tmpObj.name == "lava pond") {
                                     spdMlt += .35;
                                 } else {
-                                    onWater = true;
+                                    if (this.y >= config.mapScale - 2e3) {
+                                        continue;
+                                    } else {
+                                        onWater = true;
+                                    }
                                 }
 
                                 break;
