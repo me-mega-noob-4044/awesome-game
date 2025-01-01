@@ -150,7 +150,7 @@ export default class Player {
         while (this.XP >= this.maxXP) {
             this.XP -= this.maxXP;
             this.age++;
-            this.maxXP += 150;
+            this.maxXP = Math.min(1e3, this.maxXP + 150);
             this.upgradePoints++;
 
             leveledUp = true;

@@ -5,6 +5,7 @@ export default function sendUpgrade(ws, id) {
     let player = ws.NEW_CLIENT;
 
     if (!player) return;
+    if (player.upgradeAge > 10) return;
 
     let skill = skills[id];
 
@@ -23,9 +24,15 @@ export default function sendUpgrade(ws, id) {
                 player.regenRate -= skill.regenRateIncrease;
             } else if (skill.regenPowerIncrease) {
                 player.regenPower += skill.regenPowerIncrease;
+            } else if (skill.attackPowerIncrease) {
+                player.attackMlt += skill.attackPowerIncrease;
             }
 
             player.upgradeAge++;
+            if (player.upgradeAge > 10) {
+                player.upgradePoints = 0;
+                player.upgradeAge = 0;
+            }
         }
     } else {
         ws.close(4001, "Invalid upgrade");

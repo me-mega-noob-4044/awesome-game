@@ -20,34 +20,36 @@ export default function updateUpgrades(age, points) {
             }
         }
     
-        for (let i = 0; i < validSkills.length; i++) {
-            let element = document.createElement("div");
-            element.classList.add("upgrade-item");
-            element.style.backgroundImage = `url('${validSkills[i].src}')`;
+        if (validSkills.length) {
+            for (let i = 0; i < validSkills.length; i++) {
+                let element = document.createElement("div");
+                element.classList.add("upgrade-item");
+                element.style.backgroundImage = `url('${validSkills[i].src}')`;
+        
+                element.onmouseover = () => {
+                    upgradeDesc.style.display = "block";
+                    upgradeDesc.innerHTML = `
+                        <div style="font-size: 18px; font-weight: 900; width: 100%; text-align: center;">${validSkills[i].name}</div>
+                        <div>${validSkills[i].description}</div>
+                    `;
+                };
+        
+                element.onclick = () => {
+                    upgradeDesc.style.display = "none";
+                    upgradeDesc.innerText = "";
     
-            element.onmouseover = () => {
-                upgradeDesc.style.display = "block";
-                upgradeDesc.innerHTML = `
-                    <div style="font-size: 18px; font-weight: 900; width: 100%; text-align: center;">${validSkills[i].name}</div>
-                    <div>${validSkills[i].description}</div>
-                `;
-            };
-    
-            element.onclick = () => {
-                upgradeDesc.style.display = "none";
-                upgradeDesc.innerText = "";
-
-                PacketManager.sendUpgrade(validSkills[i].id);
-            };
-    
-            element.onmouseout = () => {
-                upgradeDesc.style.display = "none";
-                upgradeDesc.innerText = "";
-            };
-    
-            upgrades.appendChild(element);
+                    PacketManager.sendUpgrade(validSkills[i].id);
+                };
+        
+                element.onmouseout = () => {
+                    upgradeDesc.style.display = "none";
+                    upgradeDesc.innerText = "";
+                };
+        
+                upgrades.appendChild(element);
+            }
+        
+            upgradesPoints.innerText = "Upgrade Points: " + points;
         }
-    
-        upgradesPoints.innerText = "Upgrade Points: " + points;
     }
 }
