@@ -2,6 +2,7 @@ import Packets from "../constants/Packets.js";
 import joinGame from "../Events/joinGame.js";
 import sendChat from "../Events/sendChat.js";
 import sendHit from "../Events/sendHit.js";
+import sendUpgrade from "../Events/sendUpgrade.js";
 import socketPing from "../Events/socketPing.js";
 import updateDirection from "../Events/updateDirection.js";
 import updateMovement from "../Events/updateMovement.js";
@@ -13,7 +14,8 @@ export default class ServerPacketManager {
         [Packets.CLIENT_TO_SERVER.SEND_CHAT, sendChat],
         [Packets.CLIENT_TO_SERVER.SEND_HIT, sendHit],
         [Packets.CLIENT_TO_SERVER.PING, socketPing],
-        [Packets.CLIENT_TO_SERVER.SEND_AIM, updateDirection]
+        [Packets.CLIENT_TO_SERVER.SEND_AIM, updateDirection],
+        [Packets.CLIENT_TO_SERVER.SEND_UPGRADE, sendUpgrade]
     ]);
 
     static handle(ws, type, data) {

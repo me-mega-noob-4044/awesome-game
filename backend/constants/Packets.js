@@ -6,7 +6,7 @@ const Packets = {
         SEND_HIT: "SH",
         SEND_AIM: "SA",
         PING: "PG",
-        SEND_UPGRADE: "SU"
+        SEND_UPGRADE: "SU",
     },
     SERVER_TO_CLIENT: {
         SET_UP_GAME: "SG",

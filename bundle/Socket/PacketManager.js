@@ -48,6 +48,10 @@ export default class PacketManager {
         }
     }
 
+    static sendUpgrade(id) {
+        Client.send(Packets.CLIENT_TO_SERVER.SEND_UPGRADE, id);
+    }
+
     static sendAim() {
         let angle = Client.getDir();
         if (angle == this.lastDir) return;
