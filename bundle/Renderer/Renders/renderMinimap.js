@@ -6,6 +6,20 @@ import colorConfig from "../constants/colorConfig.js";
 export default function renderMinimap() { // I'LL ADD THE 2 RIVER LATER
     mapContext.clearRect(0, 0, 600, 600);
 
+    // RIVER ONE:
+    mapContext.fillStyle = colorConfig.waterColor;
+    mapContext.fillRect(0, ((4e3 - 325) / config.mapScale) * 600, 600, 37.5);
+
+    mapContext.fillStyle = "rgba(0, 0, 70, 0.35)";
+    mapContext.fillRect(0, ((4e3 - 325) / config.mapScale) * 600, 600, 37.5);
+
+    // RIVER TWO:
+    mapContext.fillStyle = colorConfig.waterColor;
+    mapContext.fillRect(0, ((8e3 - 325) / config.mapScale) * 600, 600, 37.5);
+
+    mapContext.fillStyle = "rgba(0, 0, 70, 0.35)";
+    mapContext.fillRect(0, ((8e3 - 325) / config.mapScale) * 600, 600, 37.5);
+
     // SNOW:
     mapContext.fillStyle = colorConfig.snow;
     mapContext.fillRect(0, 0, 600, config.snowBiomeEndY / config.mapScale * 600);
