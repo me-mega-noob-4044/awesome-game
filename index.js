@@ -43,19 +43,43 @@ export const players = [];
 export const gameObjects = [];
 export const ais = [];
 
-// SET UP BUILDINGS
-
 function initGame() {
     try {
         // VOLCANO:
         ObjectManager.add(1, gameConfig.mapScale / 2, gameConfig.mapScale / 2, gameObjects.length, gameObjects);
 
-        // PONDS:
-
         // LAVA POOLS
         ObjectManager.add(2, 5300, 6e3, gameObjects.length, gameObjects);
         ObjectManager.add(2, 6450, 5500, gameObjects.length, gameObjects);
         ObjectManager.add(2, 6200, 6500, gameObjects.length, gameObjects);
+
+        // PONDS:
+
+        // UPPER BODY OF LAND:
+        for (let i = 0; i < 5; i++) {
+            let x = UTILS.randInt(3455, 8545);
+            let y = UTILS.randInt(0, 3145);
+
+            while (gameObjects.some(e => UTILS.getDistance({ x, y }, e) <= e.scale * 2)) {
+                x = UTILS.randInt(3455, 8545);
+                y = UTILS.randInt(0, 3145);
+            }
+
+            ObjectManager.add(0, x, y, gameObjects.length, gameObjects);
+        }
+
+        // MIDDLE BODY OF LAND:
+        for (let i = 0; i < 5; i++) {
+            let x = UTILS.randInt(3455, 8545);
+            let y = UTILS.randInt(4900, 7e3);
+
+            while (gameObjects.some(e => UTILS.getDistance({ x, y }, e) <= e.scale * 2)) {
+                x = UTILS.randInt(3455, 8545);
+                y = UTILS.randInt(4900, 7e3);
+            }
+
+            ObjectManager.add(0, x, y, gameObjects.length, gameObjects);
+        }
 
         // DRAGON
         AiManager.add(1, gameConfig.mapScale / 2, gameConfig.mapScale / 2);
