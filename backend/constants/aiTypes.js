@@ -8,6 +8,7 @@ const aiTypes = [{
     scale: 505
 }, {
     name: "Dragon",
+    layer: 1,
     health: 3200,
     xp: 6e3,
     speed: .001,

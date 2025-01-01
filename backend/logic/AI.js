@@ -30,6 +30,8 @@ export default class AI {
         this.xVel = 0;
         this.yVel = 0
 
+        this.layer = data.layer || 0;
+
         this.targetDir = 0;
         this.dir = 0;
 

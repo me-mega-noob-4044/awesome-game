@@ -173,7 +173,8 @@ export default class Renderer {
         renderGameObject(mainContext, xOffset, yOffset, delta, 5);
         renderParticleEffects(mainContext, xOffset, yOffset, delta, "lava");
         renderPlayers(mainContext, xOffset, yOffset, delta);
-        renderAi(mainContext, xOffset, yOffset);
+        renderAi(mainContext, xOffset, yOffset, 0);
+        renderAi(mainContext, xOffset, yOffset, 1);
         renderMapBorders(mainContext, xOffset, yOffset);
 
         mainContext.globalAlpha = 1;
