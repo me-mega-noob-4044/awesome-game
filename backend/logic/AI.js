@@ -137,7 +137,7 @@ export default class AI {
                     this.targetTimer -= delta;
 
                     if (UTILS.getDistance(this.target, this) <= this.scale + this.target.scale) {
-                        if (Math.random() < 2) {
+                        if (Math.random() < .25) {
                             this.ripAndTearTimer = UTILS.randInt(3e3, 6e3);
                         } else {
                             this.target.changeHealth(-this.dmg, this);
