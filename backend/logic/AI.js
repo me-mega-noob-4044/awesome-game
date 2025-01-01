@@ -131,10 +131,11 @@ export default class AI {
                     this.target.y = this.y + Math.sin(this.targetDir) * this.scale;
 
                     if (!this.target.isAlive) {
+                        this.target.lockMove = false;
+
                         this.target = null;
                         this.ripAndTearTimer = 0;
                         this.targetTimer = 0;
-                        this.target.lockMove = false;
                     }
                 } else {
                     this.targetDir = UTILS.getDirection(this.target, this);
