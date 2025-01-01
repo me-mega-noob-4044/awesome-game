@@ -103,6 +103,8 @@ export default class AI {
     
                 if (Math.random() < .25) {
                     this.waitCount = UTILS.randInt(2500, 7500);
+
+                    if (this.isHostile) this.waitCount /= 2;
                 }
             }
         }
