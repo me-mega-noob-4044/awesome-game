@@ -25,8 +25,8 @@ const skills = [{
 }, {
     id: 2,
     name: "Increase regen power",
-    description: "increases the player's regeneration power by 5 hit points",
-    regenPowerIncrease: 5,
+    description: "increases the player's regeneration power by 10 hit points",
+    regenPowerIncrease: 10,
     src: "https://i.imgur.com/r5Gsc0t.png", // Placeholder image
     ages: [2, 4, 10]
 }, {
@@ -53,8 +53,8 @@ const skills = [{
 }, {
     id: 6,
     name: "Increase regen power",
-    description: "increases the player's regeneration power by 15 hit points",
-    regenPowerIncrease: 15,
+    description: "increases the player's regeneration power by 30 hit points",
+    regenPowerIncrease: 30,
     src: "https://i.imgur.com/r5Gsc0t.png", // Placeholder image
     ages: [6, 8]
 }, {
@@ -64,6 +64,34 @@ const skills = [{
     attackPowerIncrease: .25,
     src: "https://i.imgur.com/8wDJ8hJ.png", // Placeholder image
     ages: [6, 8]
+}, {
+    id: 8,
+    name: "Fireball",
+    description: "short range fireball attacks, quick cooldown and effective against multiple targets",
+    speed: 5e3, // 5 second cooldown
+    src: "https://i.imgur.com/BwwOJrQ.png",
+    ages: [3, 5, 9]
+}, {
+    id: 9,
+    name: "Stove",
+    description: "devastating short range aoe attack, slow cooldown and effective against multiple targets",
+    speed: 20e3, // 20 second cooldown
+    src: "https://i.imgur.com/BwwOJrQ.png", // need tmp sprite
+    ages: [3, 5, 9]
+}, {
+    id: 10,
+    name: "Stealth",
+    description: "player becomes invisible for a short duration, effective for escaping or sneaking up on enemies",
+    speed: 30e3, // 30 second cooldown
+    src: "https://i.imgur.com/BwwOJrQ.png", // need tmp sprite
+    ages: [3, 5]
+}, {
+    id: 11,
+    name: "Dash",
+    description: "player gains a short burst of speed, effective for escaping or chasing down enemies",
+    speed: 1e3, // 1 second cooldown
+    src: "https://i.imgur.com/BwwOJrQ.png", // need tmp sprite
+    ages: [3, 5, 7, 9]
 }];
 
 export default skills;

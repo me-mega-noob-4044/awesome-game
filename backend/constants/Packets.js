@@ -24,7 +24,8 @@ const Packets = {
         UPDATE_AGE: "UA",
         LOAD_AI: "LA",
         UPDATE_LEADERBOARD: "UL",
-        UPDATE_UPGRADES: "UU"
+        UPDATE_UPGRADES: "UU",
+        UPDATE_ITEMS: "UI"
     }
 };
 

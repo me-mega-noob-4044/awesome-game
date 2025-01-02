@@ -17,6 +17,10 @@ export default function joinGame(ws, ...args) {
     player.setName(args[0]);
     player.spawn();
 
+    // player.send(Packets.SERVER_TO_CLIENT.UPDATE_ITEMS, []);
+    player.send(Packets.SERVER_TO_CLIENT.UPDATE_AGE, 1);
+    player.send(Packets.SERVER_TO_CLIENT.UPDATE_XP, 0, player.maxXP);
+    player.send(Packets.SERVER_TO_CLIENT.UPDATE_UPGRADES, 2, 0);
     player.send(Packets.SERVER_TO_CLIENT.UPDATE_LEADERBOARD, getLeaderboardData());
     player.send(Packets.SERVER_TO_CLIENT.SET_UP_GAME, player.sid);
     player.send(Packets.SERVER_TO_CLIENT.UPDATE_HEALTH, player.health, player.maxHealth);

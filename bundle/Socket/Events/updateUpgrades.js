@@ -1,5 +1,5 @@
 import skills from "../../../backend/constants/skills.js";
-import { upgradesPoints, upgrades, upgradeDesc } from "../../main.js";
+import { upgradesPoints, upgrades, upgradeDesc, player } from "../../main.js";
 import PacketManager from "../PacketManager.js";
 
 // Not going to make this look any prettier since i don't have good sprites for it
@@ -12,6 +12,11 @@ export default function updateUpgrades(age, points) {
     if (points) {
         for (let i = 0; i < skills.length; i++) {
             let skill = skills[i];
+
+            if (player.items.includes(skill.id)) {
+                console.log(skill.name);
+                continue;
+            }
     
             if (typeof skill.ages == "number" && skill.ages == age) {
                 validSkills.push(skill);
@@ -50,6 +55,14 @@ export default function updateUpgrades(age, points) {
             }
         
             upgradesPoints.innerText = "Upgrade Points: " + points;
+        } else {
+            upgradesPoints.innerText = "";
+            upgradeDesc.style.display = "none";
+            upgradeDesc.innerText = "";
         }
+    } else {
+        upgradesPoints.innerText = "";
+        upgradeDesc.style.display = "none";
+        upgradeDesc.innerText = "";
     }
 }

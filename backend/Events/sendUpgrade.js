@@ -26,6 +26,12 @@ export default function sendUpgrade(ws, id) {
                 player.regenPower += skill.regenPowerIncrease;
             } else if (skill.attackPowerIncrease) {
                 player.attackMlt += skill.attackPowerIncrease;
+            } else {
+                if (player.items.includes(skill.id)) return ws.close(4001, "Invalid upgrade");
+
+                player.items.push(skill.id);
+
+                player.send(Packets.SERVER_TO_CLIENT.UPDATE_ITEMS, player.items);
             }
 
             player.upgradeAge++;
@@ -37,6 +43,8 @@ export default function sendUpgrade(ws, id) {
     } else {
         ws.close(4001, "Invalid upgrade");
     }
+
+    console.log(player.upgradeAge, player.upgradePoints);
 
     player.send(Packets.SERVER_TO_CLIENT.UPDATE_UPGRADES, player.upgradeAge, player.upgradePoints);
 }

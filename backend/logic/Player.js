@@ -48,6 +48,9 @@ export default class Player {
 
         this.totalXP = 0;
 
+        this.itemReload = {};
+        this.items = [];
+
         this.dragonDot = {
             ticks: 0,
             timer: 0
@@ -96,6 +99,9 @@ export default class Player {
     }
 
     spawn() {
+        this.itemReload = {};
+        this.items = [];
+
         this.isAlive = true;
 
         this.health = this.maxHealth = config.playerInitHealth;

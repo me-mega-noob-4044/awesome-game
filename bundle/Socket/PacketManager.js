@@ -17,6 +17,7 @@ import updateAge from "./Events/updateAge.js";
 import loadAi from "./Events/loadAi.js";
 import updateLeaderboard from "./Events/updateLeaderboard.js";
 import updateUpgrades from "./Events/updateUpgrades.js";
+import updateItems from "./Events/updateItems.js";
 
 export default class PacketManager {
     static eventMap = new Map([
@@ -35,7 +36,8 @@ export default class PacketManager {
         [Packets.SERVER_TO_CLIENT.UPDATE_AGE, updateAge],
         [Packets.SERVER_TO_CLIENT.LOAD_AI, loadAi],
         [Packets.SERVER_TO_CLIENT.UPDATE_LEADERBOARD, updateLeaderboard],
-        [Packets.SERVER_TO_CLIENT.UPDATE_UPGRADES, updateUpgrades]
+        [Packets.SERVER_TO_CLIENT.UPDATE_UPGRADES, updateUpgrades],
+        [Packets.SERVER_TO_CLIENT.UPDATE_ITEMS, updateItems]
     ]);
 
     static lastDir = undefined;

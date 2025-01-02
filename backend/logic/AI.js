@@ -139,7 +139,7 @@ export default class AI {
             this.normalMovementTimer -= delta;
 
             if (this.normalMovementTimer <= 0) {
-                this.normalMovementTimer = UTILS.randInt(7500, 15e3);
+                this.normalMovementTimer = UTILS.randInt(5e3, 7500);
                 this.targetDir = UTILS.randFloat(-Math.PI, Math.PI);
     
                 if (Math.random() < .25) {
@@ -338,7 +338,7 @@ export default class AI {
                 for (let t = 0; t < gameObjects.length; t++) {
                     let tmpObj = gameObjects[t];
     
-                    if (tmpObj && tmpObj.active && ((this.onlyWater && tmpObj.name == "land") && tmpObj.name == "lava pond" || tmpObj.name == "volcano")) {
+                    if (tmpObj && tmpObj.active && ((this.onlyWater && tmpObj.name == "land") || tmpObj.name == "lava pond" || tmpObj.name == "volcano")) {
                         let tmpDir = UTILS.getDirection(this, tmpObj);
                         let tmpScale = this.scale + (tmpObj.name == "volcano" ? 200 : tmpObj.scale);
     

@@ -32,6 +32,9 @@ export var upgradeDesc = document.getElementById("upgrade-desc");
 export var upgrades = document.getElementById("upgrades");
 export var upgradesPoints = document.getElementById("upgrade-points");
 
+export var itemHolder = document.getElementById("item-holder");
+export const itemElements = [];
+
 export const players = [];
 export const gameObjects = [];
 export const particles = [];
