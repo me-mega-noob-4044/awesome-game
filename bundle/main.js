@@ -120,6 +120,12 @@ window.addEventListener("keydown", (event) => {
         lastMoveDir = getMoveDir();
     } else if (event.keyCode == 13) {
         doRetardedChatStuff();
+    } else if (!isNaN(parseInt(event.key))) {
+        if (parseInt(event.key) >= 1 && parseInt(event.key) <= 4) {
+            if (typeof player.items[parseInt(event.key) - 1] == "number") {
+                PacketManager.sendAttack(parseInt(event.key) - 1);
+            }
+        }
     }
 });
 

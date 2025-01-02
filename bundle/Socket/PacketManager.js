@@ -18,6 +18,8 @@ import loadAi from "./Events/loadAi.js";
 import updateLeaderboard from "./Events/updateLeaderboard.js";
 import updateUpgrades from "./Events/updateUpgrades.js";
 import updateItems from "./Events/updateItems.js";
+import updateEffects from "./Events/updateEffects.js";
+import updateReload from "./Events/updateReload.js";
 
 export default class PacketManager {
     static eventMap = new Map([
@@ -37,7 +39,9 @@ export default class PacketManager {
         [Packets.SERVER_TO_CLIENT.LOAD_AI, loadAi],
         [Packets.SERVER_TO_CLIENT.UPDATE_LEADERBOARD, updateLeaderboard],
         [Packets.SERVER_TO_CLIENT.UPDATE_UPGRADES, updateUpgrades],
-        [Packets.SERVER_TO_CLIENT.UPDATE_ITEMS, updateItems]
+        [Packets.SERVER_TO_CLIENT.UPDATE_ITEMS, updateItems],
+        [Packets.SERVER_TO_CLIENT.UPDATE_EFFECTS, updateEffects],
+        [Packets.SERVER_TO_CLIENT.UPDATE_RELOAD, updateReload]
     ]);
 
     static lastDir = undefined;
@@ -60,6 +64,10 @@ export default class PacketManager {
 
         this.lastDir = angle;
         Client.send(Packets.CLIENT_TO_SERVER.SEND_AIM, angle);
+    }
+
+    static sendAttack(id) {
+        Client.send(Packets.CLIENT_TO_SERVER.SEND_ATTACK, id);
     }
 
     static sendHit() {

@@ -31,7 +31,7 @@ export default function sendUpgrade(ws, id) {
 
                 player.items.push(skill.id);
 
-                player.send(Packets.SERVER_TO_CLIENT.UPDATE_ITEMS, player.items);
+                player.send(Packets.SERVER_TO_CLIENT.UPDATE_ITEMS, skill.id);
             }
 
             player.upgradeAge++;

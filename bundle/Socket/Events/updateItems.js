@@ -1,25 +1,36 @@
 import { player, itemHolder, itemElements } from "../../main.js";
 import skills from "../../../backend/constants/skills.js";
 
-export default function updateItems(items) {
-    player.items = items;
+const tmp = [];
 
-    for (let i = 0; i < itemElements.length; i++) itemElements[i].remove();
-    itemElements.length = 0;
-
-    for (let i = 0; i < items.length; i++) {
-        let id = items[i];
-        let skill = skills[id];
-
-        if (!skill) continue;
-
-        let element = document.createElement("div");
-        element.classList.add("item");
-        element.style.backgroundImage = `url('${skill.src}')`;
+export default function updateItems(id) {
+    if (typeof id == "object") {
+        tmp.forEach(element => element.remove());
         
-        itemElements.push(element);
-        itemHolder.appendChild(element);
+        tmp.length = 0;
+        itemElements.length = 0;
+        return;
     }
+    player.items.push(id);
 
-    // Update the player's items
+    let skill = skills[id];
+
+    if (!skill) return;
+
+    let element = document.createElement("div");
+    element.classList.add("item");
+
+    let background = document.createElement("div");
+    background.classList.add("item-reload");
+
+    let icon = document.createElement("div");
+    icon.classList.add("item-icon");
+    icon.style.backgroundImage = `url('${skill.src}')`;
+
+    element.appendChild(icon);
+    element.appendChild(background);
+
+    itemElements.push(background);
+    tmp.push(element);
+    itemHolder.appendChild(element);
 }

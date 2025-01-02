@@ -59,6 +59,8 @@ export default class Player {
         this.lockMove = false;
         this.upgradePoints = 0;
         this.upgradeAge = 2;
+
+        this.stealthTimer = 0;
     }
 
     setName(name) {
@@ -104,7 +106,7 @@ export default class Player {
         this.items = [];
 
         this.isAlive = true;
-        this.isStealth = false;
+        this.stealthTimer = 0;
 
         this.health = this.maxHealth = config.playerInitHealth;
         this.scale = 35;
@@ -249,6 +251,16 @@ export default class Player {
         }
 
         if (!this.isAlive) return;
+
+        for (let i = 0; i < this.items.length; i++) {
+            if (this.itemReload[this.items[i]]) {
+                this.itemReload[this.items[i]] -= delta;
+                if (this.itemReload[this.items[i]] <= 0) this.itemReload[this.items[i]] = 0;
+            }
+        }
+
+        this.stealthTimer -= delta;
+        if (this.stealthTimer <= 0) this.stealthTimer = 0;
 
         this.meleeReload -= delta;
         if (this.meleeReload <= 0) this.meleeReload = 0;

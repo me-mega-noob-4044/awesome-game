@@ -7,6 +7,7 @@ const Packets = {
         SEND_AIM: "SA",
         PING: "PG",
         SEND_UPGRADE: "SU",
+        SEND_ATTACK: "SA2"
     },
     SERVER_TO_CLIENT: {
         SET_UP_GAME: "SG",
@@ -25,7 +26,9 @@ const Packets = {
         LOAD_AI: "LA",
         UPDATE_LEADERBOARD: "UL",
         UPDATE_UPGRADES: "UU",
-        UPDATE_ITEMS: "UI"
+        UPDATE_ITEMS: "UI",
+        UPDATE_EFFECTS: "UE",
+        UPDATE_RELOAD: "UR"
     }
 };
 

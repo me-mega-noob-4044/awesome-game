@@ -231,6 +231,8 @@ setInterval(() => {
                 let other = players[t];
 
                 if (other.canSee(player) && other.isAlive) {
+                    if (other != player && other.stealthTimer > 0) continue;
+
                     if (!player.sentTo[other.id] && player.id != other.id) {
                         player.sentTo[other.id] = 1;
                         player.send(Packets.SERVER_TO_CLIENT.ADD_PLAYER, other.getData());

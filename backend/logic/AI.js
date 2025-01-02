@@ -73,7 +73,7 @@ export default class AI {
 
                     tmpPlayer.send(Packets.SERVER_TO_CLIENT.SHOW_TEXT, this.x, this.y, Math.ceil(value), true);
                 }
-            } else {
+            } else if (!doer.stealthTimer) {
                 if (this.freeXP) {
                     doer.addXP(3);
                 }
@@ -151,6 +151,14 @@ export default class AI {
         }
 
         if (this.aggroDistance) {
+            if (this.target && this.target.stealthTimer) {
+                this.target.lockMove = false;
+
+                this.target = null;
+                this.ripAndTearTimer = 0;
+                this.targetTimer = 0;
+            }
+
             if (this.target) {
                 if (this.ripAndTearTimer > 0) {
                     this.targetDir = Math.PI * Math.sin((performance.now() / 500) % (2 * Math.PI));
@@ -201,7 +209,7 @@ export default class AI {
                     }
                 }
             } else {
-                let filteredPlayers = players.filter(e => e.isAlive && UTILS.getDistance(e, this) <= this.aggroDistance);
+                let filteredPlayers = players.filter(e => e.isAlive && !e.stealthTimer && UTILS.getDistance(e, this) <= this.aggroDistance);
 
                 if (filteredPlayers.length) {
                     this.target = filteredPlayers.sort((a, b) => UTILS.getDistance(a, this) - UTILS.getDistance(b, this))[0];
