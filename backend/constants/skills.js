@@ -14,28 +14,28 @@ const skills = [{
     description: "increases the player's maximum health by 25 hit points",
     healthIncrease: 25,
     src: "https://i.imgur.com/eTxL0gF.png", // Placeholder image
-    ages: [2, 4, 10]
+    ages: [2, 4, 10, 11, 12]
 }, {
     id: 1,
     name: "Increase regen rate",
-    description: "increases the player's regeneration rate by .5 seconds",
-    regenRateIncrease: 500,
+    description: "increases the player's regeneration rate by 1 second",
+    regenRateIncrease: 1e3,
     src: "https://i.imgur.com/NqOhbrs.png", // Placeholder image
-    ages: [2, 4, 10]
+    ages: [2, 4, 10, 11, 12]
 }, {
     id: 2,
     name: "Increase regen power",
     description: "increases the player's regeneration power by 10 hit points",
     regenPowerIncrease: 10,
     src: "https://i.imgur.com/r5Gsc0t.png", // Placeholder image
-    ages: [2, 4, 10]
+    ages: [2, 4, 10, 11, 12]
 }, {
     id: 3,
     name: "Increase attack power",
     description: "increases the player's damage output by +10%",
     attackPowerIncrease: .1,
     src: "https://i.imgur.com/8wDJ8hJ.png", // Placeholder image
-    ages: [2, 4, 10]
+    ages: [2, 4, 10, 11, 12]
 }, {
     id: 4,
     name: "Increase health",
@@ -46,8 +46,8 @@ const skills = [{
 }, {
     id: 5,
     name: "Increase regen rate",
-    description: "increases the player's regeneration rate by 2 seconds",
-    regenRateIncrease: 2e3,
+    description: "increases the player's regeneration rate by 3 seconds",
+    regenRateIncrease: 3e3,
     src: "https://i.imgur.com/NqOhbrs.png", // Placeholder image
     ages: [6, 8]
 }, {
@@ -118,21 +118,21 @@ const skills = [{
     name: "Regeneration",
     description: "regeneration is accerated for a short duration but player is unable to move",
     speed: 15e3, // 15 second cooldown
-    src: "https://i.imgur.com/UsOI21h.png", // need tmp sprite
+    src: "https://i.imgur.com/g8oKYsk.png",
     ages: [3, 7, 9]
 }, {
     id: 16,
     name: "Rook",
     description: "player becomes invulnerable until the player either attacks or moves",
     speed: 30e3, // 30 second cooldown
-    src: "https://i.imgur.com/UsOI21h.png", // need tmp sprite
+    src: "https://i.imgur.com/XA7c6Q3.png",
     ages: [9]
 }, {
     id: 17,
     name: "Bloodborne",
     description: "player gains temporary health and damage for each nearby enemy",
     speed: 20e3, // 20 second cooldown
-    src: "https://i.imgur.com/UsOI21h.png", // need tmp sprite
+    src: "https://i.imgur.com/ZbzpRfk.png",
     ages: [9]
 }, {
     id: 18,
@@ -153,7 +153,7 @@ const skills = [{
     name: "Submerge",
     description: "player becomes invisible when on water, stops when player attacks or gets out of water",
     speed: 30e3,
-    src: "https://i.imgur.com/8dVMNB9.png", // placeholder image
+    src: "https://i.imgur.com/jRgw8rv.png",
     ages: [3, 5, 7, 9]
 }];
 

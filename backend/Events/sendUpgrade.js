@@ -5,7 +5,7 @@ export default function sendUpgrade(ws, id) {
     let player = ws.NEW_CLIENT;
 
     if (!player) return;
-    if (player.upgradeAge > 10) return;
+    if (player.upgradeAge > 12) return;
 
     let skill = skills[id];
 
@@ -35,7 +35,7 @@ export default function sendUpgrade(ws, id) {
             }
 
             player.upgradeAge++;
-            if (player.upgradeAge > 10) {
+            if (player.upgradeAge > 12) {
                 player.upgradePoints = 0;
                 player.upgradeAge = 0;
             }
