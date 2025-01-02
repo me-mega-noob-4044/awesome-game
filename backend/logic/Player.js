@@ -353,10 +353,10 @@ export default class Player {
         }
 
         let tmpIndx = players.indexOf(this);
-        for (let i = tmpIndx + 1; i < players.length; ++i) {
+        for (let i = tmpIndx + 1; i < players.length; i++) {
             let other = players[i];
 
-            if (other != this && other.alive) {
+            if (other != this && other.isAlive) {
                 let tmpInt = UTILS.getDistance(this, other) - (this.scale + other.scale);
                 tmpInt = (tmpInt * -1) / 2;
 

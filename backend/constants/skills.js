@@ -76,21 +76,77 @@ const skills = [{
     name: "Stove",
     description: "devastating short range aoe attack, slow cooldown and effective against multiple targets",
     speed: 20e3, // 20 second cooldown
-    src: "https://i.imgur.com/BwwOJrQ.png", // need tmp sprite
+    src: "https://i.imgur.com/QSF5DpJ.png",
     ages: [3, 5, 9]
 }, {
     id: 10,
     name: "Stealth",
     description: "player becomes invisible for a short duration, effective for escaping or sneaking up on enemies",
     speed: 30e3, // 30 second cooldown
-    src: "https://i.imgur.com/BwwOJrQ.png", // need tmp sprite
+    src: "https://i.imgur.com/aQmYFcf.png",
     ages: [3, 5]
 }, {
     id: 11,
     name: "Dash",
     description: "player gains a short burst of speed, effective for escaping or chasing down enemies",
     speed: 1e3, // 1 second cooldown
-    src: "https://i.imgur.com/BwwOJrQ.png", // need tmp sprite
+    src: "https://i.imgur.com/UsOI21h.png",
+    ages: [3, 5, 7, 9]
+}, {
+    id: 12,
+    name: "Fortify",
+    description: "player gains large amount of temporary health, effective for tanking damage",
+    speed: 30e3, // 30 second cooldown
+    src: "https://i.imgur.com/UsOI21h.png", // need tmp sprite
+    ages: [3, 5, 7, 9]
+}, {
+    id: 13,
+    name: "Teleportation",
+    description: "player instantly teleports to a target location and triggers an weak aoe attack",
+    speed: 30e3, // 30 second cooldown
+    src: "https://i.imgur.com/UsOI21h.png", // need tmp sprite
+    ages: [7, 9]
+}, {
+    id: 14,
+    name: "Dome",
+    description: "creates a dome where it forces enemies to go close range",
+    speed: 25e3, // 25 second cooldown
+    src: "https://i.imgur.com/UsOI21h.png", // need tmp sprite
+    ages: [7, 9]
+}, {
+    id: 15,
+    name: "Regeneration",
+    description: "regeneration is accerated for a short duration but player is unable to move",
+    speed: 15e3, // 15 second cooldown
+    src: "https://i.imgur.com/UsOI21h.png", // need tmp sprite
+    ages: [3, 5, 7, 9]
+}, {
+    id: 16,
+    name: "Rook",
+    description: "player becomes invulnerable until the player either attacks or moves",
+    speed: 30e3, // 30 second cooldown
+    src: "https://i.imgur.com/UsOI21h.png", // need tmp sprite
+    ages: [9]
+}, {
+    id: 17,
+    name: "Bloodborne",
+    description: "player gains temporary health and damage for each nearby enemy",
+    speed: 20e3, // 20 second cooldown
+    src: "https://i.imgur.com/UsOI21h.png", // need tmp sprite
+    ages: [9]
+}, {
+    id: 18,
+    name: "Kamikaze",
+    description: "player gains increased speed and damage but loses health over time",
+    speed: 5e3, // 5 second cooldown
+    src: "https://i.imgur.com/UsOI21h.png", // need tmp sprite
+    ages: [3, 7, 9]
+}, {
+    id: 19,
+    name: "Homing Arrow",
+    description: "a homing arrow that deals damage to the nearest enemy",
+    speed: 20e3, // 5 second cooldown
+    src: "https://i.imgur.com/UsOI21h.png", // need tmp sprite
     ages: [3, 5, 7, 9]
 }];
 

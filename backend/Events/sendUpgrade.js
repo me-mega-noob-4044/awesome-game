@@ -44,7 +44,5 @@ export default function sendUpgrade(ws, id) {
         ws.close(4001, "Invalid upgrade");
     }
 
-    console.log(player.upgradeAge, player.upgradePoints);
-
     player.send(Packets.SERVER_TO_CLIENT.UPDATE_UPGRADES, player.upgradeAge, player.upgradePoints);
 }
