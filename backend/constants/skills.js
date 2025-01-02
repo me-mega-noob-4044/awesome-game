@@ -89,7 +89,7 @@ const skills = [{
     id: 11,
     name: "Dash",
     description: "player gains a short burst of speed, effective for escaping or chasing down enemies",
-    speed: 1e3, // 1 second cooldown
+    speed: 3e3, // 3 second cooldown
     src: "https://i.imgur.com/UsOI21h.png",
     ages: [3, 5, 9]
 }, {

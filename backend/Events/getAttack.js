@@ -1,5 +1,6 @@
 import Packets from "../constants/Packets.js";
 import skills from "../constants/skills.js";
+import Dash from "./Skills/Dash.js";
 import Stealth from "./Skills/stealth.js";
 
 export default function getAttack(ws, id) {
