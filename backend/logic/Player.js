@@ -35,6 +35,7 @@ export default class Player {
         this.kills = 0;
 
         this.volcanoTimer = 0;
+        this.isStealth = false;
 
         this.regenTimer = 0;
         this.regenRate = config.playerRegenerationRate;
@@ -103,6 +104,7 @@ export default class Player {
         this.items = [];
 
         this.isAlive = true;
+        this.isStealth = false;
 
         this.health = this.maxHealth = config.playerInitHealth;
         this.scale = 35;

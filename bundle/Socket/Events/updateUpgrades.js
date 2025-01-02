@@ -13,10 +13,7 @@ export default function updateUpgrades(age, points) {
         for (let i = 0; i < skills.length; i++) {
             let skill = skills[i];
 
-            if (player.items.includes(skill.id)) {
-                console.log(skill.name);
-                continue;
-            }
+            if (player.items.includes(skill.id)) continue;
     
             if (typeof skill.ages == "number" && skill.ages == age) {
                 validSkills.push(skill);
@@ -26,6 +23,8 @@ export default function updateUpgrades(age, points) {
         }
     
         if (validSkills.length) {
+            upgrades.style.gridTemplateColumns = `repeat(${Math.min(6, validSkills.length)}, 1fr)`;
+            
             for (let i = 0; i < validSkills.length; i++) {
                 let element = document.createElement("div");
                 element.classList.add("upgrade-item");

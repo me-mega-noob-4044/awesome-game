@@ -277,7 +277,7 @@ input, button {
 }
 
 #upgrades {
-    display: flex;
+    display: grid;
 }
 
 #upgrade-points {
