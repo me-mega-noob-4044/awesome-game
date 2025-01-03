@@ -308,7 +308,7 @@ export default class AI {
             }
 
             if (this.speedBoostTimer > 0) {
-                spdMlt *= 3.8;
+                spdMlt *= 3.2;
 
                 this.speedBoostTimer -= delta;
                 if (this.speedBoostTimer <= 0) this.speedBoostTimer = 0;
@@ -327,7 +327,7 @@ export default class AI {
             }
 
             if (this.target) {
-                spdMlt *= 1.8; // Mobs with target will run towards it
+                spdMlt *= 1.55; // Mobs with target will run towards it
             }
     
             if (this.ripAndTearTimer <= 0) {

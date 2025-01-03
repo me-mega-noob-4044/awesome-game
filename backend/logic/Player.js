@@ -249,8 +249,8 @@ export default class Player {
 
                 if (tmpObj.isAI) tmpObj.waitTimer = 0;
 
-                tmpObj.xVel += Math.cos(tmpDir) * (tmpObj.isAI && tmpObj.isHostile ? 1.2 : .35);
-                tmpObj.yVel += Math.sin(tmpDir) * (tmpObj.isAI && tmpObj.isHostile ? 1.2 : .35);
+                tmpObj.xVel += Math.cos(tmpDir) * (tmpObj.isAI && tmpObj.isHostile ? .55 : .35);
+                tmpObj.yVel += Math.sin(tmpDir) * (tmpObj.isAI && tmpObj.isHostile ? .55 : .35);
             }
         }
     }
