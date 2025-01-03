@@ -4,6 +4,7 @@ import Dash from "./Skills/Dash.js";
 import Kamikaze from "./Skills/Kamikaze.js";
 import Stealth from "./Skills/stealth.js";
 import { players } from "../../index.js";
+import Regeneration from "./Skills/Regeneration.js";
 
 export default function getAttack(ws, id) {
     let player = ws.NEW_CLIENT;
@@ -31,6 +32,9 @@ export default function getAttack(ws, id) {
     } else if (item.name == "Kamikaze") {
         key = "kamikazeTimer";
         duration = Kamikaze(player);
+    } else if (item.name == "Regeneration") {
+        key = "regenerationTimer";
+        duration = Regeneration(player);
     }
 
     if (key) {

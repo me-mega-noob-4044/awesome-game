@@ -117,7 +117,7 @@ const skills = [{
     id: 15,
     name: "Regeneration",
     description: "regeneration is accerated for a short duration but player is unable to move",
-    speed: 15e3, // 15 second cooldown
+    speed: 25e3, // 25 second cooldown
     src: "https://i.imgur.com/g8oKYsk.png",
     ages: [3, 7, 9]
 }, {
@@ -138,7 +138,7 @@ const skills = [{
     id: 18,
     name: "Kamikaze",
     description: "player gains increased speed and damage but loses health over time",
-    speed: 10e3, // 5 second cooldown
+    speed: 12e3, // 12 second cooldown
     src: "https://i.imgur.com/plxJWAh.png",
     ages: [3, 7, 9]
 }, {

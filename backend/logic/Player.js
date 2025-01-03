@@ -61,6 +61,7 @@ export default class Player {
         this.upgradeAge = 2;
 
         this.stealthTimer = 0;
+        this.regenerationTimer = 0;
         this.kamikaze = {
             timer: 0,
             ticks: 0
@@ -144,6 +145,7 @@ export default class Player {
         this.regenTimer = 0;
         this.regenRate = config.playerRegenerationRate;
         this.regenPower = config.playerRegenerationPower;
+        this.regenerationTimer = 0;
         this.lockMove = false;
 
         this.dragonDot = {
@@ -244,7 +246,7 @@ export default class Player {
 
         this.regenTimer -= delta;
         if (this.regenTimer <= 0) {
-            this.regenTimer = this.regenRate;
+            this.regenTimer = this.regenRate * (this.regenerationTimer ? 0.05 : 1);
             this.changeHealth(this.regenPower);
         }
 
@@ -270,6 +272,9 @@ export default class Player {
         this.stealthTimer -= delta;
         if (this.stealthTimer <= 0) this.stealthTimer = 0;
 
+        this.regenerationTimer -= delta;
+        if (this.regenerationTimer <= 0) this.regenerationTimer = 0;
+
         if (this.kamikaze.ticks > 0) {
             this.kamikaze.timer -= delta;
 
@@ -290,7 +295,7 @@ export default class Player {
 
         let onIce = false;
 
-        if (this.lockMove) {
+        if (this.lockMove || this.regenerationTimer) {
             this.xVel = 0;
             this.yVel = 0;
         } else {
