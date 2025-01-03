@@ -5,6 +5,7 @@ import Kamikaze from "./Skills/Kamikaze.js";
 import Stealth from "./Skills/stealth.js";
 import { players } from "../../index.js";
 import Regeneration from "./Skills/Regeneration.js";
+import Fortify from "./Skills/Fortify.js";
 
 export default function getAttack(ws, id) {
     let player = ws.NEW_CLIENT;
@@ -35,6 +36,9 @@ export default function getAttack(ws, id) {
     } else if (item.name == "Regeneration") {
         key = "regenerationTimer";
         duration = Regeneration(player);
+    } else if (item.name == "Fortify") {
+        key = "fortifyTimer";
+        duration = Fortify(player);
     }
 
     if (key) {

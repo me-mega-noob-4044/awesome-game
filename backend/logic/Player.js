@@ -66,6 +66,12 @@ export default class Player {
             timer: 0,
             ticks: 0
         };
+
+        this.fortify = {
+            health: 0,
+            timer: 0,
+            maxHealth: 0
+        };
     }
 
     setName(name) {
@@ -153,6 +159,12 @@ export default class Player {
             timer: 0
         };
 
+        this.fortify = {
+            health: 0,
+            timer: 0,
+            maxHealth: 0
+        };
+
         this.upgradeAge = 2;
 
         if (this.ws) {
@@ -191,6 +203,14 @@ export default class Player {
         if (this.health > this.maxHealth) {
             value -= (this.health - this.maxHealth);
             this.health = this.maxHealth;
+        }
+
+        if (value < 0 && this.fortify.timer) {
+            this.fortify.health += value;
+
+            if (this.fortify.health <= 0) {
+                this.maxHealth -= this.fortify.maxHealth;
+            }
         }
 
         if (this.health <= 0) {
@@ -274,6 +294,16 @@ export default class Player {
 
         this.regenerationTimer -= delta;
         if (this.regenerationTimer <= 0) this.regenerationTimer = 0;
+
+        if (this.fortify.timer > 0) {
+            this.fortify.timer -= delta;
+
+            if (this.fortify.timer <= 0) {
+                this.fortify.timer = 0;
+                this.health -= this.fortify.health;
+                this.maxHealth -= this.fortify.maxHealth;
+            }
+        }
 
         if (this.kamikaze.ticks > 0) {
             this.kamikaze.timer -= delta;
