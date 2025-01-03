@@ -357,7 +357,7 @@ export default class Player {
                             onIce = true;
                         } else {
                             if (tmpObj.name == "lava pond") {
-                                spdMlt += .35;
+                                spdMlt *= .35;
                             } else {
                                 if (this.y >= config.mapScale - 2e3) {
                                     continue;
