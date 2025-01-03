@@ -150,6 +150,8 @@ export default class AI {
             }
         }
 
+        this.aiDamageTick = !this.aiDamageTick;
+
         if (this.aggroDistance) {
             if (this.target && this.target.stealthTimer) {
                 this.target.lockMove = false;
@@ -197,9 +199,11 @@ export default class AI {
                         if (this.volcanoAi && Math.random() < .2) {
                             this.ripAndTearTimer = UTILS.randInt(2e3, 6e3);
                         } else {
-                            this.target.changeHealth(-this.dmg, this);
-                            this.target.xVel += Math.cos(this.targetDir) * (this.volcanoAi ? .75 : .4);
-                            this.target.yVel += Math.sin(this.targetDir) * (this.volcanoAi ? .75 : .4);
+                            if (this.aiDamageTick || this.volcanoAi) {
+                                this.target.changeHealth(-this.dmg, this);
+                                this.target.xVel += Math.cos(this.targetDir) * (this.volcanoAi ? .75 : .4);
+                                this.target.yVel += Math.sin(this.targetDir) * (this.volcanoAi ? .75 : .4);    
+                            }
                         }
                     }
     
