@@ -195,7 +195,7 @@ export default class AI {
 
                     if (UTILS.getDistance(this.target, this) <= this.scale + this.target.scale) {
                         if (this.volcanoAi && Math.random() < .2) {
-                            this.ripAndTearTimer = UTILS.randInt(750, 1500);
+                            this.ripAndTearTimer = UTILS.randInt(2e3, 6e3);
                         } else {
                             this.target.changeHealth(-this.dmg, this);
                             this.target.xVel += Math.cos(this.targetDir) * (this.volcanoAi ? .75 : .4);
