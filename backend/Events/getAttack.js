@@ -3,6 +3,7 @@ import skills from "../constants/skills.js";
 import Dash from "./Skills/Dash.js";
 import Kamikaze from "./Skills/Kamikaze.js";
 import Stealth from "./Skills/stealth.js";
+import { players } from "../../index.js";
 
 export default function getAttack(ws, id) {
     let player = ws.NEW_CLIENT;
@@ -27,6 +28,14 @@ export default function getAttack(ws, id) {
         duration = Dash(player);
     } else if (item.name == "Kamikaze") {
         duration = Kamikaze(player);
+    }
+
+    for (let i = 0; i < players.length; i++) {
+        let other = players[i];
+
+        if (other.canSee(player)) {
+            other.send(Packets.SERVER_TO_CLIENT.UPDATE_EFFECTS, player.sid, "stealthTimer", duration);
+        }
     }
 
     player.send(Packets.SERVER_TO_CLIENT.UPDATE_RELOAD, id, duration + item.speed);

@@ -1,5 +1,7 @@
-import { player } from "../../main.js";
+import ClientSideUTILS from "../../constants/utils.js";
 
-export default function updateEffects(type, duration) {
-    player[type] = duration;
+export default function updateEffects(sid, type, duration) {
+    let player = ClientSideUTILS.findPlayerBySid(sid);
+
+    if (player) player[type] = duration;
 }
