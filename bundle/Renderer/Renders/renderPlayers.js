@@ -15,6 +15,9 @@ export default function renderPlayers(mainContext, xOffset, yOffset, delta) {
 
             tmpObj.stealthTimer -= delta;
             if (tmpObj.stealthTimer <= 0) tmpObj.stealthTimer = 0;
+
+            tmpObj.fortifyTimer -= delta;
+            if (tmpObj.fortifyTimer <= 0) tmpObj.fortifyTimer = 0;
             
             if (tmpObj.stealthTimer) {
                 mainContext.globalAlpha = .6;

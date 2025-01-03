@@ -87,5 +87,13 @@ export default function renderPlayer(tmpObj, mainContext, delta) {
         );
     }
 
+    tmpObj.skinRot += delta * .001;
+
+    /*if (tmpObj.fortifyTimer) {
+        mainContext.lineWidth = 4;
+        mainContext.strokeStyle = "yellow";
+        renderCircle(0, 0, mainContext, tmpObj.scale + 5, true, false);
+    }*/
+
     renderCircle(0, 0, mainContext, tmpObj.scale);
 }

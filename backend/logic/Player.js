@@ -72,6 +72,8 @@ export default class Player {
             timer: 0,
             maxHealth: 0
         };
+
+        this.skinRot = 0;
     }
 
     setName(name) {

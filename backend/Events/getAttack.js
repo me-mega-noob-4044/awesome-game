@@ -20,8 +20,6 @@ export default function getAttack(ws, id) {
 
     if (player.itemReload[itemId]) return;
 
-    player.itemReload[itemId] = item.speed;
-
     let duration = 0;
     let key;
 
@@ -40,6 +38,8 @@ export default function getAttack(ws, id) {
         key = "fortifyTimer";
         duration = Fortify(player);
     }
+
+    player.itemReload[itemId] = item.speed + duration;
 
     if (key) {
         for (let i = 0; i < players.length; i++) {
