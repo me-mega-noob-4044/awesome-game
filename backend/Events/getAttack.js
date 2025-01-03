@@ -21,20 +21,25 @@ export default function getAttack(ws, id) {
     player.itemReload[itemId] = item.speed;
 
     let duration = 0;
+    let key;
 
     if (item.name == "Stealth") {
+        key = "stealthTimer";
         duration = Stealth(player);
     } else if (item.name == "Dash") {
         duration = Dash(player);
     } else if (item.name == "Kamikaze") {
+        key = "kamikazeTimer";
         duration = Kamikaze(player);
     }
 
-    for (let i = 0; i < players.length; i++) {
-        let other = players[i];
-
-        if (other.canSee(player)) {
-            other.send(Packets.SERVER_TO_CLIENT.UPDATE_EFFECTS, player.sid, "stealthTimer", duration);
+    if (key) {
+        for (let i = 0; i < players.length; i++) {
+            let other = players[i];
+    
+            if (other.canSee(player)) {
+                other.send(Packets.SERVER_TO_CLIENT.UPDATE_EFFECTS, player.sid, key, duration);
+            }
         }
     }
 
