@@ -8,6 +8,7 @@ const config = {
     maxScreenHeight: 1080,
     serverUpdateSpeed: 1e3 / 9,
     playerSpeed: .0016, // .0016
+    kamikazeSpeed: .001,
     playerDecel: .993,
     icePlayerDecel: .998,
     snowBiomeEndY: 2e3,

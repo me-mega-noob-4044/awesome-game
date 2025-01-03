@@ -138,7 +138,7 @@ const skills = [{
     id: 18,
     name: "Kamikaze",
     description: "player gains increased speed and damage but loses health over time",
-    speed: 5e3, // 5 second cooldown
+    speed: 10e3, // 5 second cooldown
     src: "https://i.imgur.com/plxJWAh.png",
     ages: [3, 7, 9]
 }, {

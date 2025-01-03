@@ -61,6 +61,10 @@ export default class Player {
         this.upgradeAge = 2;
 
         this.stealthTimer = 0;
+        this.kamikaze = {
+            timer: 0,
+            ticks: 0
+        };
     }
 
     setName(name) {
@@ -107,6 +111,10 @@ export default class Player {
 
         this.isAlive = true;
         this.stealthTimer = 0;
+        this.kamikaze = {
+            timer: 0,
+            ticks: 0
+        };
 
         this.health = this.maxHealth = config.playerInitHealth;
         this.scale = 35;
@@ -261,6 +269,21 @@ export default class Player {
 
         this.stealthTimer -= delta;
         if (this.stealthTimer <= 0) this.stealthTimer = 0;
+
+        if (this.kamikaze.ticks > 0) {
+            this.kamikaze.timer -= delta;
+
+            if (this.kamikaze.timer <= 0) {
+                this.kamikaze.timer = 1e3;
+                this.kamikaze.ticks--;
+                this.changeHealth(-15);
+
+                if (this.kamikaze.ticks <= 0) {
+                    this.attackMlt -= .35;
+                    this.speed -= config.kamikazeSpeed;
+                }
+            }
+        }
 
         this.meleeReload -= delta;
         if (this.meleeReload <= 0) this.meleeReload = 0;

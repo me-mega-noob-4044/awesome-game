@@ -18,6 +18,7 @@ export default function renderPlayers(mainContext, xOffset, yOffset, delta) {
             
             if (tmpObj.stealthTimer) {
                 mainContext.globalAlpha = .6;
+                mainContext.globalCompositeOperation = "source-over";
             }
 
             renderPlayer(tmpObj, mainContext, delta);

@@ -1,6 +1,7 @@
 import Packets from "../constants/Packets.js";
 import skills from "../constants/skills.js";
 import Dash from "./Skills/Dash.js";
+import Kamikaze from "./Skills/Kamikaze.js";
 import Stealth from "./Skills/stealth.js";
 
 export default function getAttack(ws, id) {
@@ -24,6 +25,8 @@ export default function getAttack(ws, id) {
         duration = Stealth(player);
     } else if (item.name == "Dash") {
         duration = Dash(player);
+    } else if (item.name == "Kamikaze") {
+        duration = Kamikaze(player);
     }
 
     player.send(Packets.SERVER_TO_CLIENT.UPDATE_RELOAD, id, duration + item.speed);
