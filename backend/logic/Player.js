@@ -247,11 +247,10 @@ export default class Player {
 
                 let tmpDir = UTILS.getDirection(tmpObj, this);
 
-                tmpObj.xVel *= .75;
-                tmpObj.yVel *= .75;
+                if (tmpObj.isAI) tmpObj.waitTimer = 0;
 
-                tmpObj.xVel += Math.cos(tmpDir) * .35;
-                tmpObj.yVel += Math.sin(tmpDir) * .35;
+                tmpObj.xVel += Math.cos(tmpDir) * (tmpObj.isAI && tmpObj.isHostile ? 1.2 : .35);
+                tmpObj.yVel += Math.sin(tmpDir) * (tmpObj.isAI && tmpObj.isHostile ? 1.2 : .35);
             }
         }
     }

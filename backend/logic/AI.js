@@ -223,6 +223,8 @@ export default class AI {
         let inRiver = false;
 
         if (!this.avoidObjects && this.x > 2600 && this.x < config.mapScale - 2600) {
+            this.waitCount = 0;
+
             if (this.y >= 3625 && this.y <= 4325) {
                 inRiver = true;
                 this.xVel -= config.riverSpeed * delta;
